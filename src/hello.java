@@ -12,7 +12,7 @@ public class hello extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Set the Atlantafx CSS theme
-        Application.setUserAgentStylesheet(getClass().getResource("/css/cupertino-dark.css").toExternalForm());
+        Application.setUserAgentStylesheet(getClass().getResource("/css/atlantafx-base.css").toExternalForm());
 
         Button button = new Button("Hello Atlantafx");
 
