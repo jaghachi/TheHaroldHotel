@@ -4,6 +4,6 @@
 public class hello {
 
     public static void main(String[] args) {
-        System.out.println("hello! jira test 2 ajskdhaj ");
+        System.out.println("hello! jira test 2 ");
     }
 }
