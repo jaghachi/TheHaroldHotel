@@ -25,3 +25,4 @@ class Customer:
 
     def setReservation(self, reservations: list):
         self.reservations = reservations
+#testing jira commit
