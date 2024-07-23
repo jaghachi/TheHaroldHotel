@@ -9,7 +9,7 @@ class Room:
         self.date_available_from = date_available_from #what days can the room be booked
         self.booked_dates = []  #list to stor dates room is booked for 
         self.check_in = check_in #check in date (start with none)
-        self.check_out = check_in #check out date (start with none)
+        self.check_out = check_out #check out date (start with none)
         
     def get_id(self) -> int:
         #get room id
