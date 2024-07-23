@@ -2,16 +2,14 @@ from datetime import date
 from typing import List
 
 class Room:
-    def __init__(self, room_id: int, price: int, persons: int, date_available_from: date, hotel_name: str, city_name: str):
+    def __init__(self, room_id: int, price: int, persons: int, date_available_from: date, check_in: date, check_out: date):
         self.room_id = room_id
         self.price = price
         self.persons = persons
         self.date_available_from = date_available_from
-        self.hotel_name = hotel_name
-        self.city_name = city_name
         self.booked_dates = []
-        self.check_in = None
-        self.check_out = None
+        self.check_in = check_in
+        self.check_out = check_out
 
     def get_id(self) -> int:
         return self.room_id
