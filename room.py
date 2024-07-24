@@ -1,6 +1,10 @@
 from datetime import date
 from typing import List
 
+#note about rooms:
+##SUITE: persons 1-4, $200 per night
+##DOUBLE: persons 1-4, $125 per night
+##SINGLE: persons 1, $75 per night
 class Room:
     def __init__(self, room_id: int, price: int, persons: int, date_available_from: date, check_in: date, check_out: date):
         self.room_id = room_id #unique id for room
