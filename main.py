@@ -30,6 +30,26 @@ class MainWindow(QMainWindow):
         self.logo_label = QLabel(self)
         self.logo_label.setPixmap(self.scaled_logo)
 
+        # the text options
+        self.text_label1 = QLabel("Booking", self)
+        self.text_label2 = QLabel("Rooms", self)
+        self.text_label3 = QLabel("Info", self)
+        
+        # the text features
+        font = QFont("Georgia", 24)
+        self.text_label1.setFont(font)
+        self.text_label2.setFont(font)
+        self.text_label3.setFont(font)
+        
+        # color for text
+        self.text_label1.setStyleSheet("color: black")
+        self.text_label2.setStyleSheet("color: black")
+        self.text_label3.setStyleSheet("color: black")
+
+
+        # scaling with the window
+        self.adjust_images()
+
     def resizeEvent(self, event):
         super().resizeEvent(event)
         self.adjust_images()
@@ -52,19 +72,18 @@ class MainWindow(QMainWindow):
         y_center = (self.height() - logo_height) // 2
         self.logo_label.setGeometry(x_center, y_center, logo_width, logo_height)
 
+        # the style for the text
+        text_height = 25
+        bottom_margin = 20
+        spacing = 80
 
-    def adjust_images(self):
-        # resizing for backgound image (lobby)
-        new_background = self.background.scaled(self.width(), self.height(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
-        self.background_label.setPixmap(new_background)
-        self.background_label.setGeometry(0, 0, self.width(), self.height())
+        # text position
+        total_text_width = self.text_label1.width() + self.text_label2.width() + self.text_label3.width() + 2 * spacing
+        text_x_start = (self.width() - total_text_width) // 2
 
-        # position the logo in the middle of the screen
-        logo_width = self.scaled_logo.width()
-        logo_height = self.scaled_logo.height()
-        x_center = (self.width() - logo_width) // 2
-        y_center = (self.height() - logo_height) // 2
-        self.logo_label.setGeometry(x_center, y_center, logo_width, logo_height)
+        self.text_label1.setGeometry(text_x_start, self.height() - text_height - bottom_margin, self.text_label1.width(), text_height)
+        self.text_label2.setGeometry(text_x_start + self.text_label1.width() + spacing, self.height() - text_height - bottom_margin, self.text_label2.width(), text_height)
+        self.text_label3.setGeometry(text_x_start + self.text_label1.width() + self.text_label2.width() + 2 * spacing, self.height() - text_height - bottom_margin, self.text_label3.width(), text_height)
 
 def main():
     app = QApplication(sys.argv)
