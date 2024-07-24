@@ -1,4 +1,7 @@
 import sys
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtGui import QPixmap, QFont, QIcon
+
 from mainWindow import MainWindow
 
 def main():
