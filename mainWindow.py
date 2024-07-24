@@ -7,11 +7,11 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         # above the window name
-        self.setWindowTitle("The Harold Hotels")
+        self.setWindowTitle("The Harold Hotel")
         self.setGeometry(100, 100, 800, 600)
 
         # background - lobby photo 
-        self.background = QPixmap("resources/lobby.jpg")  
+        self.background = QPixmap("resources/lobby.jpg")
         self.background_label = QLabel(self)
         self.background_label.setPixmap(self.background)
         self.background_label.setGeometry(0, 0, self.width(), self.height())
@@ -21,7 +21,7 @@ class MainWindow(QMainWindow):
         self.white_line.setStyleSheet("background-color: #E5D5C3;")
         
         # logo
-        self.logo = QPixmap("shmogo.png")  # Ensure shmogo.png is in the same directory
+        self.logo = QPixmap("resources/shmogo.png")  # Ensure shmogo.png is in the same directory
         
         # scaling the logo
         self.scaled_logo = self.logo.scaled(150, 150, Qt.KeepAspectRatio, Qt.SmoothTransformation)
