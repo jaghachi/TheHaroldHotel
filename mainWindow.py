@@ -11,7 +11,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(100, 100, 800, 600)
 
         # background - lobby photo 
-        self.background = QPixmap("lobby.jpg")  
+        self.background = QPixmap("resources/lobby.jpg")  
         self.background_label = QLabel(self)
         self.background_label.setPixmap(self.background)
         self.background_label.setGeometry(0, 0, self.width(), self.height())
@@ -43,20 +43,6 @@ class MainWindow(QMainWindow):
         line_height = 100
         line_y_position = (self.height() - line_height) // 2 
         self.white_line.setGeometry(0, line_y_position, self.width(), line_height)
-
-        # position the logo in the middle of the screen
-        logo_width = self.scaled_logo.width()
-        logo_height = self.scaled_logo.height()
-        x_center = (self.width() - logo_width) // 2
-        y_center = (self.height() - logo_height) // 2
-        self.logo_label.setGeometry(x_center, y_center, logo_width, logo_height)
-
-
-    def adjust_images(self):
-        # resizing for backgound image (lobby)
-        new_background = self.background.scaled(self.width(), self.height(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
-        self.background_label.setPixmap(new_background)
-        self.background_label.setGeometry(0, 0, self.width(), self.height())
 
         # position the logo in the middle of the screen
         logo_width = self.scaled_logo.width()
