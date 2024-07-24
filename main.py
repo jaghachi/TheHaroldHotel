@@ -5,7 +5,7 @@ def main():
     app = QApplication(sys.argv)
 
     # logo for running app
-    app.setWindowIcon(QIcon("shmogo.png"))
+    app.setWindowIcon(QIcon("resources/shmogo.png"))
     window = MainWindow()
     window.show()
     sys.exit(app.exec_())
