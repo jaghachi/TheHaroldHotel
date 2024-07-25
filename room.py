@@ -6,7 +6,7 @@ from typing import List
 ##DOUBLE: persons 1-4, $125 per night
 ##SINGLE: persons 1, $75 per night
 class Room:
-    def __init__(self, room_id: int, price: int, persons: int, date_available_from: date, check_in: date, check_out: date):
+    def __init__(self, room_id: int, price: int, persons: int, date_available_from: date, check_in: date = None, check_out: date = None):
         self.room_id = room_id #unique id for room
         self.price = price #price of room
         self.persons = persons #number of people who can fit in a room
@@ -58,3 +58,20 @@ class Room:
     def set_check_out(self, check_out: date):
         #set check out date 
         self.check_out = check_out
+### adding room descriptions 
+rooms = []
+#single
+for i in range(100, 105):
+    rooms.append(Room(room_id=i, price=200, persons=4, date_available_from=date.today()))
+
+ #double
+ for i in range(200, 205):
+    rooms.append(Room(room_id=i, price=125, persons=4, date_available_from=date.today()))
+
+#single
+for i in range(300, 305):
+    rooms.append(Room(room_id=i, price=75, persons=1, date_available_from=date.today()))
+
+#room verify output
+for room in rooms:
+    print(f"Room ID: {room.get_id()}, Type: {'Suite' if room.get_price() == 200 else 'Double' if room.get_price() == 125 else 'Single'}, Price: {room.get_price()}, Max Persons: {room.get_persons()}, Available From: {room.get_date_available_from()}")
