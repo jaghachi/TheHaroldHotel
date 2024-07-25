@@ -58,6 +58,15 @@ class Room:
     def set_check_out(self, check_out: date):
         #set check out date 
         self.check_out = check_out
+
+    def is_available(self, check_in: date, check_out,:date) -> bool:
+        #if available during those dates 
+        for booked_date in self.booked_dates:
+                if (check_in <= booked_date < check_out) or (booked_date <= check_in <check_out):
+                    return False
+                return True
+        
+
 ### adding room descriptions 
 rooms = []
 #single
@@ -65,7 +74,7 @@ for i in range(100, 105):
     rooms.append(Room(room_id=i, price=200, persons=4, date_available_from=date.today()))
 
  #double
- for i in range(200, 205):
+for i in range(200, 205):
     rooms.append(Room(room_id=i, price=125, persons=4, date_available_from=date.today()))
 
 #single
