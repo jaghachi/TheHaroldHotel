@@ -1,3 +1,9 @@
+from functools import partial
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QFrame, QPushButton
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import Qt
+from RoomBookingDetailsWindow import RoomBookingDetailsWindow
+
 # types of room window
 class BookingRoomsWindow(QWidget):
     def __init__(self, checkin_date, checkout_date, guests):
@@ -77,3 +83,9 @@ class BookingRoomsWindow(QWidget):
             room_layout.addWidget(book_now_button)
 
             room_options_layout.addWidget(room_frame)
+
+
+        def open_room_booking_details(self, room, checkin_date, checkout_date, guests):
+            self.room_booking_details_window = RoomBookingDetailsWindow(room["name"], room["image"], checkin_date, checkout_date, guests)
+            self.room_booking_details_window.setWindowModality(Qt.ApplicationModal)
+            self.room_booking_details_window.show()
