@@ -13,7 +13,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(100, 100, 800, 600)
         
         # background pic + position
-        self.background = QPixmap("lobby.jpg")
+        self.background = QPixmap("resources/lobby.jpg")
         self.background_label = QLabel(self)
         self.background_label.setPixmap(self.background)
         self.background_label.setGeometry(0, 0, self.width(), self.height())
@@ -23,7 +23,7 @@ class MainWindow(QMainWindow):
         self.white_line.setStyleSheet("background-color: #E5D5C3;")
         
         # scaling the logo
-        self.logo = QPixmap("shmogo.png")
+        self.logo = QPixmap("resources/shmogo.png")
         self.scaled_logo = self.logo.scaled(150, 150, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         self.logo_label = QLabel(self)
         self.logo_label.setPixmap(self.scaled_logo)
