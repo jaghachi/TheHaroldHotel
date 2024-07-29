@@ -2,7 +2,7 @@ from functools import partial
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QFrame, QPushButton
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
-from RoomBookingDetailsWindow import RoomBookingDetailsWindow
+#from RoomBookingDetailsWindow import RoomBookingDetailsWindow
 
 # types of room window
 class BookingRoomsWindow(QWidget):
