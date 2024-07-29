@@ -28,3 +28,52 @@ class BookingRoomsWindow(QWidget):
             {"name": "Premiere Harold Double", "sleeps": 4, "price": 125, "image": "double.jpg"},
             {"name": "Premiere Harold Suite", "sleeps": 4, "price": 200, "image": "suite.jpeg"}
         ]
+
+        for room in rooms:
+            room_layout = QVBoxLayout()
+            room_frame = QFrame()
+            room_frame.setLayout(room_layout)
+            room_frame.setStyleSheet("background-color: white; padding: 10px; border-radius: 10px;")
+            room_frame.setFixedSize(250, 450)
+
+            room_image_container = QLabel()
+            room_image_container.setFixedSize(220, 200)
+            room_image_container.setStyleSheet("background-color: #f0f0f0; border: 1px solid #ccc;")
+            room_image_container.setAlignment(Qt.AlignCenter)
+
+            pixmap = QPixmap(room["image"]).scaled(room_image_container.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            room_image_container.setPixmap(pixmap)
+            room_layout.addWidget(room_image_container)
+
+            room_name = QLabel(room["name"])
+            room_name.setStyleSheet("font-size: 15px; color: black; font-weight: bold;")
+            room_layout.addWidget(room_name)
+
+            room_sleeps = QLabel(f"Sleeps {room['sleeps']}")
+            room_sleeps.setStyleSheet("font-size: 14px; color: gray;")
+            room_layout.addWidget(room_sleeps)
+
+            room_price = QLabel(f"${room['price']} per night")
+            room_price.setStyleSheet("font-size: 16px; color: black; font-weight: bold;")
+            room_layout.addWidget(room_price)
+
+            book_now_button = QPushButton("Book Now")
+            book_now_button.setStyleSheet("""
+                QPushButton {
+                    background-color: #5F493F;
+                    color: white;
+                    font-size: 16px;
+                    font-weight: bold;
+                    padding: 10px;
+                    border-radius: 5px;
+                }
+                QPushButton:hover {
+                    background-color: #E5D5C3;
+                    color: black;
+                }
+            """)
+            # Connect each button to open_room_booking_details with specific room data
+            book_now_button.clicked.connect(partial(self.open_room_booking_details, room, checkin_date, checkout_date, guests))
+            room_layout.addWidget(book_now_button)
+
+            room_options_layout.addWidget(room_frame)
