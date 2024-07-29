@@ -9,7 +9,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         # Setup the main window
-        self.setWindowTitle("The Harold Hotels")
+        self.setWindowTitle("The Harold Hotel")
         self.setGeometry(100, 100, 800, 600)
         
         # background pic + position
