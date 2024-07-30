@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QDateEdit, QComboBox, QPushButton
 from PyQt5.QtCore import Qt, QDate
-from BookingRoomsWindow import BookingRoomsWindow
+#from BookingRoomsWindow import BookingRoomsWindow
 
 # Pop-up window with calendar to choose dates + number of guests
 class BookingWindow(QWidget):
