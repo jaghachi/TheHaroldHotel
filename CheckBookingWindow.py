@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton
-from BookingDetailsWindow import BookingDetailsWindow
+#from BookingDetailsWindow import BookingDetailsWindow
 
 class CheckBookingWindow(QWidget):
     def __init__(self):
