@@ -1,14 +1,13 @@
-#run only once
-from databaseFiles.databaseconnect import dataBase
+import asyncio
+from databaseconnect import dataBase
 
 async def create_schema():
-
     db_instance = dataBase()
     db = await db_instance.get_database()
-    
+
     # Create Customers Collection
     customers = db['customers']
-    customers.insert_many([
+    await customers.insert_many([
         {
             "name": "John Doe",
             "email": "john.doe@example.com",
@@ -17,14 +16,17 @@ async def create_schema():
         },
     ])
 
+    # Find the customer
+    customer = await customers.find_one({"email": "john.doe@example.com"})
+
     # Create Reservations Collection
     reservations = db['reservations']
-    reservations.insert_many([
+    await reservations.insert_many([
         {
             "customer": {
-                "customerId": customers.find_one({"email": "john.doe@example.com"})["_id"],
-                "name": "John Doe",
-                "email": "john.doe@example.com"
+                "customerId": customer["_id"],
+                "name": customer["name"],
+                "email": customer["email"]
             },
             "roomId": None,
             "confirmationNumber": 123456,
@@ -32,19 +34,19 @@ async def create_schema():
             "checkOut": None
         }
     ])
-    
+
     # Create RoomTypes Collection
     roomTypes = db['roomTypes']
-    roomTypeIds = await roomTypes.insert_many([
+    result = await roomTypes.insert_many([
         {"type": "Suite", "price": 200, "persons": 4},
         {"type": "Double", "price": 125, "persons": 4},
         {"type": "Single", "price": 75, "persons": 1}
     ])
-    
-    suite_id = roomTypeIds.inserted_ids[0]
-    double_id = roomTypeIds.inserted_ids[1]
-    single_id = roomTypeIds.inserted_ids[2]
-    
+
+    suite_id = result.inserted_ids[0]
+    double_id = result.inserted_ids[1]
+    single_id = result.inserted_ids[2]
+
     # Create Rooms Collection
     rooms = db['rooms']
     await rooms.insert_many([
@@ -67,9 +69,10 @@ async def create_schema():
 
     # Create RoomBookings Collection
     roomBookings = db['roomBookings']
+    room = await rooms.find_one({"roomNumber": "301"})
     await roomBookings.insert_many([
         {
-            "roomId": (await rooms.find_one({"roomNumber": "301"}))["_id"],
+            "roomId": room["_id"],
             "bookedDate": None
         }
     ])
@@ -78,13 +81,16 @@ async def create_schema():
     await roomBookings.create_index([("roomId", 1)])
     await roomBookings.create_index([("bookedDate", 1)])
     await roomBookings.create_index([("roomId", 1), ("bookedDate", 1)])
-    
-    #purge dummy data
+
+    # Purge dummy data
     await db['customers'].delete_many({})
     await db['reservations'].delete_many({})
     await db['roomBookings'].delete_many({})
 
-    client.close()
+    # Close the client
+    db_instance.client.close()
 
-if __name__ == "__main__":
-    create_schema()
+async def main():
+    await create_schema()
+
+asyncio.run(main())

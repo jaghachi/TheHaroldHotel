@@ -1,5 +1,5 @@
-from motor.motor_asyncio import AsyncIOMotorClient # type: ignore
-from pymongo.server_api import ServerApi # type: ignore
+from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo.server_api import ServerApi
 
 class dataBase:
     def __init__(self):
