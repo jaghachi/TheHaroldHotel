@@ -84,8 +84,7 @@ class BookingRoomsWindow(QWidget):
 
             room_options_layout.addWidget(room_frame)
 
-
-        def open_room_booking_details(self, room, checkin_date, checkout_date, guests):
-            self.room_booking_details_window = RoomBookingDetailsWindow(room["name"], room["image"], checkin_date, checkout_date, guests)
-            self.room_booking_details_window.setWindowModality(Qt.ApplicationModal)
-            self.room_booking_details_window.show()
+    def open_room_booking_details(self, room, checkin_date, checkout_date, guests):
+        self.room_booking_details_window = RoomBookingDetailsWindow(room["name"], room["image"], checkin_date, checkout_date, guests)
+        self.room_booking_details_window.setWindowModality(Qt.ApplicationModal)
+        self.room_booking_details_window.show()
