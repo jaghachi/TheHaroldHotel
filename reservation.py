@@ -72,13 +72,11 @@ class Reservation:
         newCustomer.set_persons(adults)
         
         
-        customers = db['customer']
+        customers = db['customers']
         await customers.insert_one({
-                "customer": {
-                    "name": newCustomer.name, 
-                    "email": newCustomer.email, 
-                    "persons": newCustomer.persons
-                }
+            "name": newCustomer.name, 
+            "email": newCustomer.email, 
+            "persons": newCustomer.persons
         })
         
         
@@ -93,7 +91,7 @@ class Reservation:
         room_type_doc = await db['roomTypes'].find_one({"type": room['id']})
         type_id = room_type_doc['_id'] # type: ignore 
         
-        
+        print(newCustomer.email)
         # Fetch the customer from db
         customer = await db['customers'].find_one({"email": newCustomer.email}) 
         
