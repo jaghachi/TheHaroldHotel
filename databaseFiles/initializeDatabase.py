@@ -1,40 +1,12 @@
 import asyncio
+from datetime import datetime
 from databaseconnect import dataBase
+
 
 async def create_schema():
     db_instance = dataBase()
     db = await db_instance.get_database()
-
-    # Create Customers Collection
-    customers = db['customers']
-    await customers.insert_many([
-        {
-            "name": "John Doe",
-            "email": "john.doe@example.com",
-            "persons": 1,
-            "reservations": []
-        },
-    ])
-
-    # Find the customer
-    customer = await customers.find_one({"email": "john.doe@example.com"})
-
-    # Create Reservations Collection
-    reservations = db['reservations']
-    await reservations.insert_many([
-        {
-            "customer": {
-                "customerId": customer["_id"],
-                "name": customer["name"],
-                "email": customer["email"]
-            },
-            "roomId": None,
-            "confirmationNumber": 123456,
-            "checkIn": None,
-            "checkOut": None
-        }
-    ])
-
+    
     # Create RoomTypes Collection
     roomTypes = db['roomTypes']
     result = await roomTypes.insert_many([
@@ -66,6 +38,38 @@ async def create_schema():
         {"typeId": single_id, "roomNumber": "104"},
         {"typeId": single_id, "roomNumber": "105"}
     ])
+    
+    # Find a room for reservations and room bookings to correctly populate collection
+    room = await rooms.find_one({"roomNumber": "301"})
+
+    # Create Customers Collection
+    customers = db['customers']
+    await customers.insert_many([
+        {
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "persons": 1
+        },
+    ])
+
+    # Find the customer
+    customer = await customers.find_one({"email": "john.doe@example.com"})
+
+    # Create Reservations Collection
+    reservations = db['reservations']
+    await reservations.insert_many([
+        {
+            "customer": {
+                "customerId": customer["_id"],
+                "name": customer["name"],
+                "email": customer["email"]
+            },
+            "roomId": room["_id"],
+            "confirmationNumber": 123456,
+            "checkIn": datetime(2023, 8, 1),
+            "checkOut": datetime(2023, 8, 5)
+        }
+    ])
 
     # Create RoomBookings Collection
     roomBookings = db['roomBookings']
@@ -73,7 +77,7 @@ async def create_schema():
     await roomBookings.insert_many([
         {
             "roomId": room["_id"],
-            "bookedDate": None
+            "bookedDate": datetime(1989, 7, 3)
         }
     ])
 
@@ -82,7 +86,7 @@ async def create_schema():
     await roomBookings.create_index([("bookedDate", 1)])
     await roomBookings.create_index([("roomId", 1), ("bookedDate", 1)])
 
-    # Purge dummy data
+    # Purge dummy data to start with a clean database
     await db['customers'].delete_many({})
     await db['reservations'].delete_many({})
     await db['roomBookings'].delete_many({})
