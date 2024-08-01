@@ -3,15 +3,13 @@ from typing import List, Any
 
 class Reservation:
     #object
-    def __init__(self, customer: Any, email: str, persons: int, roomId: int, confirmationNumber: int, checkIn: date, checkOut: date):
-        self.customer = customer
+    def __init__(self):
+        self.customer = None
         #customer info
-        self.email = email #customer email
-        self.persons = persons #number of people for resi
-        self.roomId = roomId #ID for resi 
-        self.confirmationNumber = confirmationNumber #confirmation numb of resi
-        self.checkIn = checkIn #checkin date
-        self.checkOut = checkOut #checkout date 
+        self.roomId = None #ID for resi 
+        self.confirmationNumber = None #confirmation numb of resi
+        self.checkIn = None #checkin date
+        self.checkOut = None #checkout date 
 
     def getEmail(self) -> str:
         #get email of customer 
