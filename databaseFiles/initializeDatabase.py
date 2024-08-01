@@ -60,11 +60,11 @@ async def create_schema():
     await reservations.insert_many([
         {
             "customer": {
-                "customerId": customer["_id"],
-                "name": customer["name"],
-                "email": customer["email"]
+                "customerId": customer["_id"], # type: ignore
+                "name": customer["name"], # type: ignore
+                "email": customer["email"] # type: ignore
             },
-            "roomId": room["_id"],
+            "roomId": room["_id"], # type: ignore
             "confirmationNumber": "name-123456",
             "checkIn": datetime(2023, 8, 1),
             "checkOut": datetime(2023, 8, 5)
@@ -76,7 +76,7 @@ async def create_schema():
     room = await rooms.find_one({"roomNumber": "301"})
     await roomBookings.insert_many([
         {
-            "roomId": room["_id"],
+            "roomId": room["_id"], # type: ignore
             "bookedDate": datetime(1989, 7, 3)
         }
     ])
