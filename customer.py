@@ -13,22 +13,22 @@ class Customer:
     def get_name(self):
         return self.name
 
-    def set_name(self, value):
-        self.name = value
+    def set_name(self, name):
+        self.name = name
 
     # Getter and Setter for email
     def get_email(self):
         return self.email
 
-    def set_email(self, value):
-        self.email = value
+    def set_email(self, email):
+        self.email = email
 
     # Getter and Setter for persons
     def get_persons(self):
         return self.persons
 
-    def set_persons(self, value):
-        self.persons = value
+    def set_persons(self, persons):
+        self.persons = persons
 
     # Getter and Setter for reservations
     def get_reservations(self):

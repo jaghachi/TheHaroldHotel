@@ -67,35 +67,50 @@ class Reservation:
         
         #create customer
         newCustomer = Customer()
-        newCustomer.set_name = user_name
-        newCustomer.set_email = user_email
-        newCustomer.set_persons = adults
+        newCustomer.set_name(user_name)
+        newCustomer.set_email(user_email)
+        newCustomer.set_persons(adults)
         
-        await db.customer(newCustomer)
         
-        # Fetch the customer from db
-        customer = await db['customers'].find_one({"email": newCustomer.email})
-
+        customers = db['customer']
+        await customers.insert_one({
+                "customer": {
+                    "name": newCustomer.name, 
+                    "email": newCustomer.email, 
+                    "persons": newCustomer.persons
+                }
+        })
+        
+        
         # Generate a unique reservation number
         reservation_number = "THH-" + str(datetime.now().strftime("%Y%m%d%H%M"))
 
         # Grab Reservations Collection
         reservations = db['reservations']
         
+        
+        # Find the typeId for the given room type
+        room_type_doc = await db['roomTypes'].find_one({"type": room['id']})
+        type_id = room_type_doc['_id'] # type: ignore 
+        
+        
+        # Fetch the customer from db
+        customer = await db['customers'].find_one({"email": newCustomer.email}) 
+        
         # Insert reservation into the database
         await reservations.insert_one({
             "customerId": customer["_id"], # type: ignore 
-            "roomId": room["_id"],  # Ensure you have the room ID here
+            "roomId": type_id,  # Ensure you have the room ID here
             "confirmationNumber": reservation_number,
             "persons": adults,
-            "checkIn": self.checkIn,  
-            "checkOut": self.checkOut  
+            "checkIn": datetime(self.checkIn.year(), self.checkIn.month(), self.checkIn.day()), # type: ignore
+            "checkOut": datetime(self.checkOut.year(), self.checkOut.month(), self.checkOut.day()) # type: ignore
         })
         
         self.setCustomer(newCustomer)
-        self.setRoomName = room["name"]
+        self.setRoomName(room["name"])
         self.setConfirmation(reservation_number)
-        self.setPersons = adults
+        self.setPersons(adults)
         
         
         return self

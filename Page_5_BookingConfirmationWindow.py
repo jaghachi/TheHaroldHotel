@@ -26,7 +26,7 @@ class BookingConfirmationWindow(QWidget):
         main_layout.addWidget(details_label)
 
         # User name
-        user_name_label = QLabel(f"Name: {booked.customer.name}")
+        user_name_label = QLabel(f"Name: {booked.customer.get_name()}")
         user_name_label.setStyleSheet("font-size: 18px; color: black;")
         user_name_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(user_name_label)
@@ -38,7 +38,7 @@ class BookingConfirmationWindow(QWidget):
         main_layout.addWidget(confirmation_number_label)
 
         # Closing message
-        closing_message = QLabel(f"See you soon, {booked.customer.name}!")
+        closing_message = QLabel(f"See you soon, {booked.customer.get_name()}!")
         closing_message.setStyleSheet("font-size: 20px; color: #2B1C19;")
         closing_message.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(closing_message)

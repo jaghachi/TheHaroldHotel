@@ -75,8 +75,11 @@ class RoomBookingDetailsWindow(QWidget):
                 color: black;
             }
         """)
-        book_button.clicked.connect(lambda: asyncio.ensure_future(
-            self.open_booking_confirmation(room, newReservation, adults, self.name_input.text(), self.email_input.text())
+        
+        book_button.clicked.connect(lambda: 
+            asyncio.ensure_future(
+                self.open_booking_confirmation(room, newReservation, adults, self.name_input.text(), self.email_input.text()
+            )
         ))
         buttons_layout.addWidget(book_button)
 
@@ -102,7 +105,7 @@ class RoomBookingDetailsWindow(QWidget):
         main_layout.addLayout(buttons_layout)
 
     async def open_booking_confirmation(self, room, newReservation, adults, user_name, user_email):
-        newReservation.reserveRoom(room, adults, user_name, user_email)
+        await newReservation.reserveRoom(room, adults, user_name, user_email)
         self.confirmation_window = BookingConfirmationWindow(newReservation)
         self.confirmation_window.setWindowModality(Qt.ApplicationModal)
         self.confirmation_window.show()
