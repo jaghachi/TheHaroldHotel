@@ -1,69 +1,114 @@
-from datetime import date
-from typing import List, Any
+from customer import Customer
+from databaseFiles.databaseconnect import dataBase
+from datetime import datetime
 
 class Reservation:
     #object
-    def __init__(self, customer: Any, email: str, persons: int, roomId: int, confirmationNumber: int, checkIn: date, checkOut: date):
-        self.customer = customer
+    def __init__(self):
+        self.customer = Customer()
         #customer info
-        self.email = email #customer email
-        self.persons = persons #number of people for resi
-        self.roomId = roomId #ID for resi 
-        self.confirmationNumber = confirmationNumber #confirmation numb of resi
-        self.checkIn = checkIn #checkin date
-        self.checkOut = checkOut #checkout date 
+        self.roomName = "" #name for resi 
+        self.confirmationNumber = "" #confirmation numb of resi
+        self.persons = 0
+        self.checkIn = None #checkin date
+        self.checkOut = None #checkout date 
 
+    
+    def setCustomer(self, customer) -> None:
+        self.customer = customer
+        
+    def getCustomer(self) -> Customer:
+        #get customer 
+        return self.customer
+    
+    def setConfirmation(self, confirmationNumber: str):
+        #set confrimation number for resi
+        self.confirmationNumber = confirmationNumber
+    
+    def getConfirmation(self):
+        #set confrimation number for resi
+        return self.confirmationNumber
+    
+    def setRoomName(self, roomName) -> None:
+        self.roomName = roomName
+        
+    def getRoomName(self) -> str:
+        #get roomname 
+        return self.roomName
+
+    
     def getEmail(self) -> str:
         #get email of customer 
-        return self.email
+        return self.customer.email
 
     def getPrice(self) -> int:
         #get price of resi
-        # assume price calc logic is implemented somewhere else?
-        # holder for actual price logic
+        #to implement
         return 0
-
-    def getPersons(self) -> int:
-        #get number of people
-        return self.persons
-
-    def getDateAvailableFrom(self) -> date:
-        #get next available date for resi
-        # holer space for method
-        return date.today()
-
-    def getBookedDates(self) -> List[date]:
-        #get booked dates for resi
-        # holder space for method
-        return [self.checkIn, self.checkOut]
-
-    def setConfirmation(self, confirmationNumber: int) -> None:
-        #set confrimation number for resi
-        self.confirmationNumber = confirmationNumber
-
-    def setPersons(self, persons: int) -> int:
-        #set nmber of people for resi 
+    
+    def setPersons(self, persons) -> None:
         self.persons = persons
-        return self.persons
 
-    def setDateAvailableFrom(self, dateAvailableFrom: date) -> None:
-        #holder space for method
-        #set next available date for resi
-        pass
 
-    def modifyReservation(self, confirmationNumber: int, modifyCancelReserve: str) -> None:
+
+    def modifyReservation(self, confirmationNumber: int) -> None:
         self.confirmationNumber = confirmationNumber
         # holder space for method
         #change or cancel resi based of confirmation number and user action to do so 
 
-    def cancelReservation(self) -> None:
+    def cancelReservation(self,confirmationNumber: int,) -> None:
         # holder method for cancel reservation logic
         pass
 
-    def reserveRoom(self, id: int, price: int, persons: int, dateAvailableFrom: date, bookedDates: List[date]) -> None:
-        self.roomId = id
-        # Placeholder for reserve room logic
-        #reserve a room with given details
-        self.setPersons(persons)
-        self.setDateAvailableFrom(dateAvailableFrom)
-        self.bookedDates = bookedDates
+    async def reserveRoom(self, room, adults, user_name, user_email):
+        #create databaseconnection
+        db_instance = dataBase()
+        db = await db_instance.get_database()
+        
+        #create customer
+        newCustomer = Customer()
+        newCustomer.set_name(user_name)
+        newCustomer.set_email(user_email)
+        newCustomer.set_persons(adults)
+        
+        
+        customers = db['customers']
+        await customers.insert_one({
+            "name": newCustomer.name, 
+            "email": newCustomer.email, 
+            "persons": newCustomer.persons
+        })
+        
+        
+        # Generate a unique reservation number
+        reservation_number = "THH-" + str(datetime.now().strftime("%Y%m%d%H%M"))
+
+        # Grab Reservations Collection
+        reservations = db['reservations']
+        
+        
+        # Find the typeId for the given room type
+        room_type_doc = await db['roomTypes'].find_one({"type": room['id']})
+        type_id = room_type_doc['_id'] # type: ignore 
+        
+        print(newCustomer.email)
+        # Fetch the customer from db
+        customer = await db['customers'].find_one({"email": newCustomer.email}) 
+        
+        # Insert reservation into the database
+        await reservations.insert_one({
+            "customerId": customer["_id"], # type: ignore 
+            "roomId": type_id,  # Ensure you have the room ID here
+            "confirmationNumber": reservation_number,
+            "persons": adults,
+            "checkIn": datetime(self.checkIn.year(), self.checkIn.month(), self.checkIn.day()), # type: ignore
+            "checkOut": datetime(self.checkOut.year(), self.checkOut.month(), self.checkOut.day()) # type: ignore
+        })
+        
+        self.setCustomer(newCustomer)
+        self.setRoomName(room["name"])
+        self.setConfirmation(reservation_number)
+        self.setPersons(adults)
+        
+        
+        return self

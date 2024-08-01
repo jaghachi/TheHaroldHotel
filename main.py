@@ -1,17 +1,21 @@
 import sys
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtGui import QPixmap, QFont, QIcon
+from Page_1_mainWindow import MainWindow
+from qasync import QEventLoop
+import asyncio
 
-from mainWindow import MainWindow
+class main():
+    def __init__(self):
+        self.app = QApplication(sys.argv)
+        self.loop = QEventLoop(self.app)
+        asyncio.set_event_loop(self.loop)
+        self.window = MainWindow()
 
-def main():
-    app = QApplication(sys.argv)
-
-    # logo for running app
-    app.setWindowIcon(QIcon("resources/shmogo.png"))
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec_())
+    def run(self):
+        self.window.show()
+        with self.loop:
+            self.loop.run_forever()
 
 if __name__ == "__main__":
-    main()
+    main_app = main()
+    main_app.run()

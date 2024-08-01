@@ -1,30 +1,39 @@
 class Customer:
-    def __init__(self, name: str, email: str, persons: int, reservations: list):
-        self.name = name
-        self.email = email
-        self.persons = persons
-        self.reservations = reservations
+    
+    # Customer class with reservations
 
-    def getEmail(self) -> str:
+    def __init__(self):
+        # Initialize an empty Customer
+        self.name = ""
+        self.email = ""
+        self.persons = 0
+        self.reservations = []
+
+    # Getter and Setter for name
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
+
+    # Getter and Setter for email
+    def get_email(self):
         return self.email
 
-    def getPersons(self) -> int:
-        return self.persons
-
-    def getReservations(self) -> list:
-        return self.reservations
-
-    def setEmail(self, email: str):
+    def set_email(self, email):
         self.email = email
 
-    def setPersons(self, persons: int):
+    # Getter and Setter for persons
+    def get_persons(self):
+        return self.persons
+
+    def set_persons(self, persons):
         self.persons = persons
 
-    def setName(self, name: str):
-        self.name = name
+    # Getter and Setter for reservations
+    def get_reservations(self):
+        return self.reservations
 
-    def setReservation(self, reservations: list):
-        self.reservations = reservations
-#testing jira commit
-
-        
+    def add_reservation(self, reservation):
+        # Add a reservation to the list
+        self.reservations.append(reservation)
