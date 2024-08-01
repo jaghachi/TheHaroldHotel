@@ -25,7 +25,7 @@ class Reservation:
     def setRoomName(self, roomName) -> None:
         self.roomName = roomName
         
-    def getRoomName(self) -> Customer:
+    def getRoomName(self) -> str:
         #get roomname 
         return self.roomName
 
