@@ -44,20 +44,20 @@ async def create_schema():
 
     # Create Customers Collection
     customers = db['customers']
-    await customers.insert_many([
+    await customers.insert_one(
         {
             "name": "John Doe",
             "email": "john.doe@example.com",
             "persons": 1
         },
-    ])
+    )
 
     # Find the customer
     customer = await customers.find_one({"email": "john.doe@example.com"})
 
     # Create Reservations Collection
     reservations = db['reservations']
-    await reservations.insert_many([
+    await reservations.insert_one(
         {
             "customer": {
                 "customerId": customer["_id"], # type: ignore
@@ -70,17 +70,17 @@ async def create_schema():
             "checkIn": datetime(2023, 8, 1),
             "checkOut": datetime(2023, 8, 5)
         }
-    ])
+    )
 
     # Create RoomBookings Collection
     roomBookings = db['roomBookings']
     room = await rooms.find_one({"roomNumber": "301"})
-    await roomBookings.insert_many([
+    await roomBookings.insert_one(
         {
             "roomId": room["_id"], # type: ignore
             "bookedDate": datetime(1989, 7, 3)
         }
-    ])
+    )
 
     # Create Indexes
     await roomBookings.create_index([("roomId", 1)])
