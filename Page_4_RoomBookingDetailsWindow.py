@@ -2,10 +2,9 @@ from hmac import new
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QLineEdit
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
+from reservation import Reservation
 from Page_5_BookingConfirmationWindow import BookingConfirmationWindow
-from customer import Customer
-from databaseFiles.databaseconnect import dataBase
-from datetime import datetime
+
 
 # booking + room details
 class RoomBookingDetailsWindow(QWidget):
@@ -97,41 +96,9 @@ class RoomBookingDetailsWindow(QWidget):
 
     async def open_booking_confirmation(self, room, newReservation, adults, user_name, user_email):
         
-        #create databaseconnection
-        db_instance = dataBase()
-        db = await db_instance.get_database()
-        
-        #create customer
-        newCustomer = Customer()
-        newCustomer.set_name = user_name
-        newCustomer.set_email = user_email
-        newCustomer.set_persons = adults
-        
-        await db.insert_customer(newCustomer)
-        
-        # Fetch the customer from db
-        customer = await db['customers'].find_one({"email": newCustomer.email})
-
-        # Generate a unique reservation number
-        reservation_number = "THH-" + str(datetime.now().strftime("%Y%m%d%H%M"))
-
-        # Grab Reservations Collection
-        reservations = db['reservations']
-        
-        # Insert reservation into the database
-        await reservations.insert_one({
-            "customerId": customer["_id"], # type: ignore 
-            "roomId": room["_id"],  # Ensure you have the room ID here
-            "confirmationNumber": reservation_number,
-            "persons": adults,
-            "checkIn": newReservation.checkin_date,  
-            "checkOut": newReservation.checkout_date  
-        })
-        
-        newReservation.setCustomer(newCustomer)
-        newReservation.roomId = room["id"]
+        bookedReservation = newReservation.reserveRoom(room, newReservation, adults, user_name, user_email)
         
         
-        self.confirmation_window = BookingConfirmationWindow(room["name"], newReservation, adults, user_name, user_email)
+        self.confirmation_window = BookingConfirmationWindow(bookedReservation)
         self.confirmation_window.setWindowModality(Qt.ApplicationModal)
         self.confirmation_window.show()
