@@ -18,7 +18,7 @@ class dataBase:
         except Exception as e:
             print("Failed to connect:", e)
         finally:
-            client.close()
+            self.client.close()
     
     async def get_database(self):
         if self.client is None:
