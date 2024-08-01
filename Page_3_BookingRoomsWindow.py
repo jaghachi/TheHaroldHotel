@@ -30,9 +30,9 @@ class BookingRoomsWindow(QWidget):
         main_layout.addLayout(room_options_layout)
 
         rooms = [
-            {"name": "Premiere Harold Single", "sleeps": 1, "price": 75, "image": "resources/single.jpg"},
-            {"name": "Premiere Harold Double", "sleeps": 4, "price": 125, "image": "resources/double.jpg"},
-            {"name": "Premiere Harold Suite", "sleeps": 4, "price": 200, "image": "resources/suite.jpeg"}
+            {"name": "Premiere Harold Single", "id": "Single", "sleeps": 1, "price": 75, "image": "resources/single.jpg"},
+            {"name": "Premiere Harold Double", "id": "Double", "sleeps": 4, "price": 125, "image": "resources/double.jpg"},
+            {"name": "Premiere Harold Suite", "id": "Suite", "sleeps": 4, "price": 200, "image": "resources/suite.jpeg"}
         ]
 
         for room in rooms:
@@ -79,12 +79,12 @@ class BookingRoomsWindow(QWidget):
                 }
             """)
             # Connect each button to open_room_booking_details with specific room data
-            book_now_button.clicked.connect(partial(self.open_room_booking_details, room, newReservation.checkin_date, newReservation.checkout_date, guests))
+            book_now_button.clicked.connect(partial(self.open_room_booking_details, room, newReservation, guests))
             room_layout.addWidget(book_now_button)
 
             room_options_layout.addWidget(room_frame)
 
-    def open_room_booking_details(self, room, checkin_date, checkout_date, guests):
-        self.room_booking_details_window = RoomBookingDetailsWindow(room["name"], room["image"], checkin_date, checkout_date, guests)
+    def open_room_booking_details(self, room, newReservation, guests):
+        self.room_booking_details_window = RoomBookingDetailsWindow(room, newReservation, guests)
         self.room_booking_details_window.setWindowModality(Qt.ApplicationModal)
         self.room_booking_details_window.show()
