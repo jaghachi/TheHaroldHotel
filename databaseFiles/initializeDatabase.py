@@ -23,20 +23,20 @@ async def create_schema():
     rooms = db['rooms']
     await rooms.insert_many([
         {"typeId": suite_id, "roomNumber": "301"},
-        {"typeId": suite_id, "roomNumber": "302"},
-        {"typeId": suite_id, "roomNumber": "303"},
-        {"typeId": suite_id, "roomNumber": "304"},
-        {"typeId": suite_id, "roomNumber": "305"},
+        #{"typeId": suite_id, "roomNumber": "302"},
+        #{"typeId": suite_id, "roomNumber": "303"},
+        #{"typeId": suite_id, "roomNumber": "304"},
+        #{"typeId": suite_id, "roomNumber": "305"},
         {"typeId": double_id, "roomNumber": "201"},
-        {"typeId": double_id, "roomNumber": "202"},
-        {"typeId": double_id, "roomNumber": "203"},
-        {"typeId": double_id, "roomNumber": "204"},
-        {"typeId": double_id, "roomNumber": "205"},
+        #{"typeId": double_id, "roomNumber": "202"},
+        #{"typeId": double_id, "roomNumber": "203"},
+        #{"typeId": double_id, "roomNumber": "204"},
+        #{"typeId": double_id, "roomNumber": "205"},
         {"typeId": single_id, "roomNumber": "101"},
-        {"typeId": single_id, "roomNumber": "102"},
-        {"typeId": single_id, "roomNumber": "103"},
-        {"typeId": single_id, "roomNumber": "104"},
-        {"typeId": single_id, "roomNumber": "105"}
+        #{"typeId": single_id, "roomNumber": "102"},
+        #{"typeId": single_id, "roomNumber": "103"},
+        #{"typeId": single_id, "roomNumber": "104"},
+        #{"typeId": single_id, "roomNumber": "105"}
     ])
     
     # Find a room for reservations and room bookings to correctly populate collection
@@ -87,9 +87,9 @@ async def create_schema():
     await roomBookings.create_index([("roomId", 1), ("bookedDate", 1)])
 
     # Purge dummy data to start with a clean database
-    #await db['customers'].delete_many({})
-    #await db['reservations'].delete_many({})
-    #await db['roomBookings'].delete_many({})
+    await db['customers'].delete_many({})
+    await db['reservations'].delete_many({})
+    await db['roomBookings'].delete_many({})
 
     # Close the client
     db_instance.client.close()
