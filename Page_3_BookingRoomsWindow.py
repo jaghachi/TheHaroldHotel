@@ -6,7 +6,7 @@ from Page_4_RoomBookingDetailsWindow import RoomBookingDetailsWindow
 
 # types of room window
 class BookingRoomsWindow(QWidget):
-    def __init__(self, checkin_date, checkout_date, guests):
+    def __init__(self, newReservation, guests):
         super().__init__()
         self.setWindowTitle("Booking")
         self.setGeometry(100, 100, 800, 600)
@@ -19,7 +19,7 @@ class BookingRoomsWindow(QWidget):
         booking_details_layout = QHBoxLayout()
 
         # Dates for booking
-        dates_label = QLabel(f"Your booking: {checkin_date.toString('MMM d')} - {checkout_date.toString('MMM d')}")
+        dates_label = QLabel(f"Your booking: {newReservation.checkin_date.toString('MMM d')} - {newReservation.checkout_date.toString('MMM d')}")
         dates_label.setStyleSheet("font-size: 18px; color: black;")
         booking_details_layout.addWidget(dates_label)
 
@@ -79,7 +79,7 @@ class BookingRoomsWindow(QWidget):
                 }
             """)
             # Connect each button to open_room_booking_details with specific room data
-            book_now_button.clicked.connect(partial(self.open_room_booking_details, room, checkin_date, checkout_date, guests))
+            book_now_button.clicked.connect(partial(self.open_room_booking_details, room, newReservation.checkin_date, newReservation.checkout_date, guests))
             room_layout.addWidget(book_now_button)
 
             room_options_layout.addWidget(room_frame)
