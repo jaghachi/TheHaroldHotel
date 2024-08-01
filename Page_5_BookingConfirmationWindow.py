@@ -5,7 +5,7 @@ import string
 
 # Window that opens after you press book in the room selection
 class BookingConfirmationWindow(QWidget):
-    def __init__(self, room_name, checkin_date, checkout_date, guests, user_name):
+    def __init__(self, booked):
         super().__init__()
         self.setWindowTitle("Booking Confirmation")
         self.setGeometry(150, 150, 600, 400)
@@ -22,26 +22,25 @@ class BookingConfirmationWindow(QWidget):
         main_layout.addWidget(confirmation_label)
 
         # Booking details
-        details_label = QLabel(f"Room: {room_name}\nCheck-in: {checkin_date.toString('MMM d, yyyy')} - Check-out: {checkout_date.toString('MMM d, yyyy')}\nGuests: {guests}")
+        details_label = QLabel(f"Room: {booked.roomName}\nCheck-in: {booked.checkin_date.toString('MMM d, yyyy')} - Check-out: {booked.checkout_date.toString('MMM d, yyyy')}\nGuests: {booked.persons}")
         details_label.setStyleSheet("font-size: 18px; color: black;")
         details_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(details_label)
 
         # User name
-        user_name_label = QLabel(f"Name: {user_name}")
+        user_name_label = QLabel(f"Name: {booked.customer.name}")
         user_name_label.setStyleSheet("font-size: 18px; color: black;")
         user_name_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(user_name_label)
 
         # Generate a confirmation number
-        confirmation_number = self.generate_confirmation_number()
-        confirmation_number_label = QLabel(f"Confirmation #: {confirmation_number}")
+        confirmation_number_label = QLabel(f"Confirmation #: {booked.confirmationNumber}")
         confirmation_number_label.setStyleSheet("font-size: 18px; font-weight: bold; color: black;")
         confirmation_number_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(confirmation_number_label)
 
         # Closing message
-        closing_message = QLabel(f"See you soon, {user_name}!")
+        closing_message = QLabel(f"See you soon, {booked.customer.name}!")
         closing_message.setStyleSheet("font-size: 20px; color: #2B1C19;")
         closing_message.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(closing_message)
