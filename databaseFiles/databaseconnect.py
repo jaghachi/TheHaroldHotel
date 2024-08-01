@@ -59,4 +59,3 @@ class dataBase:
                 "checkOut": None
             }
         ])
-        

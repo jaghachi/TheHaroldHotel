@@ -8,7 +8,7 @@ class Reservation:
         self.customer = Customer()
         #customer info
         self.roomName = "" #name for resi 
-        self.confirmationNumber = None #confirmation numb of resi
+        self.confirmationNumber = "" #confirmation numb of resi
         self.persons = 0
         self.checkIn = None #checkin date
         self.checkOut = None #checkout date 
@@ -20,6 +20,14 @@ class Reservation:
     def getCustomer(self) -> Customer:
         #get customer 
         return self.customer
+    
+    def setConfirmation(self, confirmationNumber: str):
+        #set confrimation number for resi
+        self.confirmationNumber = confirmationNumber
+    
+    def getConfirmation(self):
+        #set confrimation number for resi
+        return self.confirmationNumber
     
     def setRoomName(self, roomName) -> None:
         self.roomName = roomName
@@ -38,12 +46,10 @@ class Reservation:
         #to implement
         return 0
     
-    def setPersons(self, customer) -> None:
-        self.customer = customer
+    def setPersons(self, persons) -> None:
+        self.persons = persons
 
-    def setConfirmation(self, confirmationNumber: int) -> None:
-        #set confrimation number for resi
-        self.confirmationNumber = confirmationNumber
+
 
     def modifyReservation(self, confirmationNumber: int) -> None:
         self.confirmationNumber = confirmationNumber
@@ -54,7 +60,7 @@ class Reservation:
         # holder method for cancel reservation logic
         pass
 
-    async def reserveRoom(self, room, newReservation, adults, user_name, user_email):
+    async def reserveRoom(self, room, adults, user_name, user_email):
         #create databaseconnection
         db_instance = dataBase()
         db = await db_instance.get_database()
@@ -65,7 +71,7 @@ class Reservation:
         newCustomer.set_email = user_email
         newCustomer.set_persons = adults
         
-        await db.insert_customer(newCustomer)
+        await db.customer(newCustomer)
         
         # Fetch the customer from db
         customer = await db['customers'].find_one({"email": newCustomer.email})
@@ -82,14 +88,14 @@ class Reservation:
             "roomId": room["_id"],  # Ensure you have the room ID here
             "confirmationNumber": reservation_number,
             "persons": adults,
-            "checkIn": newReservation.checkin_date,  
-            "checkOut": newReservation.checkout_date  
+            "checkIn": self.checkIn,  
+            "checkOut": self.checkOut  
         })
         
-        newReservation.setCustomer(newCustomer)
-        newReservation.roomName = room["name"]
-        newReservation.setConfirmation = reservation_number
-        newReservation.setPersons = adults
+        self.setCustomer(newCustomer)
+        self.setRoomName = room["name"]
+        self.setConfirmation(reservation_number)
+        self.setPersons = adults
         
         
-        return newReservation
+        return self

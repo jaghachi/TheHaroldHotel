@@ -1,7 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel
 from PyQt5.QtCore import Qt
-import random
-import string
 
 # Window that opens after you press book in the room selection
 class BookingConfirmationWindow(QWidget):
@@ -22,7 +20,7 @@ class BookingConfirmationWindow(QWidget):
         main_layout.addWidget(confirmation_label)
 
         # Booking details
-        details_label = QLabel(f"Room: {booked.roomName}\nCheck-in: {booked.checkin_date.toString('MMM d, yyyy')} - Check-out: {booked.checkout_date.toString('MMM d, yyyy')}\nGuests: {booked.persons}")
+        details_label = QLabel(f"Room: {booked.roomName}\nCheck-in: {booked.checkIn.toString('MMM d, yyyy')} - Check-out: {booked.checkOut.toString('MMM d, yyyy')}\nGuests: {booked.persons}")
         details_label.setStyleSheet("font-size: 18px; color: black;")
         details_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(details_label)
@@ -44,6 +42,3 @@ class BookingConfirmationWindow(QWidget):
         closing_message.setStyleSheet("font-size: 20px; color: #2B1C19;")
         closing_message.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(closing_message)
-
-    def generate_confirmation_number(self):
-        return ''.join(random.choices(string.digits, k=10))

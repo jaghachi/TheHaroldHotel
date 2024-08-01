@@ -1,16 +1,15 @@
-from hmac import new
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QLineEdit
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 from reservation import Reservation
 from Page_5_BookingConfirmationWindow import BookingConfirmationWindow
-
+import asyncio
 
 # booking + room details
 class RoomBookingDetailsWindow(QWidget):
     def __init__(self, room, newReservation, adults):
         super().__init__()
-        self.setWindowTitle(f"{room["name"]} Booking")
+        self.setWindowTitle(f"{room['name']} Booking")
         self.setGeometry(150, 150, 600, 400)
         self.setStyleSheet("background-color: #E5D5C3")
 
@@ -24,9 +23,15 @@ class RoomBookingDetailsWindow(QWidget):
         room_image_label.setPixmap(pixmap)
         room_image_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(room_image_label)
+        
+        # Room Title
+        room_name = QLabel(room["name"])
+        room_name.setStyleSheet("font-size: 15px; color: black; font-weight: bold;")
+        room_name.setAlignment(Qt.AlignCenter)
+        main_layout.addWidget(room_name)
 
         # Booking details
-        details_label = QLabel(f"Booking for {adults} people\nCheck-in: {newReservation.checkin_date.toString('MMM d, yyyy')} - Check-out: {newReservation.checkout_date.toString('MMM d, yyyy')}")
+        details_label = QLabel(f"Booking for {adults} people\nCheck-in: {newReservation.checkIn.toString('MMM d, yyyy')} - Check-out: {newReservation.checkOut.toString('MMM d, yyyy')}")
         details_label.setStyleSheet("font-size: 18px; color: black;")
         details_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(details_label)
@@ -70,7 +75,9 @@ class RoomBookingDetailsWindow(QWidget):
                 color: black;
             }
         """)
-        book_button.clicked.connect(lambda: self.open_booking_confirmation(room, newReservation, adults, self.name_input.text(), self.email_input.text()))
+        book_button.clicked.connect(lambda: asyncio.ensure_future(
+            self.open_booking_confirmation(room, newReservation, adults, self.name_input.text(), self.email_input.text())
+        ))
         buttons_layout.addWidget(book_button)
 
         # Back-button
@@ -95,10 +102,7 @@ class RoomBookingDetailsWindow(QWidget):
         main_layout.addLayout(buttons_layout)
 
     async def open_booking_confirmation(self, room, newReservation, adults, user_name, user_email):
-        
-        bookedReservation = newReservation.reserveRoom(room, newReservation, adults, user_name, user_email)
-        
-        
-        self.confirmation_window = BookingConfirmationWindow(bookedReservation)
+        newReservation.reserveRoom(room, adults, user_name, user_email)
+        self.confirmation_window = BookingConfirmationWindow(newReservation)
         self.confirmation_window.setWindowModality(Qt.ApplicationModal)
         self.confirmation_window.show()

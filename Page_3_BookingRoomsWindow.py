@@ -19,7 +19,7 @@ class BookingRoomsWindow(QWidget):
         booking_details_layout = QHBoxLayout()
 
         # Dates for booking
-        dates_label = QLabel(f"Your booking: {newReservation.checkin_date.toString('MMM d')} - {newReservation.checkout_date.toString('MMM d')}")
+        dates_label = QLabel(f"Your booking: {newReservation.checkIn.toString('MMM d')} - {newReservation.checkOut.toString('MMM d')}")
         dates_label.setStyleSheet("font-size: 18px; color: black;")
         booking_details_layout.addWidget(dates_label)
 
