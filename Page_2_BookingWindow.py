@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QDateEdit, QComboBox, QPushButton
 from PyQt5.QtCore import Qt, QDate
 from Page_3_BookingRoomsWindow import BookingRoomsWindow
+from reservation import Reservation
 
 # Pop-up window with calendar to choose dates + number of guests
 class BookingWindow(QWidget):
@@ -91,14 +92,19 @@ class BookingWindow(QWidget):
         self.setLayout(main_layout)
 
     def open_booking_rooms_window(self):
+        
+        #create reservation instance
+        newReservation = Reservation()
+        
         # using the dates from our calendar widget
-        checkin_date = self.checkin_date.date()
-        checkout_date = self.checkout_date.date()
+        newReservation.checkIn = self.checkin_date.date()
+        newReservation.checkOut = self.checkout_date.date()
+        
         # using the number of guests from our guests popup
         guests = int(self.guests_combo.currentText())
 
         # instance of the class
-        self.booking_rooms_window = BookingRoomsWindow(checkin_date, checkout_date, guests)
+        self.booking_rooms_window = BookingRoomsWindow(newReservation, guests)
         
         # creating a new window
         parent_rect = self.rect()
