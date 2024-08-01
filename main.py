@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QApplication
 #from PyQt5.QtGui import QPixmap, QFont, QIcon
 #from PyQt5.QtCore import Qt, QDate, QPoint
 #from functools import partial
-from mainWindow import MainWindow
+from Page_1_mainWindow import MainWindow
 
 class main():
     def __init__(self):

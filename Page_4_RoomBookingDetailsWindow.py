@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QLineEdit
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
-from BookingConfirmationWindow import BookingConfirmationWindow
+from Page_5_BookingConfirmationWindow import BookingConfirmationWindow
 
 # booking + room details
 class RoomBookingDetailsWindow(QWidget):

@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QMenu, QAction, QVBoxLayout, QHBoxLayout, QPushButton, QDateEdit, QComboBox
 from PyQt5.QtGui import QPixmap, QFont, QIcon
 from PyQt5.QtCore import Qt, QPoint
-from BookingWindow import BookingWindow
+from Page_2_BookingWindow import BookingWindow
 from CheckBookingWindow import CheckBookingWindow
 
 class MainWindow(QMainWindow):
