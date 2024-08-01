@@ -59,12 +59,7 @@ async def create_schema():
     reservations = db['reservations']
     await reservations.insert_one(
         {
-            "customer": {
-                "customerId": customer["_id"], # type: ignore
-                "name": customer["name"], # type: ignore
-                "email": customer["email"], # type: ignore
-                "persons": customer["persons"] # type: ignore
-            },
+            "customerId": customer["_id"],
             "roomId": room["_id"], # type: ignore
             "confirmationNumber": "name-123456",
             "checkIn": datetime(2023, 8, 1),
