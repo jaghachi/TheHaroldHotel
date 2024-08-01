@@ -1,7 +1,6 @@
 from customer import Customer
 from databaseFiles.databaseconnect import dataBase
 from datetime import datetime
-from reservation import Reservation
 
 class Reservation:
     #object
@@ -55,7 +54,7 @@ class Reservation:
         # holder method for cancel reservation logic
         pass
 
-    async def reserveRoom(self, room, newReservation, adults, user_name, user_email) -> Reservation:
+    async def reserveRoom(self, room, newReservation, adults, user_name, user_email):
         #create databaseconnection
         db_instance = dataBase()
         db = await db_instance.get_database()
