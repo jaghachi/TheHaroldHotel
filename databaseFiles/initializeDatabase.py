@@ -62,7 +62,8 @@ async def create_schema():
             "customer": {
                 "customerId": customer["_id"], # type: ignore
                 "name": customer["name"], # type: ignore
-                "email": customer["email"] # type: ignore
+                "email": customer["email"], # type: ignore
+                "persons": customer["persons"] # type: ignore
             },
             "roomId": room["_id"], # type: ignore
             "confirmationNumber": "name-123456",
