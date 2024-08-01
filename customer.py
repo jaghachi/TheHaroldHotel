@@ -4,9 +4,9 @@ class Customer:
 
     def __init__(self):
         # Initialize an empty Customer
-        self.name = None
-        self.email = None
-        self.persons = None
+        self.name = ""
+        self.email = ""
+        self.persons = 0
         self.reservations = []
 
     # Getter and Setter for name
