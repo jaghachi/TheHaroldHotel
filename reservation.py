@@ -1,22 +1,34 @@
-from datetime import date
-from msilib.schema import CustomAction
-from typing import List, Any
 from customer import Customer
+from databaseFiles.databaseconnect import dataBase
+from datetime import datetime
+from reservation import Reservation
 
 class Reservation:
     #object
     def __init__(self):
         self.customer = Customer()
         #customer info
-        self.roomId = None #ID for resi 
+        self.roomName = "" #name for resi 
         self.confirmationNumber = None #confirmation numb of resi
-        self.price = 0
+        self.persons = 0
         self.checkIn = None #checkin date
         self.checkOut = None #checkout date 
 
+    
+    def setCustomer(self, customer) -> None:
+        self.customer = customer
+        
     def getCustomer(self) -> Customer:
         #get customer 
         return self.customer
+    
+    def setRoomName(self, roomName) -> None:
+        self.roomName = roomName
+        
+    def getRoomName(self) -> Customer:
+        #get roomname 
+        return self.roomName
+
     
     def getEmail(self) -> str:
         #get email of customer 
@@ -24,13 +36,10 @@ class Reservation:
 
     def getPrice(self) -> int:
         #get price of resi
-        return self.price
-
-    def getPersons(self) -> int:
-        #get number of people
-        return self.customer.persons
+        #to implement
+        return 0
     
-    def setCustomer(self, customer) -> None:
+    def setPersons(self, customer) -> None:
         self.customer = customer
 
     def setConfirmation(self, confirmationNumber: int) -> None:
@@ -46,7 +55,42 @@ class Reservation:
         # holder method for cancel reservation logic
         pass
 
-    def reserveRoom(self, ) -> None:
-        self.roomId = id
-        # Placeholder for reserve room logic
-        #reserve a room with given details
+    async def reserveRoom(self, room, newReservation, adults, user_name, user_email) -> Reservation:
+        #create databaseconnection
+        db_instance = dataBase()
+        db = await db_instance.get_database()
+        
+        #create customer
+        newCustomer = Customer()
+        newCustomer.set_name = user_name
+        newCustomer.set_email = user_email
+        newCustomer.set_persons = adults
+        
+        await db.insert_customer(newCustomer)
+        
+        # Fetch the customer from db
+        customer = await db['customers'].find_one({"email": newCustomer.email})
+
+        # Generate a unique reservation number
+        reservation_number = "THH-" + str(datetime.now().strftime("%Y%m%d%H%M"))
+
+        # Grab Reservations Collection
+        reservations = db['reservations']
+        
+        # Insert reservation into the database
+        await reservations.insert_one({
+            "customerId": customer["_id"], # type: ignore 
+            "roomId": room["_id"],  # Ensure you have the room ID here
+            "confirmationNumber": reservation_number,
+            "persons": adults,
+            "checkIn": newReservation.checkin_date,  
+            "checkOut": newReservation.checkout_date  
+        })
+        
+        newReservation.setCustomer(newCustomer)
+        newReservation.roomName = room["name"]
+        newReservation.setConfirmation = reservation_number
+        newReservation.setPersons = adults
+        
+        
+        return newReservation
