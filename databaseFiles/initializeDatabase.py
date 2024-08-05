@@ -84,9 +84,9 @@ async def create_schema():
     await roomBookings.create_index([("roomId", 1), ("bookedDate", 1)])
 
     # Purge dummy data to start with a clean database
-    await db['customers'].delete_many({})
-    await db['reservations'].delete_many({})
-    await db['roomBookings'].delete_many({})
+    #await db['customers'].delete_many({})
+    #await db['reservations'].delete_many({})
+    #await db['roomBookings'].delete_many({})
 
     # Close the client
     db_instance.client.close()
