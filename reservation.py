@@ -1,6 +1,5 @@
 from customer import Customer
 from databaseFiles.databaseconnect import dataBase
-from datetime import datetime
 
 class Reservation:
     #object
@@ -49,66 +48,28 @@ class Reservation:
     def setPersons(self, persons) -> None:
         self.persons = persons
 
-
-
-    def modifyReservation(self, confirmationNumber: int) -> None:
+    def modifyReservation(self, confirmationNumber: str) -> None:
         self.confirmationNumber = confirmationNumber
         # holder space for method
         #change or cancel resi based of confirmation number and user action to do so 
 
-    def cancelReservation(self,confirmationNumber: int,) -> None:
+    def cancelReservation(self,confirmationNumber: str,) -> None:
         # holder method for cancel reservation logic
         pass
 
-    async def reserveRoom(self, room, adults, user_name, user_email):
+    async def reserveRoom(self, room, newCustomer, newReservation):
         #create databaseconnection
         db_instance = dataBase()
-        db = await db_instance.get_database()
-        
-        #create customer
-        newCustomer = Customer()
-        newCustomer.set_name(user_name)
-        newCustomer.set_email(user_email)
-        newCustomer.set_persons(adults)
-        
-        
-        customers = db['customers']
-        await customers.insert_one({
-            "name": newCustomer.name, 
-            "email": newCustomer.email, 
-            "persons": newCustomer.persons
-        })
-        
-        
-        # Generate a unique reservation number
-        reservation_number = "THH-" + str(datetime.now().strftime("%Y%m%d%H%M"))
 
-        # Grab Reservations Collection
-        reservations = db['reservations']
+        await db_instance.insert_customer(newCustomer)
         
-        
-        # Find the typeId for the given room type
-        room_type_doc = await db['roomTypes'].find_one({"type": room['id']})
-        type_id = room_type_doc['_id'] # type: ignore 
-        
-        print(newCustomer.email)
-        # Fetch the customer from db
-        customer = await db['customers'].find_one({"email": newCustomer.email}) 
-        
-        # Insert reservation into the database
-        await reservations.insert_one({
-            "customerId": customer["_id"], # type: ignore 
-            "roomId": type_id,  # Ensure you have the room ID here
-            "confirmationNumber": reservation_number,
-            "persons": adults,
-            "checkIn": datetime(self.checkIn.year(), self.checkIn.month(), self.checkIn.day()), # type: ignore
-            "checkOut": datetime(self.checkOut.year(), self.checkOut.month(), self.checkOut.day()) # type: ignore
-        })
+        successful_reservation = await db_instance.insert_reservation(room, newCustomer, newReservation)
+
         
         self.setCustomer(newCustomer)
         self.setRoomName(room["name"])
-        self.setConfirmation(reservation_number)
-        self.setPersons(adults)
+        self.setConfirmation(successful_reservation)
+        self.setPersons(newCustomer.persons)
         
         
         return self

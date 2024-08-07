@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 from reservation import Reservation
+from customer import Customer
 from Page_5_BookingConfirmationWindow import BookingConfirmationWindow
 import asyncio
 
@@ -76,11 +77,17 @@ class RoomBookingDetailsWindow(QWidget):
             }
         """)
         
-        book_button.clicked.connect(lambda: 
-            asyncio.ensure_future(
-                self.open_booking_confirmation(room, newReservation, adults, self.name_input.text(), self.email_input.text()
+
+        book_button.clicked.connect(lambda: asyncio.ensure_future(
+            self.handle_booking(
+                self.name_input.text(),
+                self.email_input.text(),
+                adults,
+                room, 
+                newReservation
             )
         ))
+        
         buttons_layout.addWidget(book_button)
 
         # Back-button
@@ -104,8 +111,17 @@ class RoomBookingDetailsWindow(QWidget):
 
         main_layout.addLayout(buttons_layout)
 
-    async def open_booking_confirmation(self, room, newReservation, adults, user_name, user_email):
-        await newReservation.reserveRoom(room, adults, user_name, user_email)
+    async def handle_booking(self, user_name, user_email, adults, room, newReservation):
+        # Create customer instance
+        new_customer = Customer()
+        new_customer.set_name(user_name)
+        new_customer.set_email(user_email)
+        new_customer.set_persons(adults)
+        await newReservation.reserveRoom(room, new_customer, newReservation)
+        self.open_booking_confirmation(newReservation)
+        
+    def open_booking_confirmation(self, newReservation):
         self.confirmation_window = BookingConfirmationWindow(newReservation)
         self.confirmation_window.setWindowModality(Qt.ApplicationModal)
         self.confirmation_window.show()
+    

@@ -58,6 +58,17 @@ class Room:
     def set_check_out(self, check_out: date):
         #set check out date 
         self.check_out = check_out
+        
+        
+rooms = [
+        {"name": "Premiere Harold Single", "type": "Single", "sleeps": 1, "price": 75, "image": "resources/single.jpg"},
+        {"name": "Premiere Harold Double", "type": "Double", "sleeps": 4, "price": 125, "image": "resources/double.jpg"},
+        {"name": "Premiere Harold Suite", "type": "Suite", "sleeps": 4, "price": 200, "image": "resources/suite.jpeg"}
+    ]
+
+
+
+"""
 ### adding room descriptions 
 rooms = []
 #single
@@ -75,3 +86,4 @@ for i in range(300, 305):
 #room verify output
 for room in rooms:
     print(f"Room ID: {room.get_id()}, Type: {'Suite' if room.get_price() == 200 else 'Double' if room.get_price() == 125 else 'Single'}, Price: {room.get_price()}, Max Persons: {room.get_persons()}, Available From: {room.get_date_available_from()}")
+"""
