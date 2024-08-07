@@ -30,9 +30,9 @@ class BookingRoomsWindow(QWidget):
         main_layout.addLayout(room_options_layout)
 
         rooms = [
-            {"name": "Premiere Harold Single", "id": "Single", "sleeps": 1, "price": 75, "image": "resources/single.jpg"},
-            {"name": "Premiere Harold Double", "id": "Double", "sleeps": 4, "price": 125, "image": "resources/double.jpg"},
-            {"name": "Premiere Harold Suite", "id": "Suite", "sleeps": 4, "price": 200, "image": "resources/suite.jpeg"}
+            {"name": "Premiere Harold Single", "type": "Single", "sleeps": 1, "price": 75, "image": "resources/single.jpg"},
+            {"name": "Premiere Harold Double", "type": "Double", "sleeps": 4, "price": 125, "image": "resources/double.jpg"},
+            {"name": "Premiere Harold Suite", "type": "Suite", "sleeps": 4, "price": 200, "image": "resources/suite.jpeg"}
         ]
 
         for room in rooms:

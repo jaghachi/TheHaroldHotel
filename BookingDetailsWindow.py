@@ -1,23 +1,39 @@
+from datetime import datetime, time
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton
 from PyQt5.QtCore import Qt
 
 # check booking -> input confirmation # -> it exists
 class BookingDetailsWindow(QWidget):
-    def __init__(self, confirmation_number):
+    def __init__(self, reservation, customer, room, roomType):
         super().__init__()
         self.setWindowTitle("Booking Details")
         self.setFixedSize(400, 300)
         self.setStyleSheet("background-color: #765A45;")
 
         main_layout = QVBoxLayout()
+        
+        checkIn_time = time(15,0)
+        checkOut_time = time(13,0)
+        
+        # Convert ISODate strings to datetime objects and adjust time
+        print(reservation['checkOut'])
+        checkIn = datetime.fromisoformat(str(reservation['checkIn'])).replace(hour=checkIn_time.hour, minute=checkIn_time.minute)
+        checkOut = datetime.fromisoformat(str(reservation['checkOut'])).replace(hour=checkOut_time.hour, minute=checkOut_time.minute)
 
+        # Calculate nights
+        nights = (checkOut.replace(hour=0, minute=0, second=0, microsecond=0) - checkIn.replace(hour=0, minute=0, second=0, microsecond=0)).days
+        
+        print('nights')
+        print(nights)
+        print('price')
+        print(roomType['price'])
         # Placeholder booking details
-        booking_details = f"Booking Details for Confirmation Number: {confirmation_number}\n\n"
-        booking_details += "Name: John Doe\n"
-        booking_details += "Check-in Date: 2024-08-10\n"
-        booking_details += "Check-out Date: 2024-08-15\n"
-        booking_details += "Room Type: Deluxe Suite\n"
-        booking_details += "Total Price: $1500\n"
+        booking_details = f"Booking Details for Confirmation Number: {reservation['confirmationNumber']}\n\n"
+        booking_details += f"Name: {customer['name']}\n"
+        booking_details += f"Check-in Date: {checkIn.strftime('%b %d %Y') + ' at ' + checkIn.strftime('%I:%M%p').lower()}\n"
+        booking_details += f"Check-out Date: {checkOut.strftime('%b %d %Y') + ' at ' + checkOut.strftime('%I:%M%p').lower()}\n"
+        booking_details += f"Room Type: {roomType['type']}\n"
+        booking_details += f"Total Price: ${nights * roomType['price']}\n" #should change to save calculation at reservation stage
 
         booking_label = QLabel(booking_details)
         booking_label.setAlignment(Qt.AlignTop)

@@ -87,6 +87,8 @@ async def create_schema():
     await db['customers'].delete_many({})
     await db['reservations'].delete_many({})
     await db['roomBookings'].delete_many({})
+    #await db['rooms'].delete_many({})
+    #await db['roomTypes'].delete_many({})
 
     # Close the client
     db_instance.client.close()

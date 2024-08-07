@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton
 from PyQt5.QtCore import Qt
 from BookingDetailsWindow import BookingDetailsWindow
+from databaseFiles.databaseconnect import dataBase
+import asyncio
 
 class CheckBookingWindow(QWidget):
     def __init__(self):
@@ -37,7 +39,10 @@ class CheckBookingWindow(QWidget):
             }
         """)
         # connected the button to open a new window
-        check_button.clicked.connect(self.check_booking)
+        check_button.clicked.connect(lambda: 
+            asyncio.ensure_future( self.check_booking()
+        ))
+        
         main_layout.addWidget(check_button)
 
         # in case the confirmation # doesn't exist, display a red text below
@@ -49,17 +54,31 @@ class CheckBookingWindow(QWidget):
         self.setLayout(main_layout)
 
     # check if the booking exists
-    def check_booking(self):
+    async def check_booking(self):
         confirmation_number = self.confirmation_input.text().strip()
         print(f"Checking booking for confirmation number: {confirmation_number}")
 
-        # Placeholder logic for checking the booking, set to false rn
-        booking_exists = False  
+        #create databaseconnection
+        db_instance = dataBase()
+        db = await db_instance.get_database()
+        reservations = db['reservations']
+        customers = db['customers']
+        rooms = db['rooms']
+        roomTypes = db['roomTypes']
+        
+        # Find the reservation
+        reservation = await reservations.find_one({"confirmationNumber": confirmation_number})
 
         # opens a new window with booking details
-        if booking_exists:
-            self.booking_details_window = BookingDetailsWindow(confirmation_number)
-            self.booking_details_window.show()
-            # will display the error message
-        else:
+        if not reservation:
             self.error_label.setText("Confirmation number not found. Please try again.")
+        else:
+            print(reservation)
+            customer = await customers.find_one({"_id": reservation['customerId']})
+            print(customer)
+            room = await rooms.find_one({"_id": reservation['roomId']})
+            print(room)
+            roomType = await roomTypes.find_one({"_id": room['typeId']})
+            print(roomType)
+            self.booking_details_window = BookingDetailsWindow(reservation,customer,room,roomType)
+            self.booking_details_window.show()
