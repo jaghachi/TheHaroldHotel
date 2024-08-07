@@ -1,6 +1,7 @@
+# main.py
 import sys
 from PyQt5.QtWidgets import QApplication
-from Page_1_mainWindow import MainWindow
+from views.Page_1_mainWindow import MainWindow
 from qasync import QEventLoop
 import asyncio
 

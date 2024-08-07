@@ -1,31 +1,27 @@
+# bookingroomswindow.py
 from functools import partial
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QFrame, QPushButton
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
-from Page_4_RoomBookingDetailsWindow import RoomBookingDetailsWindow
+from views.Page_4_RoomBookingDetailsWindow import RoomBookingDetailsWindow
 
-# types of room window
 class BookingRoomsWindow(QWidget):
-    def __init__(self, newReservation, guests):
+    def __init__(self, newReservation, guests, controller):
         super().__init__()
+        self.controller = controller
         self.setWindowTitle("Booking")
         self.setGeometry(100, 100, 800, 600)
         self.setStyleSheet("background-color: #E5D5C3")
 
-        # Main layout
         main_layout = QVBoxLayout()
         self.setLayout(main_layout)
 
         booking_details_layout = QHBoxLayout()
-
-        # Dates for booking
         dates_label = QLabel(f"Your booking: {newReservation.checkIn.toString('MMM d')} - {newReservation.checkOut.toString('MMM d')}")
         dates_label.setStyleSheet("font-size: 18px; color: black;")
         booking_details_layout.addWidget(dates_label)
-
         main_layout.addLayout(booking_details_layout)
 
-        # Room options
         room_options_layout = QHBoxLayout()
         main_layout.addLayout(room_options_layout)
 
@@ -78,13 +74,34 @@ class BookingRoomsWindow(QWidget):
                     color: black;
                 }
             """)
-            # Connect each button to open_room_booking_details with specific room data
             book_now_button.clicked.connect(partial(self.open_room_booking_details, room, newReservation, guests))
             room_layout.addWidget(book_now_button)
 
             room_options_layout.addWidget(room_frame)
+        
+        back_button = QPushButton("Back")
+        back_button.setStyleSheet("""
+            QPushButton {
+                background-color: #5F493F;
+                color: white;
+                font-size: 16px;
+                font-weight: bold;
+                padding: 10px;
+                border-radius: 5px;
+            }
+            QPushButton:hover {
+                background-color: #E5D5C3;
+                color: black;
+            }
+        """)
+        back_button.clicked.connect(self.back_to_booking)
+        main_layout.addWidget(back_button)
+
+    def back_to_booking(self):
+        self.controller.show_view("booking")
 
     def open_room_booking_details(self, room, newReservation, guests):
-        self.room_booking_details_window = RoomBookingDetailsWindow(room, newReservation, guests)
-        self.room_booking_details_window.setWindowModality(Qt.ApplicationModal)
-        self.room_booking_details_window.show()
+        self.room_booking_details_window = RoomBookingDetailsWindow(room, newReservation, guests, self.controller)
+        self.controller.add_view(self.room_booking_details_window, "room_booking_details")
+        self.controller.show_view("room_booking_details")
+    
