@@ -1,4 +1,4 @@
-from customer import Customer
+from classes.customer import Customer
 from databaseFiles.databaseconnect import dataBase
 
 class Reservation:

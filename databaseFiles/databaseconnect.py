@@ -47,7 +47,6 @@ class dataBase:
         # Generate a unique reservation number
         reservation_number = "THH-" + str(datetime.now().strftime("%Y%m%d%H%M"))
 
-        print(newCustomer.email)
         # Fetch the customer from db
         customer = await db['customers'].find_one({"email": newCustomer.email}) 
         
@@ -56,7 +55,6 @@ class dataBase:
         roomType = await db['roomTypes'].find_one({"type": room['type']}) 
         typeId = roomType['_id'] # type: ignore 
         
-        print(typeId)
         # find open room based on type
         availableRoom = await db['rooms'].find_one({"typeId": typeId}) 
 
