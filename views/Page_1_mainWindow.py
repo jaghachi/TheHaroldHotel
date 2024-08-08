@@ -125,7 +125,11 @@ class MainWindow(QMainWindow):
         return super().eventFilter(source, event)
 
     def open_booking_view(self):
+        self.controller.clear_views(self.controller)
+        self.controller.readd_views(self.controller)
         self.controller.show_view("booking")
 
     def open_check_booking_view(self):
+        self.controller.clear_views(self.controller)
+        self.controller.readd_views(self.controller)
         self.controller.show_view("check_booking")
