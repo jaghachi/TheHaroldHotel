@@ -1,5 +1,8 @@
-# roombookingdetailswindow.py
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QLineEdit
+"""""
+main window -> booking window -> booking room window -> room booking details
+the window shows all the details of the booking chose by the user: room type, number of guests, the dates. The window prompts user to enter their name and email.
+"""""
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QLineEdit, QSpacerItem, QSizePolicy, QFrame
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 from classes.reservation import Reservation
@@ -12,61 +15,73 @@ class RoomBookingDetailsWindow(QWidget):
         super().__init__()
         self.controller = controller
         self.setWindowTitle(f"{room['name']} Booking")
-        self.setGeometry(150, 150, 600, 400)
-        self.setStyleSheet("background-color: #E5D5C3")
+        self.setGeometry(100, 100, 800, 600)
+        
+        # set up the background pic
+        self.background_label = QLabel(self)
+        self.background_label.setPixmap(QPixmap("resources/lobby.jpg"))
+        self.background_label.setScaledContents(True)
+        self.background_label.setGeometry(0, 0, 800, 600)
 
         main_layout = QVBoxLayout()
+        main_layout.setContentsMargins(0, 0, 0, 0) # no margins
+        main_layout.setSpacing(0) # no spacing between widgets
         self.setLayout(main_layout)
 
-        room_image_label = QLabel()
-        pixmap = QPixmap(room["image"]).scaled(300, 150, Qt.KeepAspectRatio, Qt.SmoothTransformation)
-        room_image_label.setPixmap(pixmap)
-        room_image_label.setAlignment(Qt.AlignCenter)
-        main_layout.addWidget(room_image_label)
+        # spacer item to push the centered_frame to the middle
+        spacer_top = QSpacerItem(20, 150, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        main_layout.addItem(spacer_top)
 
+        # centered container for the date and guest selection widgets
+        centered_frame = QFrame(self)
+        centered_frame.setStyleSheet("background-color: #E5D5C3; border-radius: 10px;")
+        centered_frame.setFixedSize(500, 300)
+        centered_layout = QVBoxLayout(centered_frame)
+
+        # creating a label for the name of the room
         room_name = QLabel(room["name"])
         room_name.setStyleSheet("font-size: 15px; color: black; font-weight: bold;")
         room_name.setAlignment(Qt.AlignCenter)
-        main_layout.addWidget(room_name)
+        centered_layout.addWidget(room_name)
 
         details_label = QLabel(f"Booking for {adults} people\nCheck-in: {newReservation.checkIn.toString('MMM d, yyyy')} - Check-out: {newReservation.checkOut.toString('MMM d, yyyy')}")
         details_label.setStyleSheet("font-size: 18px; color: black;")
         details_label.setAlignment(Qt.AlignCenter)
-        main_layout.addWidget(details_label)
+        centered_layout.addWidget(details_label)
 
         name_label = QLabel("Enter the name for the booking: ")
         name_label.setStyleSheet("font-size: 18px; color: black;")
         name_label.setAlignment(Qt.AlignCenter)
-        main_layout.addWidget(name_label)
+        centered_layout.addWidget(name_label)
 
         self.name_input = QLineEdit(self)
         self.name_input.setPlaceholderText("Your Name")
-        main_layout.addWidget(self.name_input)
+        self.name_input.setStyleSheet("border: 1px solid #000000;")
+        centered_layout.addWidget(self.name_input)
 
         email_label = QLabel("Enter the email for the booking: ")
         email_label.setStyleSheet("font-size: 18px; color: black;")
         email_label.setAlignment(Qt.AlignCenter)
-        main_layout.addWidget(email_label)
+        centered_layout.addWidget(email_label)
 
         self.email_input = QLineEdit(self)
         self.email_input.setPlaceholderText("Your email")
-        main_layout.addWidget(self.email_input)
-
-        buttons_layout = QHBoxLayout()
+        self.email_input.setStyleSheet("border: 1px solid #000000;")
+        centered_layout.addWidget(self.email_input)
 
         book_button = QPushButton("Book")
         book_button.setStyleSheet("""
             QPushButton {
-                background-color: #2B1C19;
-                color: white;
+                background-color: #E5D5C3;
+                color: black;
                 font-size: 16px;
                 font-weight: bold;
                 padding: 5px;
                 border-radius: 5px;
             }
             QPushButton:hover {
-                background-color: #E5D5C3;
-                color: black;
+                background-color: #2B1C19;
+                color: white;
             }
         """)
         book_button.clicked.connect(lambda: asyncio.ensure_future(
@@ -78,27 +93,37 @@ class RoomBookingDetailsWindow(QWidget):
                 newReservation
             )
         ))
-        buttons_layout.addWidget(book_button)
+        centered_layout.addWidget(book_button)
 
         back_button = QPushButton("Back")
         back_button.setStyleSheet("""
             QPushButton {
-                background-color: #2B1C19;
-                color: white;
+                background-color: #E5D5C3;
+                color: black;
                 font-size: 16px;
                 font-weight: bold;
                 padding: 5px;
                 border-radius: 5px;
             }
             QPushButton:hover {
-                background-color: #E5D5C3;
-                color: black;
+                background-color: #2B1C19;
+                color: white;
             }
         """)
         back_button.clicked.connect(self.back_to_booking_rooms)
-        buttons_layout.addWidget(back_button)
+        centered_layout.addWidget(back_button)
+        # adding the centered frame to the main layout
+        center_container = QHBoxLayout()
+        center_container.addStretch()
+        center_container.addWidget(centered_frame)
+        center_container.addStretch()
+        main_layout.addLayout(center_container)
 
-        main_layout.addLayout(buttons_layout)
+        # spacer item to push the centered_frame to the middle
+        spacer_bottom = QSpacerItem(20, 100, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        main_layout.addItem(spacer_bottom)
+
+        self.setLayout(main_layout)
 
     async def handle_booking(self, user_name, user_email, adults, room, newReservation):
         new_customer = Customer()
