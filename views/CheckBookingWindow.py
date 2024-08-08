@@ -1,4 +1,11 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton
+"""""
+main window -> check booking window
+the window allows the user to input their booking confirmation number to check their booking. The window will display an error message if the booking doesn't exist. 
+If the confirmation number exists, then the user will be brought to the next frame.
+"""""
+
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QSpacerItem, QSizePolicy, QFrame, QHBoxLayout
+from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 from views.BookingDetailsWindow import BookingDetailsWindow
 from databaseFiles.databaseconnect import dataBase
@@ -10,18 +17,37 @@ class CheckBookingWindow(QWidget):
         self.controller = controller  # Added controller
         self.setWindowTitle("Check your reservation")
         self.setGeometry(100, 100, 800, 600)
-        self.setStyleSheet("background-color: #765A45;")
 
+        # set up the background pic
+        self.background_label = QLabel(self)
+        self.background_label.setPixmap(QPixmap("resources/lobby.jpg"))
+        self.background_label.setScaledContents(True)
+        self.background_label.setGeometry(0, 0, 800, 600)
+        
         main_layout = QVBoxLayout()
+        main_layout.setContentsMargins(0, 0, 0, 0)  # No margins
+        main_layout.setSpacing(0)  # No spacing between widgets
+        self.setLayout(main_layout)
+
+        # spacer item to push the centered_frame to the middle
+        spacer_top = QSpacerItem(20, 150, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        main_layout.addItem(spacer_top)
+
+        # centered frame
+        centered_frame = QFrame(self)
+        centered_frame.setStyleSheet("background-color: #E5D5C3; border-radius: 10px;")
+        centered_frame.setFixedSize(400, 150)
+
+        centered_layout = QVBoxLayout(centered_frame)
 
         title = QLabel("Input your Confirmation Number: ")
         title.setAlignment(Qt.AlignCenter)
         title.setStyleSheet("font-size: 16px; color: white;")
-        main_layout.addWidget(title)
+        centered_layout.addWidget(title)
 
         self.confirmation_input = QLineEdit(self)
         self.confirmation_input.setStyleSheet("background-color: white; color: black; padding: 5px;")
-        main_layout.addWidget(self.confirmation_input)
+        centered_layout.addWidget(self.confirmation_input)
 
         check_button = QPushButton("Check Booking")
         check_button.setStyleSheet("""
@@ -38,12 +64,27 @@ class CheckBookingWindow(QWidget):
             }
         """)
         check_button.clicked.connect(lambda: asyncio.ensure_future(self.check_booking()))
-        main_layout.addWidget(check_button)
+        centered_layout.addWidget(check_button)
 
         self.error_label = QLabel("")
         self.error_label.setAlignment(Qt.AlignCenter)
         self.error_label.setStyleSheet("font-size: 10px; color: red;")
-        main_layout.addWidget(self.error_label)
+        centered_layout.addWidget(self.error_label)
+
+        # adding the centered frame to the main layout
+        center_container = QHBoxLayout()
+        center_container.addStretch()
+        center_container.addWidget(centered_frame)
+        center_container.addStretch()
+        main_layout.addLayout(center_container)
+
+        # spacer item to push the centered_frame to the middle
+        spacer_bottom = QSpacerItem(20, 100, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        main_layout.addItem(spacer_bottom)
+        
+        # add the back button to the bottom right corner
+        bottom_layout = QHBoxLayout()
+        bottom_layout.addStretch()
 
         back_button = QPushButton("Back")
         back_button.setStyleSheet("""
@@ -52,6 +93,7 @@ class CheckBookingWindow(QWidget):
                 color: white;
                 font-size: 16px;
                 font-weight: bold;
+                border-radius: 5px;
                 padding: 10px;
             }
             QPushButton:hover {
@@ -59,10 +101,10 @@ class CheckBookingWindow(QWidget):
                 color: black;
             }
         """)
+        # back button brings the user to the previous frame
         back_button.clicked.connect(self.back_to_main)
-        main_layout.addWidget(back_button)
-
-        self.setLayout(main_layout)
+        bottom_layout.addWidget(back_button)
+        main_layout.addLayout(bottom_layout)
 
     async def check_booking(self):
         confirmation_number = self.confirmation_input.text().strip()
