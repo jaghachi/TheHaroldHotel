@@ -89,7 +89,3 @@ class CheckBookingWindow(QWidget):
 
     def back_to_main(self):
         self.controller.show_view("main")
-
-    def reset_fields(self):
-        self.confirmation_input.clear()
-        self.error_label.clear()

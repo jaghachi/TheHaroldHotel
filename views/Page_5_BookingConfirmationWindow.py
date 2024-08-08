@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton
 from PyQt5.QtCore import Qt
 
-
 class BookingConfirmationWindow(QWidget):
     def __init__(self, booked, controller):
         super().__init__()
@@ -54,18 +53,8 @@ class BookingConfirmationWindow(QWidget):
                 color: black;
             }
         """)
-        done_button.clicked.connect(self.reset_to_main)
+        done_button.clicked.connect(self.back_to_main)
         main_layout.addWidget(done_button)
-        
-    def reset_to_main(self):
-        from views.Page_2_BookingWindow import BookingWindow
-        from views.CheckBookingWindow import CheckBookingWindow
-        # Reinitialize BookingWindow and CheckBookingWindow
-        new_booking_window = BookingWindow(self.controller)
-        new_check_booking_window = CheckBookingWindow(self.controller)
-        
-        self.controller.reset_view("booking", new_booking_window)
-        self.controller.reset_view("check_booking", new_check_booking_window)
-        
+
+    def back_to_main(self):
         self.controller.show_view("main")
-        self.close()

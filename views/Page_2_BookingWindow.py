@@ -104,4 +104,3 @@ class BookingWindow(QWidget):
 
     def back_to_main(self):
         self.controller.show_view("main")
-    

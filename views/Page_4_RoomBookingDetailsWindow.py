@@ -109,10 +109,10 @@ class RoomBookingDetailsWindow(QWidget):
         self.open_booking_confirmation(newReservation)
 
     def open_booking_confirmation(self, newReservation):
-        self.confirmation_window = BookingConfirmationWindow(newReservation, self.controller)
+        self.confirmation_window = BookingConfirmationWindow(newReservation,self.controller)
         self.confirmation_window.setWindowModality(Qt.ApplicationModal)
         self.controller.add_view(self.confirmation_window, "confirmation")
         self.controller.show_view("confirmation")
-            
+        
     def back_to_booking_rooms(self):
         self.controller.show_view("booking_rooms")

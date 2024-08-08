@@ -129,7 +129,3 @@ class MainWindow(QMainWindow):
 
     def open_check_booking_view(self):
         self.controller.show_view("check_booking")
-        
-    def reset_fields(self):
-        # Reset any specific fields if necessary in the main view
-        pass
