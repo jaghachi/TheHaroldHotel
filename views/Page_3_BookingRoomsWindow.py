@@ -1,6 +1,9 @@
-# bookingroomswindow.py
+"""
+The window that is opened from main window -> booking window.
+Lets the user overview the available room types, how many guests they can fit in.
+"""
 from functools import partial
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QFrame, QPushButton
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QFrame, QPushButton, QSpacerItem, QSizePolicy
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 from views.Page_4_RoomBookingDetailsWindow import RoomBookingDetailsWindow
@@ -11,26 +14,34 @@ class BookingRoomsWindow(QWidget):
         self.controller = controller
         self.setWindowTitle("Booking")
         self.setGeometry(100, 100, 800, 600)
-        self.setStyleSheet("background-color: #E5D5C3")
+        self.setStyleSheet("background-color: #5F493F")
 
+        # widgets will be stacked vertically
         main_layout = QVBoxLayout()
         self.setLayout(main_layout)
 
-        booking_details_layout = QHBoxLayout()
-        dates_label = QLabel(f"Your booking: {newReservation.checkIn.toString('MMM d')} - {newReservation.checkOut.toString('MMM d')}")
-        dates_label.setStyleSheet("font-size: 18px; color: black;")
-        booking_details_layout.addWidget(dates_label)
-        main_layout.addLayout(booking_details_layout)
+        # spacer item to push the room options layout to the center vertically
+        spacer_top = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        main_layout.addItem(spacer_top)
 
+        # center container to hold the room options layout
+        center_container = QHBoxLayout()
+        center_container.addStretch()
+
+        # horizontal layour for the room boxes
         room_options_layout = QHBoxLayout()
         main_layout.addLayout(room_options_layout)
+        
+        center_widget = QWidget()
+        center_widget.setLayout(center_container)
+        main_layout.addWidget(center_widget)
 
         rooms = [
             {"name": "Premiere Harold Single", "type": "Single", "sleeps": 1, "price": 75, "image": "resources/single.jpg"},
             {"name": "Premiere Harold Double", "type": "Double", "sleeps": 4, "price": 125, "image": "resources/double.jpg"},
             {"name": "Premiere Harold Suite", "type": "Suite", "sleeps": 4, "price": 200, "image": "resources/suite.jpeg"}
         ]
-
+        # styling each room box
         for room in rooms:
             room_layout = QVBoxLayout()
             room_frame = QFrame()
@@ -38,6 +49,7 @@ class BookingRoomsWindow(QWidget):
             room_frame.setStyleSheet("background-color: white; padding: 10px; border-radius: 10px;")
             room_frame.setFixedSize(250, 450)
 
+            # settings for the picture
             room_image_container = QLabel()
             room_image_container.setFixedSize(220, 200)
             room_image_container.setStyleSheet("background-color: #f0f0f0; border: 1px solid #ccc;")
@@ -74,10 +86,21 @@ class BookingRoomsWindow(QWidget):
                     color: black;
                 }
             """)
+            # connecting the "book now" button to open the next window
             book_now_button.clicked.connect(partial(self.open_room_booking_details, room, newReservation, guests))
+            # adding the button to the layout
             room_layout.addWidget(book_now_button)
 
+            # adding a div with each room to the room layout
             room_options_layout.addWidget(room_frame)
+
+        # space for the "back" button
+        spacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        main_layout.addItem(spacer)
+
+        # Add the back button to the bottom right corner
+        bottom_layout = QHBoxLayout()
+        bottom_layout.addStretch()
         
         back_button = QPushButton("Back")
         back_button.setStyleSheet("""
@@ -94,8 +117,10 @@ class BookingRoomsWindow(QWidget):
                 color: black;
             }
         """)
+        # back button brings the user to the previous frame
         back_button.clicked.connect(self.back_to_booking)
-        main_layout.addWidget(back_button)
+        bottom_layout.addWidget(back_button)
+        main_layout.addLayout(bottom_layout)
 
     def back_to_booking(self):
         self.controller.show_view("booking")
