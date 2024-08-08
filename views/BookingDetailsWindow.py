@@ -55,14 +55,15 @@ class BookingDetailsWindow(QWidget):
         booking_label.setStyleSheet("font-size: 14px; color: black;")
         centered_layout.addWidget(booking_label)
 
-        close_button = QPushButton("Close")
-        close_button.setStyleSheet("""
+        change_booking_button = QPushButton("Change Booking")
+        change_booking_button.setStyleSheet("""
             QPushButton {
                 background-color: #2B1C19;
                 color: white;
                 font-size: 16px;
                 font-weight: bold;
                 padding: 10px;
+                border-radius: 10px;
             }
             QPushButton:hover {
                 background-color: #E5D5C3;
@@ -70,22 +71,26 @@ class BookingDetailsWindow(QWidget):
             }
         """)
 
-        back_button = QPushButton("Back")
-        back_button.setStyleSheet("""
+        change_booking_button.clicked.connect(self.change_booking)
+        centered_layout.addWidget(change_booking_button)
+
+        cancel_booking_button = QPushButton("Cancel Booking")
+        cancel_booking_button.setStyleSheet("""
             QPushButton {
                 background-color: #2B1C19;
                 color: white;
                 font-size: 16px;
                 font-weight: bold;
                 padding: 10px;
+                border-radius: 10px;
             }
             QPushButton:hover {
                 background-color: #E5D5C3;
                 color: black;
             }
         """)
-        back_button.clicked.connect(self.back_to_main)
-        centered_layout.addWidget(back_button)
+        cancel_booking_button.clicked.connect(self.cancel_booking)
+        centered_layout.addWidget(cancel_booking_button)
 
         # add the centered frame to the main layout
         center_container = QHBoxLayout()
@@ -94,11 +99,46 @@ class BookingDetailsWindow(QWidget):
         center_container.addStretch()
         main_layout.addLayout(center_container)
 
-        # spacer item AGAIN to push the centered_frame to the middle
+        # spacer item to push the centered_frame to the middle
         spacer_bottom = QSpacerItem(20, 100, QSizePolicy.Minimum, QSizePolicy.Expanding)
         main_layout.addItem(spacer_bottom)
 
         self.setLayout(main_layout)
 
+        # adding "back" button to the bottom right corner
+        bottom_layout = QHBoxLayout()
+        bottom_layout.addStretch()
+        back_button = QPushButton("Back")
+        back_button.setStyleSheet("""
+            QPushButton {
+                background-color: #2B1C19;
+                color: white;
+                font-size: 16px;
+                font-weight: bold;
+                border-radius: 5px;
+                padding: 10px;
+            }
+            QPushButton:hover {
+                background-color: #E5D5C3;
+                color: black;
+            }
+        """)
+        back_button.clicked.connect(self.back_to_main)
+        bottom_layout.addWidget(back_button)
+        main_layout.addStretch()
+
+        main_layout.addLayout(bottom_layout)
+
     def back_to_main(self):
         self.controller.show_view("main")
+
+    def change_booking(self):
+        from views.ChangeBooking import ChangeBooking
+        self.change_booking_window = ChangeBooking(self.controller)
+        self.controller.add_view(self.change_booking_window, "change_booking")
+        self.controller.show_view("change_booking")
+
+    def cancel_booking(self):
+        from views.CancelBookingDialog import CancelBookingDialog  # Ensure the import matches the actual class name
+        dialog = CancelBookingDialog(self, self.controller)
+        dialog.exec_()
