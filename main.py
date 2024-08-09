@@ -1,19 +1,21 @@
+# main.py
 import sys
 from PyQt5.QtWidgets import QApplication
-#, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QDateEdit, QComboBox, QPushButton, QMainWindow, QMenu, QAction, QSizePolicy, QSpacerItem, QLineEdit
-#from PyQt5.QtGui import QPixmap, QFont, QIcon
-#from PyQt5.QtCore import Qt, QDate, QPoint
-#from functools import partial
-from mainWindow import MainWindow
+from views.Page_1_mainWindow import MainWindow
+from qasync import QEventLoop
+import asyncio
 
 class main():
     def __init__(self):
         self.app = QApplication(sys.argv)
+        self.loop = QEventLoop(self.app)
+        asyncio.set_event_loop(self.loop)
         self.window = MainWindow()
 
     def run(self):
         self.window.show()
-        sys.exit(self.app.exec_())
+        with self.loop:
+            self.loop.run_forever()
 
 if __name__ == "__main__":
     main_app = main()
