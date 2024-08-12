@@ -14,7 +14,7 @@ import asyncio
 class CheckBookingWindow(QWidget):
     def __init__(self, controller):
         super().__init__()
-        self.controller = controller  # Added controller
+        self.controller = controller  # added controller
         self.setWindowTitle("Check your reservation")
         self.setGeometry(100, 100, 800, 600)
 
@@ -25,15 +25,13 @@ class CheckBookingWindow(QWidget):
         self.background_label.setGeometry(0, 0, 800, 600)
         
         main_layout = QVBoxLayout()
-        main_layout.setContentsMargins(0, 0, 0, 0)  # No margins
-        main_layout.setSpacing(0)  # No spacing between widgets
+        main_layout.setContentsMargins(0, 0, 0, 0)  
+        main_layout.setSpacing(0)  
         self.setLayout(main_layout)
 
-        # spacer item to push the centered_frame to the middle
         spacer_top = QSpacerItem(20, 150, QSizePolicy.Minimum, QSizePolicy.Expanding)
         main_layout.addItem(spacer_top)
 
-        # centered frame
         centered_frame = QFrame(self)
         centered_frame.setStyleSheet("background-color: #E5D5C3; border-radius: 10px;")
         centered_frame.setFixedSize(400, 150)
@@ -42,7 +40,7 @@ class CheckBookingWindow(QWidget):
 
         title = QLabel("Input your Confirmation Number: ")
         title.setAlignment(Qt.AlignCenter)
-        title.setStyleSheet("font-size: 16px; color: white;")
+        title.setStyleSheet("font-size: 16px; color: black;")
         centered_layout.addWidget(title)
 
         self.confirmation_input = QLineEdit(self)
