@@ -9,11 +9,14 @@ from PyQt5.QtCore import Qt
 class BookingDetailsWindow(QWidget):
     def __init__(self, reservation, customer, room, roomType, controller):
         super().__init__()
-        self.controller = controller  # Added controller
+        self.controller = controller  # added controller
+        self.reservation = reservation
+        self.customer = customer
+        self.room = room
+        self.roomType = roomType
         self.setWindowTitle("Booking Details")
         self.setGeometry(100, 100, 800, 600)
         
-        # set up the background pic
         self.background_label = QLabel(self)
         self.background_label.setPixmap(QPixmap("resources/lobby.jpg"))
         self.background_label.setScaledContents(True)
@@ -21,11 +24,9 @@ class BookingDetailsWindow(QWidget):
 
         main_layout = QVBoxLayout()
 
-        # spacer item to push the centered_frame to the middle
         spacer_top = QSpacerItem(20, 150, QSizePolicy.Minimum, QSizePolicy.Expanding)
         main_layout.addItem(spacer_top)
 
-        # centered frame to hold the booking details and buttons
         centered_frame = QFrame(self)
         centered_frame.setStyleSheet("background-color: #E5D5C3; border-radius: 10px;")
         centered_frame.setFixedSize(500, 250)
@@ -35,7 +36,6 @@ class BookingDetailsWindow(QWidget):
         checkIn_time = time(15, 0)
         checkOut_time = time(13, 0)
         
-        # Convert ISODate strings to datetime objects and adjust time
         checkIn = datetime.fromisoformat(str(reservation['checkIn'])).replace(hour=checkIn_time.hour, minute=checkIn_time.minute)
         checkOut = datetime.fromisoformat(str(reservation['checkOut'])).replace(hour=checkOut_time.hour, minute=checkOut_time.minute)
 
@@ -92,20 +92,17 @@ class BookingDetailsWindow(QWidget):
         cancel_booking_button.clicked.connect(self.cancel_booking)
         centered_layout.addWidget(cancel_booking_button)
 
-        # add the centered frame to the main layout
         center_container = QHBoxLayout()
         center_container.addStretch()
         center_container.addWidget(centered_frame)
         center_container.addStretch()
         main_layout.addLayout(center_container)
 
-        # spacer item to push the centered_frame to the middle
         spacer_bottom = QSpacerItem(20, 100, QSizePolicy.Minimum, QSizePolicy.Expanding)
         main_layout.addItem(spacer_bottom)
 
         self.setLayout(main_layout)
 
-        # adding "back" button to the bottom right corner
         bottom_layout = QHBoxLayout()
         bottom_layout.addStretch()
         back_button = QPushButton("Back")
@@ -133,8 +130,8 @@ class BookingDetailsWindow(QWidget):
         self.controller.show_view("main")
 
     def change_booking(self):
-        from views.ChangeBooking import ChangeBooking
-        self.change_booking_window = ChangeBooking(self.controller)
+        from views.ChangeBooking import ChangeBookingWindow
+        self.change_booking_window = ChangeBookingWindow(self.reservation, self.customer, self.roomType, self.controller)
         self.controller.add_view(self.change_booking_window, "change_booking")
         self.controller.show_view("change_booking")
 
