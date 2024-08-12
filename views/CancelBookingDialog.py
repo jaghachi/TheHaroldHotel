@@ -12,7 +12,7 @@ class CancelBookingDialog(QDialog):
         self.controller = controller
 
         self.setWindowTitle("Cancel Booking")
-        self.setFixedSize(400, 150)
+        self.setFixedSize(400, 200)
         self.setStyleSheet("background-color: #E5D5C3;")
 
         layout = QVBoxLayout()
