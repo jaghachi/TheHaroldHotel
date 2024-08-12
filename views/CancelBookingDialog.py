@@ -42,12 +42,9 @@ class CancelBookingDialog(QDialog):
                 color: black;
             }
         """)
-        #confirming the cancel
         yes_button.clicked.connect(self.confirm_cancel)
-        # add the button to the button layout
         buttons_layout.addWidget(yes_button)
 
-        # no button
         no_button = QPushButton("No")
         no_button.setStyleSheet("""
             QPushButton {
@@ -62,7 +59,6 @@ class CancelBookingDialog(QDialog):
                 color: black;
             }
         """)
-        # the dialog will close 
         no_button.clicked.connect(self.reject)  
         buttons_layout.addWidget(no_button)
 
@@ -71,7 +67,6 @@ class CancelBookingDialog(QDialog):
         self.setLayout(layout)
         self.center_dialog()
 
-    # the dialog appears in the middle of the parent window
     def center_dialog(self):
         parent_rect = self.booking_details_window.geometry()
         dialog_rect = self.geometry()
@@ -81,7 +76,6 @@ class CancelBookingDialog(QDialog):
     def confirm_cancel(self):
         # Placeholder for canceling the booking in the database
         print("Booking canceled. Placeholder for database operation.")
-        self.accept()  # Close the dialog
-
-        # After canceling, go back to the main window or any other appropriate window
+        
+        self.close()
         self.controller.show_view("main")
