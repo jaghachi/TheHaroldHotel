@@ -20,6 +20,8 @@ class BookingWindow(QWidget):
         self.background_label.setPixmap(QPixmap("resources/lobby.jpg"))
         self.background_label.setScaledContents(True)
         self.background_label.setGeometry(0, 0, 800, 600)
+        
+
 
         # main layout
         main_layout = QVBoxLayout()
