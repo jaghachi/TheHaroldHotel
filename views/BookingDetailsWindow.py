@@ -6,6 +6,8 @@ from datetime import datetime, time
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QFrame, QHBoxLayout, QSizePolicy, QSpacerItem
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
+from views.CancelBookingDialog import CancelBookingDialog
+
 class BookingDetailsWindow(QWidget):
     def __init__(self, reservation, customer, room, roomType, controller):
         super().__init__()
@@ -130,12 +132,11 @@ class BookingDetailsWindow(QWidget):
         self.controller.show_view("main")
 
     def change_booking(self):
-        from views.ChangeBooking import ChangeBookingWindow
-        self.change_booking_window = ChangeBookingWindow(self.reservation, self.customer, self.roomType, self.controller)
+        #from views.ChangeBookingWindow import ChangeBookingWindow
+        self = self(self.reservation, self.customer, self.roomType, self.controller)
         self.controller.add_view(self.change_booking_window, "change_booking")
         self.controller.show_view("change_booking")
 
     def cancel_booking(self):
-        from views.CancelBookingDialog import CancelBookingDialog  # Ensure the import matches the actual class name
         dialog = CancelBookingDialog(self, self.controller)
         dialog.exec_()
