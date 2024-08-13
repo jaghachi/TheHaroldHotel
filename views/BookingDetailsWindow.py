@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QFrame, Q
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 from views.CancelBookingDialog import CancelBookingDialog
+from views.ChangeBookingWindow import ChangeBookingWindow
 
 class BookingDetailsWindow(QWidget):
     def __init__(self, reservation, customer, room, roomType, controller):
@@ -132,9 +133,8 @@ class BookingDetailsWindow(QWidget):
         self.controller.show_view("main")
 
     def change_booking(self):
-        #from views.ChangeBookingWindow import ChangeBookingWindow
-        self = self(self.reservation, self.customer, self.roomType, self.controller)
-        self.controller.add_view(self.change_booking_window, "change_booking")
+        change_booking_window = ChangeBookingWindow(self.reservation, self.customer, self.roomType, self.controller)
+        self.controller.add_view(change_booking_window, "change_booking")
         self.controller.show_view("change_booking")
 
     def cancel_booking(self):
