@@ -1,11 +1,29 @@
-"""""
-main window -> check booking -> bookng details window -> cancel booking
-a pop-up dialogue that asks the user to confirm the cancelation
-"""""
+# main window -> check booking -> cancel booking
+"""
+class: CancelBookingDialog
+most recent update: 8/13/2024
+programmers: Mariia Kim
+
+Description:
+The CancelBookingDialog class is a confirmation dialog that appears when the user selects the option to cancel a booking from the CheckBookingWindow. 
+It prompts the user with a message asking if they are sure they want to cancel their booking, providing 'Yes' and 'No' options.
+"""
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout
 from PyQt5.QtCore import Qt
 
 class CancelBookingDialog(QDialog):
+    """
+    If the user confirms the cancellation, the booking is canceled (in the actual implementation, this would involve interacting with the database), 
+    and a confirmation dialog (BookingCanceledDialog) is shown. If the user selects 'No,' the dialog simply closes without any further action.
+
+    Attributes:
+        booking_details_window (QWidget): The parent window from which the cancellation dialog is opened.
+        controller (ViewController): Manages view transitions and interactions with other views.
+
+    Methods:
+        center_dialog(): Centers the dialog on the parent window.
+        confirm_cancel(): Handles the booking cancellation logic and opens the BookingCanceledDialog.
+    """
     def __init__(self, booking_details_window, controller):
         super().__init__()
         self.booking_details_window = booking_details_window
