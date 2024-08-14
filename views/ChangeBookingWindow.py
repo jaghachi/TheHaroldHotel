@@ -1,8 +1,41 @@
+# main window -> check booking -> change booking
+"""
+class: ChangeBookingWindow
+most recent update: 8/13/2024
+programmers: Mariia Kim
+
+Description:
+The ChangeBookingWindow class allows users to modify their existing booking details. 
+This window is opened from the CheckBookingWindow and provides an interface for users 
+to change their room type, check-in and check-out dates, and the number of guests. 
+This window is opened from the CheckBookingWindow and provides an interface for users 
+to change their room type, check-in and check-out dates, and the number of guests.
+"""
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QDateEdit, QComboBox, QPushButton, QFrame, QHBoxLayout, QSizePolicy, QSpacerItem, QMessageBox
 from PyQt5.QtCore import Qt, QDate
 from PyQt5.QtGui import QPixmap
+import pydoc
 
 class ChangeBookingWindow(QWidget):
+    """
+    Once the user submits their changes, the updates are processed and the user is returned 
+    to the booking details view with a confirmation message indicating that the changes were successfully submitted.
+
+    Attributes:
+        controller (ViewController): Manages view transitions and interactions with other views.
+        reservation (dict): Contains the current reservation details.
+        customer (dict): Contains the customer's information.
+        roomType (dict): Contains the current room type information.
+        room_type_combo (QComboBox): Drop-down list for selecting the new room type.
+        checkin_date (QDateEdit): Widget for selecting the new check-in date.
+        checkout_date (QDateEdit): Widget for selecting the new check-out date.
+        guests_combo (QComboBox): Drop-down list for selecting the new number of guests.
+
+    Methods:
+        back_to_booking_details(): Navigates back to the BookingDetailsWindow.
+        submit_changes(): Handles the submission of the updated booking details and shows a confirmation dialog.
+        show_confirmation_dialog(): Displays a confirmation message indicating that the booking changes were successfully submitted.
+    """
     def __init__(self, reservation, customer, roomType, controller):
         super().__init__()
         self.controller = controller
