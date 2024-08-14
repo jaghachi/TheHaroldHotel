@@ -10,6 +10,7 @@ It prompts the user with a message asking if they are sure they want to cancel t
 """
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout
 from PyQt5.QtCore import Qt
+import pydoc
 
 class CancelBookingDialog(QDialog):
     """
