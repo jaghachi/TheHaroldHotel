@@ -1,13 +1,52 @@
+"""
+class: dataBase
+most recent update: 8/13/2024 (commenting)
+
+
+Description: dataBase class that manages interactions with a MongoDB database using the asynchronous Motor library.
+"""
+
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.server_api import ServerApi
 from datetime import datetime
+import pydoc
 
 class dataBase:
+    """
+    A class to handle asynchronous operations with a MongoDB database.
+
+    Attributes:
+    -----------
+    client : AsyncIOMotorClient
+        The MongoDB client for database connection.
+    db : AsyncIOMotorClient
+        The specific database within MongoDB to interact with.
+
+    Methods:
+    --------
+    ping_server() -> None:
+        Pings the MongoDB server to check the connection.
+    get_database() -> AsyncIOMotorClient:
+        Retrieves the database object for performing operations.
+    insert_customer(newCustomer: Customer) -> None:
+        Inserts a new customer into the 'customers' collection.
+    insert_reservation(room: dict, newCustomer: Customer, newReservation: Reservation) -> str:
+        Inserts a new reservation into the 'reservations' collection and returns a confirmation number.
+    """
     def __init__(self):
+        """
+        Initializes the dataBase object with default MongoDB client and database.
+        """
         self.client = AsyncIOMotorClient()
         self.db = AsyncIOMotorClient()
 
     async def ping_server(self):
+        """
+        Pings the MongoDB server to verify a successful connection.
+
+        This method attempts to connect to the MongoDB server using the provided URI and sends a ping command.
+        If the connection is successful, a message is printed. Otherwise, an error message is displayed.
+        """
         # Replace the placeholder with your connection string
         uri = "mongodb://haroldAdmin:schoolProj@54.219.171.191:27017/theharoldhoteldb?authSource=admin"
         # Set the Stable API version when creating a new client
@@ -22,13 +61,30 @@ class dataBase:
             self.client.close()
     
     async def get_database(self):
+        """
+        Retrieves the MongoDB database object for performing operations.
+
+        Connects to the MongoDB server using the provided URI and returns the specified database.
+        
+        Returns:
+        --------
+        AsyncIOMotorClient
+            The database object to interact with.
+        """
         uri = "mongodb://haroldAdmin:schoolProj@54.219.171.191:27017/theharoldhoteldb?authSource=admin"
         self.client = AsyncIOMotorClient(uri, server_api=ServerApi('1'))
         self.db = self.client.theharoldhoteldb
         return self.db
     
     async def insert_customer(self, newCustomer):
-        
+        """
+        Inserts a new customer into the 'customers' collection in the database.
+
+        Parameters:
+        -----------
+        newCustomer : Customer
+            The customer object containing the details to be inserted.
+        """   
         db = await self.get_database()
 
         customers = db['customers']
@@ -41,7 +97,26 @@ class dataBase:
         print(f"inserted - {newCustomer.name}" )
     
     async def insert_reservation(self, room, newCustomer, newReservation):
-        
+        """
+        Inserts a new reservation into the 'reservations' collection in the database.
+
+        Generates a unique reservation number and inserts the reservation details, linking the reservation
+        to the corresponding customer and room.
+
+        Parameters:
+        -----------
+        room : dict
+            The room details for the reservation.
+        newCustomer : Customer
+            The customer making the reservation.
+        newReservation : Reservation
+            The reservation details.
+
+        Returns:
+        --------
+        str
+            The confirmation number of the new reservation.
+        """     
         db = await self.get_database()
         
         # Generate a unique reservation number
