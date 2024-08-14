@@ -1,12 +1,53 @@
-# mainwindow.py
+# Main Window
+""""
+class: MainWindow
+most recent update: 8/8/2024
+programmers: Mariia Kim, Harold Flint
+
+Description:
+The MainWindow class serves as the central hub of the application, providing access 
+to the booking and room management features. It displays the main menu with options 
+to book a room, check a booking, and view room or hotel information.
+
+"""""
+
 from PyQt5.QtWidgets import QMainWindow, QLabel, QMenu, QAction, QWidget, QVBoxLayout, QHBoxLayout
 from PyQt5.QtGui import QPixmap, QFont
 from PyQt5.QtCore import Qt, QPoint
 from views.viewController import ViewController
 from views.Page_2_BookingWindow import BookingWindow
 from views.CheckBookingWindow import CheckBookingWindow
+import pydoc
 
 class MainWindow(QMainWindow):
+    """""
+        The class handles navigation between different views using a ViewController. It also 
+        manages the main interface elements, such as the background, logo, and menu.
+
+    Attributes:
+        controller (ViewController): Handles view management and navigation.
+        main_view (QWidget): The main display area of the window.
+        main_layout (QVBoxLayout): Layout manager for the main view.
+        booking_view (BookingWindow): The view for booking a room.
+        check_booking_view (CheckBookingWindow): The view for checking existing bookings.
+        background_label (QLabel): Displays the background image of the main window.
+        white_line (QLabel): A decorative line in the main window.
+        logo_label (QLabel): Displays the hotel logo at the center of the window.
+        text_label1 (QLabel): Label for the "Booking" option.
+        text_label2 (QLabel): Label for the "Rooms" option.
+        text_label3 (QLabel): Label for the "Info" option.
+        menu (QMenu): Drop-down menu for booking options.
+        book_room_action (QAction): Action to navigate to the "Book a room" view.
+        check_booking_action (QAction): Action to navigate to the "Check your booking" view.
+
+    Methods:
+        setup_main_view(): Configures the main window's visual elements and layout.
+        resizeEvent(event): Adjusts the background and other elements when the window is resized.
+        adjust_images(): Rescales and repositions images and labels based on window size.
+        eventFilter(source, event): Handles the event filtering for the menu.
+        open_booking_view(): Navigates to the booking view.
+        open_check_booking_view(): Navigates to the check booking view.
+    """""
     def __init__(self):
         super().__init__()
         self.setWindowTitle("The Harold Hotel")
