@@ -1,10 +1,33 @@
+# main window -> check booking -> cancel booking -> booking canceled
+"""
+class: BookingCanceledDialog
+most recent update: 8/12/2024
+programmers: Harold Flint
+
+Description:
+The BookingCanceledDialog class is a confirmation dialog that appears after a user successfully cancels their booking. 
+It provides a simple interface that informs the user that their booking has been canceled and offers a single "Close" 
+button to return to the main window.
+"""
 """""
 a confirmation window for canceling
 """""
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout
 from PyQt5.QtCore import Qt
+import pydoc
 
 class BookingCanceledDialog(QDialog):
+    """
+    This dialog is the final step in the booking cancellation process, ensuring the user receives feedback that the cancellation 
+    has been processed.
+
+    Attributes:
+        controller (ViewController): Manages view transitions and interactions with other views.
+
+    Methods:
+        close_dialog(): Closes the dialog and navigates back to the MainWindow.
+        center_dialog(): Centers the dialog on the parent window.   
+    """
     def __init__(self, controller):
         super().__init__()
         self.controller = controller
