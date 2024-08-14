@@ -1,12 +1,87 @@
+"""
+class: Room
+most recent update: 8/13/2024
+programmers: Janathan A and Macy V
+
+Description: "Room" class represents a hotel room with attributes such as room ID, price, capacity (number of persons it can accommodate), availability date, and booking details like check-in and check-out dates. 
+    The class provides methods to set and get these attributes. 
+
+"""
+
 from datetime import date
 from typing import List
+import pydoc
 
 #note about rooms:
 ##SUITE: persons 1-4, $200 per night
 ##DOUBLE: persons 1-4, $125 per night
 ##SINGLE: persons 1, $75 per night
 class Room:
+    """
+    A class to represent a hotel room with its details.
+
+    Attributes:
+    -----------
+    room_id : int
+        The unique identifier for the room.
+    price : int
+        The price of the room per night.
+    persons : int
+        The maximum number of persons the room can accommodate.
+    date_available_from : date
+        The date from which the room is available for booking.
+    booked_dates : list of date
+        A list of dates on which the room is already booked.
+    check_in : date or None
+        The check-in date for the current booking.
+    check_out : date or None
+        The check-out date for the current booking.
+
+    Methods:
+    --------
+    get_id() -> int:
+        Returns the unique ID of the room.
+    get_price() -> int:
+        Returns the price of the room per night.
+    get_persons() -> int:
+        Returns the maximum number of persons the room can accommodate.
+    get_date_available_from() -> date:
+        Returns the date from which the room is available for booking.
+    get_booked_dates() -> List[date]:
+        Returns the list of dates on which the room is booked.
+    set_id(room_id: int) -> None:
+        Sets the unique ID for the room.
+    set_price(price: int) -> None:
+        Sets the price of the room per night.
+    set_persons(persons: int) -> None:
+        Sets the maximum number of persons the room can accommodate.
+    set_date_available_from(date_available_from: date) -> None:
+        Sets the date from which the room is available for booking.
+    set_check_in(check_in: date) -> None:
+        Sets the check-in date for the current booking.
+    set_check_out(check_out: date) -> None:
+        Sets the check-out date for the current booking.
+    """
+
     def __init__(self, room_id: int, price: int, persons: int, date_available_from: date, check_in: date = None, check_out: date = None):
+        """
+        Initializes a Room object with the given details.
+
+        Parameters:
+        -----------
+        room_id : int
+            The unique identifier for the room.
+        price : int
+            The price of the room per night.
+        persons : int
+            The maximum number of persons the room can accommodate.
+        date_available_from : date
+            The date from which the room is available for booking.
+        check_in : date, optional
+            The check-in date for the current booking (default is None).
+        check_out : date, optional
+            The check-out date for the current booking (default is None).
+        """
         self.room_id = room_id #unique id for room
         self.price = price #price of room
         self.persons = persons #number of people who can fit in a room
