@@ -1,8 +1,31 @@
+# main window -> booking window -> booking rooms window -> room booking details window -> confirmation
+""""
+class: BookingConfirmationWindow
+most recent update: 8/12/2024
+programmers: Mariia Kim, Harold Flint
+
+Description:
+The BookingConfirmationWindow class is the final step in the booking process, opened from the RoomBookingDetailsWindow. 
+It displays the confirmation details of the booking, including room information, check-in/check-out dates, 
+number of guests, and the customer's name.
+"""
+
 from PyQt5.QtWidgets import QWidget, QVBoxLayout,QHBoxLayout, QLabel, QPushButton, QSpacerItem, QSizePolicy, QFrame
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
+import pydoc
 
 class BookingConfirmationWindow(QWidget):
+    """"
+    This window provides a summary of the completed booking and gives the user a confirmation number, 
+    along with a personalized message. The user can click "Done" to return to the main window.
+
+    Attributes:
+        controller (ViewController): Manages view transitions and interactions with other views.
+
+    Methods:
+        back_to_main(): Navigates back to the MainWindow after the booking is confirmed.
+    """
     def __init__(self, booked, controller):
         super().__init__()
         self.controller = controller  # Added controller
