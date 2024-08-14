@@ -1,17 +1,37 @@
-"""""
-main window -> check booking window
-the window allows the user to input their booking confirmation number to check their booking. The window will display an error message if the booking doesn't exist. 
-If the confirmation number exists, then the user will be brought to the next frame.
-"""""
+# main window -> check booking window
+"""
+class: CheckBookingWindow
+most recent update: 8/12/2024
+programmers: Mariia Kim, Harold Flint
 
+Description:
+The CheckBookingWindow class allows users to check the details of their reservation by entering a confirmation number. 
+It is opened from the MainWindow and provides an interface for users to input their confirmation number 
+and retrieve their booking details.
+"""
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QSpacerItem, QSizePolicy, QFrame, QHBoxLayout
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 from views.BookingDetailsWindow import BookingDetailsWindow
 from databaseFiles.databaseconnect import dataBase
 import asyncio
+import pydoc
 
 class CheckBookingWindow(QWidget):
+    """
+    If the confirmation number is valid, the user is redirected to the BookingDetailsWindow, 
+    where they can view the specifics of their reservation. The class also handles error messages 
+    if the confirmation number is not found.
+
+    Attributes:
+        controller (ViewController): Manages view transitions and interactions with other views.
+        confirmation_input (QLineEdit): Input field for the user to enter their confirmation number.
+        error_label (QLabel): Label for displaying error messages when the confirmation number is not found.
+
+    Methods:
+        check_booking(): Asynchronously checks the database for the entered confirmation number and transitions to the BookingDetailsWindow if found.
+        back_to_main(): Navigates back to the MainWindow.
+    """
     def __init__(self, controller):
         super().__init__()
         self.controller = controller  # added controller
