@@ -16,6 +16,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 from views.CancelBookingDialog import CancelBookingDialog
 from views.ChangeBookingWindow import ChangeBookingWindow
+import asyncio
 import pydoc
 
 class BookingDetailsWindow(QWidget):
@@ -119,7 +120,11 @@ class BookingDetailsWindow(QWidget):
             }
         """)
 
-        change_booking_button.clicked.connect(self.change_booking)
+        change_booking_button.clicked.connect(lambda: asyncio.ensure_future(
+            self.change_booking()))
+        
+        
+        
         centered_layout.addWidget(change_booking_button)
 
         cancel_booking_button = QPushButton("Cancel Booking")
@@ -178,7 +183,7 @@ class BookingDetailsWindow(QWidget):
         """Returns to the main window view."""
         self.controller.show_view("main")
 
-    def change_booking(self):
+    async def change_booking(self):
         """
         Opens a window to change the booking details.
 

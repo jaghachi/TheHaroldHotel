@@ -14,6 +14,9 @@ to change their room type, check-in and check-out dates, and the number of guest
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QDateEdit, QComboBox, QPushButton, QFrame, QHBoxLayout, QSizePolicy, QSpacerItem, QMessageBox
 from PyQt5.QtCore import Qt, QDate
 from PyQt5.QtGui import QPixmap
+from databaseFiles.databaseconnect import dataBase
+import asyncio
+
 import pydoc
 
 class ChangeBookingWindow(QWidget):
@@ -168,7 +171,10 @@ class ChangeBookingWindow(QWidget):
                 color: black;
             }
         """)
-        submit_button.clicked.connect(self.submit_changes)
+        submit_button.clicked.connect(lambda: asyncio.ensure_future(
+            self.submit_changes()))
+        
+        
         centered_layout.addWidget(submit_button)
 
         center_container = QHBoxLayout()
@@ -206,8 +212,18 @@ class ChangeBookingWindow(QWidget):
     def back_to_booking_details(self):
         self.controller.show_view("booking_details")
 
-    def submit_changes(self):
-        # Placeholder method for submitting the changes
+    async def submit_changes(self):
+        #create databaseconnection
+        db_instance = dataBase()
+        
+        reservation = self.reservation
+        roomType = self.room_type_combo.currentText()
+        checkIn = self.checkin_date.date()
+        checkOut = self.checkout_date.date()
+        adults = self.guests_combo.currentText()
+
+        await db_instance.change_reservation(reservation,roomType,checkIn,checkOut,adults)
+        
         print(f"Booking changes submitted:\nRoom Type: {self.room_type_combo.currentText()}, Check-in: {self.checkin_date.date().toString('yyyy-MM-dd')}, Check-out: {self.checkout_date.date().toString('yyyy-MM-dd')}, Guests: {self.guests_combo.currentText()}")
         self.controller.show_view("booking_details")
         self.show_confirmation_dialog()
