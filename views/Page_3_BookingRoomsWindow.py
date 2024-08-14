@@ -2,13 +2,39 @@
 The window that is opened from main window -> booking window.
 Lets the user overview the available room types, how many guests they can fit in.
 """
+# main window -> booking window -> booking rooms window
+"""
+class: BookingRoomsWindow
+most recent update: 8/8/2024
+programmers: Harold Flint
+
+Description:
+The BookingRoomsWindow class is opened from the MainWindow through the BookingWindow.
+It allows the user to overview the available room types, see how many guests each room can accommodate,
+and select a room for booking.
+"""
 from functools import partial
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QFrame, QPushButton, QSpacerItem, QSizePolicy
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 from views.Page_4_RoomBookingDetailsWindow import RoomBookingDetailsWindow
+import pydoc
 
 class BookingRoomsWindow(QWidget):
+    """""
+    This window presents the user with a selection of room options, including details such as room name, 
+    type, number of guests it can accommodate, and price per night. The user can then proceed to book a room 
+    or return to the previous booking window.
+
+    Attributes:
+        controller (ViewController): Manages view transitions and interactions with other views.
+        rooms (list): A list of dictionaries representing available room options, including name, type, capacity, price, and image.
+    
+    Methods:
+        back_to_booking(): Navigates back to the BookingWindow.
+        open_room_booking_details(room, newReservation, guests): Opens the RoomBookingDetailsWindow to finalize the booking details for the selected room.
+    """""
+
     def __init__(self, newReservation, guests, controller):
         super().__init__()
         self.controller = controller
