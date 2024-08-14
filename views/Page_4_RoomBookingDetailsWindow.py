@@ -2,6 +2,17 @@
 main window -> booking window -> booking room window -> room booking details
 the window shows all the details of the booking chose by the user: room type, number of guests, the dates. The window prompts user to enter their name and email.
 """""
+
+"""""
+class: RoomBookingDetailsWindow
+most recent update: 8/12/2024
+programmers: Mariia Kim
+
+Description:
+The RoomBookingDetailsWindow class is the final step in the booking process, 
+opened from the BookingRoomsWindow. It allows the user to review the selected room details, 
+enter their name and email for the booking, and confirm the reservation.
+"""""
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QLineEdit, QSpacerItem, QSizePolicy, QFrame
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
@@ -9,8 +20,23 @@ from classes.reservation import Reservation
 from classes.customer import Customer
 from views.Page_5_BookingConfirmationWindow import BookingConfirmationWindow
 import asyncio
+import pydoc
 
 class RoomBookingDetailsWindow(QWidget):
+    """""
+    This window provides the interface for users to input their personal information before finalizing 
+    their booking. It also handles the transition to the booking confirmation window upon successful booking.
+
+    Attributes:
+        controller (ViewController): Manages view transitions and interactions with other views.
+        name_input (QLineEdit): Input field for the user's name.
+        email_input (QLineEdit): Input field for the user's email.
+
+    Methods:
+        handle_booking(user_name, user_email, adults, room, newReservation): Asynchronously processes the booking details and transitions to the booking confirmation window.
+        open_booking_confirmation(newReservation): Opens the BookingConfirmationWindow to display the booking confirmation.
+        back_to_booking_rooms(): Navigates back to the BookingRoomsWindow.
+    """""
     def __init__(self, room, newReservation, adults, controller):
         super().__init__()
         self.controller = controller
