@@ -10,6 +10,8 @@ It prompts the user with a message asking if they are sure they want to cancel t
 """
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout
 from PyQt5.QtCore import Qt
+from databaseFiles.databaseconnect import dataBase
+import asyncio
 import pydoc
 
 class CancelBookingDialog(QDialog):
@@ -61,7 +63,9 @@ class CancelBookingDialog(QDialog):
                 color: black;
             }
         """)
-        yes_button.clicked.connect(self.confirm_cancel)
+        yes_button.clicked.connect(lambda: asyncio.ensure_future(
+            self.confirm_cancel()))
+        
         buttons_layout.addWidget(yes_button)
 
         no_button = QPushButton("No")
@@ -92,9 +96,14 @@ class CancelBookingDialog(QDialog):
         center_point = parent_rect.center() - dialog_rect.center()
         self.move(parent_rect.topLeft() + center_point)
 
-    def confirm_cancel(self):
-        # Placeholder for canceling the booking in the database
-        print("Booking canceled. Placeholder for database operation.")
+    async def confirm_cancel(self):
+        #create databaseconnection
+        db_instance = dataBase()
+        
+        await db_instance.cancel_reservation(self.booking_details_window.reservation)
+        
+        
+        print("Booking canceled.")
         
         self.close()
         self.controller.show_view("main")

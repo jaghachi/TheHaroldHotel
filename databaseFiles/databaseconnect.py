@@ -146,8 +146,57 @@ class dataBase:
         
         return reservation_number
         
+    async def change_reservation(self,reservation,roomTypeName,checkIn,checkOut,adults):
         
+        rooms = [
+            {"name": "Premiere Harold Single", "type": "Single", "sleeps": 1, "price": 75, "image": "resources/single.jpg"},
+            {"name": "Premiere Harold Double", "type": "Double", "sleeps": 4, "price": 125, "image": "resources/double.jpg"},
+            {"name": "Premiere Harold Suite", "type": "Suite", "sleeps": 4, "price": 200, "image": "resources/suite.jpeg"}
+        ]
+        
+        # Find the room by name
+        # refractor to better code later
+        room = next((room for room in rooms if room["name"] == roomTypeName), None)
+        
+        db = await self.get_database()
+        
+        # Fetch the reservation from db
+        reservation = await db['reservations'].find_one({"confirmationNumber": reservation['confirmationNumber']}) 
+        
+        roomType = await db['roomTypes'].find_one({"type": room["type"]})
+        
+        fRoom =  await db['rooms'].find_one({"typeId": roomType["_id"]})
+        
+        # Define the fields you want to update
+        update_fields = {
+            "$set": {
+                "persons": adults,
+                "roomId": fRoom["_id"], # type: ignore
+                "checkIn": datetime(checkIn.year(), checkIn.month(), checkIn.day()), # type: ignore
+                "checkOut": datetime(checkOut.year(), checkOut.month(), checkOut.day()) # type: ignore
+                
+            }
+        }
 
+        # Update the reservation
+        result = await db['reservations'].update_one({'_id': reservation['_id']}, update_fields)
+
+        # Check if the update was successful
+        if result.modified_count > 0:
+            print("Reservation successfully updated.")
+        else:
+            print("No Reservation was updated.")  
+    
+        return result  
+
+    async def cancel_reservation(self,reservation):
+        db = await self.get_database()
+        
+        # Cancel the reservation from db
+        await db['reservations'].delete_one({"_id": reservation['_id']})
+       
+ 
+        
         
 
         
