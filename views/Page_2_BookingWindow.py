@@ -1,14 +1,36 @@
-"""""
-the window the user opens from the MainWindow when clicking on "book a room"
-the window contains the check-in and check-out dates and the number of guests
+# main window -> booking window
+""""
+class: BookingWindow
+most recent update: 8/8/2024
+programmers: Mariia Kim
+
+Description:
+The BookingWindow class is opened from the MainWindow when the user selects "Book a room."
+It allows the user to select check-in and check-out dates, as well as the number of guests.
 """""
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QDateEdit, QComboBox, QPushButton, QSpacerItem, QSizePolicy, QFrame
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt, QDate
 from views.Page_3_BookingRoomsWindow import BookingRoomsWindow
 from classes.reservation import Reservation
+import pydoc
 
 class BookingWindow(QWidget):
+    """""
+        The class provides an interface for users to input their booking details before proceeding 
+        to the room selection process.
+
+    Attributes:
+        controller (ViewController): Manages view transitions and interactions with other views.
+        background_label (QLabel): Displays the background image for the booking window.
+        checkin_date (QDateEdit): Widget for selecting the check-in date.
+        checkout_date (QDateEdit): Widget for selecting the check-out date.
+        guests_combo (QComboBox): Drop-down menu for selecting the number of guests.
+
+    Methods:
+        open_booking_rooms_window(): Opens the next window (BookingRoomsWindow) for selecting rooms.
+        back_to_main(): Navigates back to the MainWindow.
+    """""
     def __init__(self, controller):
         super().__init__()
         self.controller = controller
