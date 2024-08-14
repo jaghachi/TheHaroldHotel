@@ -1,9 +1,51 @@
+"""
+class: initializeDatbase
+most recent update: 8/13/2024 (commenting)
+
+
+Description: It sets up collections for room types, rooms, customers, reservations, and room bookings.
+"""
+import pydoc
+
 import asyncio
 from datetime import datetime
 from databaseconnect import dataBase
 
 
 async def create_schema():
+    """
+    Creates and initializes the database schema for a hotel reservation system.
+
+    This function creates several collections in the MongoDB database, inserts initial data,
+    creates indexes, and purges dummy data. The collections created include room types, rooms,
+    customers, reservations, and room bookings.
+
+    Attributes:
+    -----------
+    db_instance : dataBase
+        An instance of the dataBase class to manage database connections and operations.
+    db : AsyncIOMotorClient
+        The MongoDB database object for performing operations.
+    
+    Collections:
+    ------------
+    roomTypes : collection
+        Stores information about different room types.
+    rooms : collection
+        Stores information about individual rooms.
+    customers : collection
+        Stores customer information.
+    reservations : collection
+        Stores reservation details.
+    roomBookings : collection
+        Stores booking details for specific rooms.
+
+    Methods:
+    --------
+    create_index(keys: list, **kwargs) -> str:
+        Creates an index on the specified keys in the collection.
+    """
+
     db_instance = dataBase()
     db = await db_instance.get_database()
     
@@ -94,6 +136,9 @@ async def create_schema():
     db_instance.client.close()
 
 async def main():
+    """
+    The main function that runs the schema creation asynchronously.
+    """
     await create_schema()
 
 asyncio.run(main())
