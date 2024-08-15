@@ -9,7 +9,7 @@ Description:
 The CancelBookingDialog class is a confirmation dialog that appears when the user selects the option to cancel a booking from the CheckBookingWindow. 
 It prompts the user with a message asking if they are sure they want to cancel their booking, providing 'Yes' and 'No' options.
 """
-from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QMessageBox
 from PyQt5.QtCore import Qt
 from databaseFiles.databaseconnect import dataBase
 import asyncio
@@ -107,4 +107,31 @@ class CancelBookingDialog(QDialog):
         print("Booking canceled.")
         
         self.close()
-        self.controller.show_view("main")
+        self.show_confirmation_dialog()
+
+    def show_confirmation_dialog(self):
+        confirmation_dialog = QMessageBox(self)
+        confirmation_dialog.setWindowTitle("Booking Canceled.")
+        confirmation_dialog.setText("Your booking have been successfully canceled.")
+        confirmation_dialog.setIcon(QMessageBox.Information)
+        confirmation_dialog.setStandardButtons(QMessageBox.Ok)
+        confirmation_dialog.setStyleSheet("""
+        QMessageBox {
+            background-color: #E5D5C3;
+            color: black;
+        }
+        QLabel {
+            color: black;
+        }
+        QPushButton {
+            background-color: #2B1C19;
+            color: white;
+        }
+        QPushButton:hover {
+            background-color: #E5D5C3;
+            color: black;
+        }
+    """)
+        confirmation_dialog.exec_()
+
+        self.controller.show_view("booking_details")
