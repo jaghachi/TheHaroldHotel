@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>views/CancelBookingDialog module &#8212; TheHaroldHotel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="views/ChangeBookingWindow module" href="ChangeBookingWindow.html" />
+    <link rel="prev" title="views/BookingDetailsWindow module" href="BookingDetailsWindow.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-views.CancelBookingDialog">
+<span id="views-cancelbookingdialog-module"></span><h1>views/CancelBookingDialog module<a class="headerlink" href="#module-views.CancelBookingDialog" title="Link to this heading">¶</a></h1>
+<p>class: CancelBookingDialog
+most recent update: 8/13/2024
+programmers: Mariia Kim</p>
+<p>Description:
+The CancelBookingDialog class is a confirmation dialog that appears when the user selects the option to cancel a booking from the CheckBookingWindow.
+It prompts the user with a message asking if they are sure they want to cancel their booking, providing ‘Yes’ and ‘No’ options.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="views.CancelBookingDialog.CancelBookingDialog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">views.CancelBookingDialog.</span></span><span class="sig-name descname"><span class="pre">CancelBookingDialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">booking_details_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/CancelBookingDialog.html#CancelBookingDialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.CancelBookingDialog.CancelBookingDialog" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QDialog</span></code></p>
+<p>If the user confirms the cancellation, the booking is canceled (in the actual implementation, this would involve interacting with the database),
+and a confirmation dialog (BookingCanceledDialog) is shown. If the user selects ‘No,’ the dialog simply closes without any further action.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.CancelBookingDialog.CancelBookingDialog.booking_details_window">
+<span class="sig-name descname"><span class="pre">booking_details_window</span></span><a class="headerlink" href="#views.CancelBookingDialog.CancelBookingDialog.booking_details_window" title="Link to this definition">¶</a></dt>
+<dd><p>The parent window from which the cancellation dialog is opened.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QWidget</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.CancelBookingDialog.CancelBookingDialog.controller">
+<span class="sig-name descname"><span class="pre">controller</span></span><a class="headerlink" href="#views.CancelBookingDialog.CancelBookingDialog.controller" title="Link to this definition">¶</a></dt>
+<dd><p>Manages view transitions and interactions with other views.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="viewController.html#views.viewController.ViewController" title="views.viewController.ViewController">ViewController</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="views.CancelBookingDialog.CancelBookingDialog.center_dialog">
+<span class="sig-name descname"><span class="pre">center_dialog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/CancelBookingDialog.html#CancelBookingDialog.center_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.CancelBookingDialog.CancelBookingDialog.center_dialog" title="Link to this definition">¶</a></dt>
+<dd><p>Centers the dialog on the parent window.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="views.CancelBookingDialog.CancelBookingDialog.confirm_cancel">
+<span class="sig-name descname"><span class="pre">confirm_cancel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/CancelBookingDialog.html#CancelBookingDialog.confirm_cancel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.CancelBookingDialog.CancelBookingDialog.confirm_cancel" title="Link to this definition">¶</a></dt>
+<dd><p>Handles the booking cancellation logic and opens the BookingCanceledDialog.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">center_dialog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/CancelBookingDialog.html#CancelBookingDialog.center_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id1">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">confirm_cancel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/CancelBookingDialog.html#CancelBookingDialog.confirm_cancel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">TheHaroldHotel</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../modules.html">TheHaroldHotel</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/customer.html">classes/customer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/reservation.html">classes/reservation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/room.html">classes/room module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../databaseFiles/databaseconnect.html">databaseFiles/databaseconnect module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../databaseFiles/initializeDatabase.html">databaseFiles/initializeDatabase module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BookingCanceledDialog.html">views/BookingCanceledDialog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BookingDetailsWindow.html">views/BookingDetailsWindow module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">views/CancelBookingDialog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ChangeBookingWindow.html">views/ChangeBookingWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CheckBookingWindow.html">views/CheckBookingWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Page_1_mainWindow.html">views/Page_1_mainWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Page_2_BookingWindow.html">views/Page_2_BookingWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Page_3_BookingRoomsWindow.html">views/Page_3_BookingRoomsWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Page_4_RoomBookingDetailsWindow.html">views/Page_4_RoomBookingDetailsWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Page_5_BookingConfirmationWindow.html">views/Page_5_BookingConfirmationWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="viewController.html">views/viewController module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../modules.html">TheHaroldHotel</a><ul>
+      <li>Previous: <a href="BookingDetailsWindow.html" title="previous chapter">views/BookingDetailsWindow module</a></li>
+      <li>Next: <a href="ChangeBookingWindow.html" title="next chapter">views/ChangeBookingWindow module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Harold Flint, Mariia Kim, Macy Varga, Jonathan Aghachi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/views/CancelBookingDialog.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>classes/reservation module &#8212; TheHaroldHotel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="classes/room module" href="room.html" />
+    <link rel="prev" title="classes/customer module" href="customer.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-classes.reservation">
+<span id="classes-reservation-module"></span><h1>classes/reservation module<a class="headerlink" href="#module-classes.reservation" title="Link to this heading">¶</a></h1>
+<p>class: Reservation
+most recent update: 8/13/2024
+programmers: Janathan A and Macy V</p>
+<p>Description:
+“Reservation” class anages reservation details for a customer.</p>
+<blockquote>
+<div><p>The class includes attributes for storing customer information, room details, and reservation-specific data like confirmation number, check-in, and check-out dates.
+The class also provides methods for setting and retrieving these attributes, modifying or canceling reservations, and handling the reservation process with a database connection using asynchronous operations.</p>
+</div></blockquote>
+<dl class="py class">
+<dt class="sig sig-object py" id="classes.reservation.Reservation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">classes.reservation.</span></span><span class="sig-name descname"><span class="pre">Reservation</span></span><a class="reference internal" href="../_modules/classes/reservation.html#Reservation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#classes.reservation.Reservation" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class to manage the reservation details for a customer.</p>
+<section id="attributes">
+<h2>Attributes:<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>customer<span class="classifier">Customer</span></dt><dd><p>The customer associated with the reservation.</p>
+</dd>
+<dt>roomName<span class="classifier">str</span></dt><dd><p>The name of the room reserved.</p>
+</dd>
+<dt>confirmationNumber<span class="classifier">str</span></dt><dd><p>The confirmation number for the reservation.</p>
+</dd>
+<dt>persons<span class="classifier">int</span></dt><dd><p>The number of persons included in the reservation.</p>
+</dd>
+<dt>checkIn<span class="classifier">datetime or None</span></dt><dd><p>The check-in date for the reservation.</p>
+</dd>
+<dt>checkOut<span class="classifier">datetime or None</span></dt><dd><p>The check-out date for the reservation.</p>
+</dd>
+</dl>
+</section>
+<section id="methods">
+<h2>Methods:<a class="headerlink" href="#methods" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>setCustomer(customer: Customer) -&gt; None:</dt><dd><p>Sets the customer for the reservation.</p>
+</dd>
+<dt>getCustomer() -&gt; Customer:</dt><dd><p>Returns the customer associated with the reservation.</p>
+</dd>
+<dt>setConfirmation(confirmationNumber: str) -&gt; None:</dt><dd><p>Sets the confirmation number for the reservation.</p>
+</dd>
+<dt>getConfirmation() -&gt; str:</dt><dd><p>Returns the confirmation number of the reservation.</p>
+</dd>
+<dt>setRoomName(roomName: str) -&gt; None:</dt><dd><p>Sets the name of the room for the reservation.</p>
+</dd>
+<dt>getRoomName() -&gt; str:</dt><dd><p>Returns the name of the room reserved.</p>
+</dd>
+<dt>getEmail() -&gt; str:</dt><dd><p>Returns the email address of the customer associated with the reservation.</p>
+</dd>
+<dt>getPrice() -&gt; int:</dt><dd><p>Returns the price of the reservation (placeholder, returns 0).</p>
+</dd>
+<dt>setPersons(persons: int) -&gt; None:</dt><dd><p>Sets the number of persons for the reservation.</p>
+</dd>
+<dt>modifyReservation(confirmationNumber: str) -&gt; None:</dt><dd><p>Modifies the reservation based on the provided confirmation number.</p>
+</dd>
+<dt>cancelReservation(confirmationNumber: str) -&gt; None:</dt><dd><p>Cancels the reservation based on the provided confirmation number.</p>
+</dd>
+<dt>reserveRoom(room: dict, newCustomer: Customer, newReservation: dict) -&gt; Reservation:</dt><dd><p>Asynchronously reserves a room by inserting customer and reservation details into the database.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="classes.reservation.Reservation.cancelReservation">
+<span class="sig-name descname"><span class="pre">cancelReservation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">confirmationNumber</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/classes/reservation.html#Reservation.cancelReservation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#classes.reservation.Reservation.cancelReservation" title="Link to this definition">¶</a></dt>
+<dd><p>Cancels the reservation based on the provided confirmation number.</p>
+<section id="parameters">
+<h3>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>confirmationNumber<span class="classifier">str</span></dt><dd><p>The confirmation number of the reservation to be canceled.</p>
+</dd>
+</dl>
+</section>
+<section id="note">
+<h3>Note:<a class="headerlink" href="#note" title="Link to this heading">¶</a></h3>
+<p>This method is a placeholder for the logic to cancel a reservation.</p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="classes.reservation.Reservation.getConfirmation">
+<span class="sig-name descname"><span class="pre">getConfirmation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/classes/reservation.html#Reservation.getConfirmation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#classes.reservation.Reservation.getConfirmation" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the confirmation number of the reservation.</p>
+<section id="returns">
+<h3>Returns:<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>str</dt><dd><p>The confirmation number of the reservation.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="classes.reservation.Reservation.getCustomer">
+<span class="sig-name descname"><span class="pre">getCustomer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="customer.html#classes.customer.Customer" title="classes.customer.Customer"><span class="pre">Customer</span></a></span></span><a class="reference internal" href="../_modules/classes/reservation.html#Reservation.getCustomer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#classes.reservation.Reservation.getCustomer" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the customer associated with the reservation.</p>
+<section id="id1">
+<h3>Returns:<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>Customer</dt><dd><p>The customer object associated with the reservation.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="classes.reservation.Reservation.getEmail">
+<span class="sig-name descname"><span class="pre">getEmail</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/classes/reservation.html#Reservation.getEmail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#classes.reservation.Reservation.getEmail" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the email address of the customer associated with the reservation.</p>
+<section id="id2">
+<h3>Returns:<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>str</dt><dd><p>The email address of the customer.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="classes.reservation.Reservation.getPrice">
+<span class="sig-name descname"><span class="pre">getPrice</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/classes/reservation.html#Reservation.getPrice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#classes.reservation.Reservation.getPrice" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the price of the reservation.</p>
+<section id="id3">
+<h3>Note:<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>This method is a placeholder and should be implemented with the actual logic for calculating the reservation price.</p>
+</section>
+<section id="id4">
+<h3>Returns:<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>int</dt><dd><p>The price of the reservation (currently returns 0).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="classes.reservation.Reservation.getRoomName">
+<span class="sig-name descname"><span class="pre">getRoomName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/classes/reservation.html#Reservation.getRoomName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#classes.reservation.Reservation.getRoomName" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the name of the room reserved.</p>
+<section id="id5">
+<h3>Returns:<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>str</dt><dd><p>The name of the room reserved.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="classes.reservation.Reservation.modifyReservation">
+<span class="sig-name descname"><span class="pre">modifyReservation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">confirmationNumber</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/classes/reservation.html#Reservation.modifyReservation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#classes.reservation.Reservation.modifyReservation" title="Link to this definition">¶</a></dt>
+<dd><p>Modifies the reservation based on the provided confirmation number.</p>
+<section id="id6">
+<h3>Parameters:<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>confirmationNumber<span class="classifier">str</span></dt><dd><p>The confirmation number to be used for modifying the reservation.</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h3>Note:<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<p>This method is a placeholder for the logic to change or cancel a reservation.</p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="classes.reservation.Reservation.reserveRoom">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reserveRoom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">room</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newCustomer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newReservation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/classes/reservation.html#Reservation.reserveRoom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#classes.reservation.Reservation.reserveRoom" title="Link to this definition">¶</a></dt>
+<dd><p>Asynchronously reserves a room by creating a database connection, inserting customer and reservation details.</p>
+<section id="id8">
+<h3>Parameters:<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>room<span class="classifier">dict</span></dt><dd><p>The room details to be reserved.</p>
+</dd>
+<dt>newCustomer<span class="classifier">Customer</span></dt><dd><p>The customer making the reservation.</p>
+</dd>
+<dt>newReservation<span class="classifier">dict</span></dt><dd><p>The reservation details.</p>
+</dd>
+</dl>
+</section>
+<section id="id9">
+<h3>Returns:<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>Reservation</dt><dd><p>The updated Reservation object after the room has been reserved.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="classes.reservation.Reservation.setConfirmation">
+<span class="sig-name descname"><span class="pre">setConfirmation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">confirmationNumber</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/classes/reservation.html#Reservation.setConfirmation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#classes.reservation.Reservation.setConfirmation" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the confirmation number for the reservation.</p>
+<section id="id10">
+<h3>Parameters:<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>confirmationNumber<span class="classifier">str</span></dt><dd><p>The confirmation number to be assigned to the reservation.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="classes.reservation.Reservation.setCustomer">
+<span class="sig-name descname"><span class="pre">setCustomer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">customer</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/classes/reservation.html#Reservation.setCustomer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#classes.reservation.Reservation.setCustomer" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the customer for the reservation.</p>
+<section id="id11">
+<h3>Parameters:<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>customer<span class="classifier">Customer</span></dt><dd><p>The customer object to be associated with the reservation.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="classes.reservation.Reservation.setPersons">
+<span class="sig-name descname"><span class="pre">setPersons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">persons</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/classes/reservation.html#Reservation.setPersons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#classes.reservation.Reservation.setPersons" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the number of persons for the reservation.</p>
+<section id="id12">
+<h3>Parameters:<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>persons<span class="classifier">int</span></dt><dd><p>The number of persons to be included in the reservation.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="classes.reservation.Reservation.setRoomName">
+<span class="sig-name descname"><span class="pre">setRoomName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roomName</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/classes/reservation.html#Reservation.setRoomName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#classes.reservation.Reservation.setRoomName" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the name of the room for the reservation.</p>
+<section id="id13">
+<h3>Parameters:<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>roomName<span class="classifier">str</span></dt><dd><p>The name of the room to be reserved.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">TheHaroldHotel</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../modules.html">TheHaroldHotel</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customer.html">classes/customer module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">classes/reservation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="room.html">classes/room module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../databaseFiles/databaseconnect.html">databaseFiles/databaseconnect module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../databaseFiles/initializeDatabase.html">databaseFiles/initializeDatabase module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../views/BookingCanceledDialog.html">views/BookingCanceledDialog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../views/BookingDetailsWindow.html">views/BookingDetailsWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../views/CancelBookingDialog.html">views/CancelBookingDialog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../views/ChangeBookingWindow.html">views/ChangeBookingWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../views/CheckBookingWindow.html">views/CheckBookingWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../views/Page_1_mainWindow.html">views/Page_1_mainWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../views/Page_2_BookingWindow.html">views/Page_2_BookingWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../views/Page_3_BookingRoomsWindow.html">views/Page_3_BookingRoomsWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../views/Page_4_RoomBookingDetailsWindow.html">views/Page_4_RoomBookingDetailsWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../views/Page_5_BookingConfirmationWindow.html">views/Page_5_BookingConfirmationWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../views/viewController.html">views/viewController module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../modules.html">TheHaroldHotel</a><ul>
+      <li>Previous: <a href="customer.html" title="previous chapter">classes/customer module</a></li>
+      <li>Next: <a href="room.html" title="next chapter">classes/room module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Harold Flint, Mariia Kim, Macy Varga, Jonathan Aghachi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/classes/reservation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

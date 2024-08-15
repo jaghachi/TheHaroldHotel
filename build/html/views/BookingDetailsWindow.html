@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>views/BookingDetailsWindow module &#8212; TheHaroldHotel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="views/CancelBookingDialog module" href="CancelBookingDialog.html" />
+    <link rel="prev" title="views/BookingCanceledDialog module" href="BookingCanceledDialog.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-views.BookingDetailsWindow">
+<span id="views-bookingdetailswindow-module"></span><h1>views/BookingDetailsWindow module<a class="headerlink" href="#module-views.BookingDetailsWindow" title="Link to this heading">¶</a></h1>
+<p>“”
+main window -&gt; check booking -&gt; booking details window
+lets the user see all their booking details (existing booking)</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="views.BookingDetailsWindow.BookingDetailsWindow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">views.BookingDetailsWindow.</span></span><span class="sig-name descname"><span class="pre">BookingDetailsWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reservation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">room</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roomType</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/BookingDetailsWindow.html#BookingDetailsWindow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.BookingDetailsWindow.BookingDetailsWindow" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>A window to display the details of a user’s existing booking.</p>
+<p>This window is part of a sequence of views:
+Main Window -&gt; Check Booking -&gt; Booking Details Window</p>
+<section id="attributes">
+<h2>Attributes:<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>reservation<span class="classifier">dict</span></dt><dd><p>A dictionary containing the details of the reservation.</p>
+</dd>
+<dt>customer<span class="classifier">dict</span></dt><dd><p>A dictionary containing the customer’s information.</p>
+</dd>
+<dt>room<span class="classifier">dict</span></dt><dd><p>A dictionary containing information about the room booked.</p>
+</dd>
+<dt>roomType<span class="classifier">dict</span></dt><dd><p>A dictionary containing the type of room booked and its price.</p>
+</dd>
+<dt>controller<span class="classifier">object</span></dt><dd><p>The controller object to manage the application’s views and transitions.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="views.BookingDetailsWindow.BookingDetailsWindow.back_to_main">
+<span class="sig-name descname"><span class="pre">back_to_main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/BookingDetailsWindow.html#BookingDetailsWindow.back_to_main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.BookingDetailsWindow.BookingDetailsWindow.back_to_main" title="Link to this definition">¶</a></dt>
+<dd><p>Returns to the main window view.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="views.BookingDetailsWindow.BookingDetailsWindow.cancel_booking">
+<span class="sig-name descname"><span class="pre">cancel_booking</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/BookingDetailsWindow.html#BookingDetailsWindow.cancel_booking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.BookingDetailsWindow.BookingDetailsWindow.cancel_booking" title="Link to this definition">¶</a></dt>
+<dd><p>Opens a dialog to cancel the booking.</p>
+<p>Displays a CancelBookingDialog to confirm the cancellation of the booking.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="views.BookingDetailsWindow.BookingDetailsWindow.change_booking">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">change_booking</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/BookingDetailsWindow.html#BookingDetailsWindow.change_booking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.BookingDetailsWindow.BookingDetailsWindow.change_booking" title="Link to this definition">¶</a></dt>
+<dd><p>Opens a window to change the booking details.</p>
+<p>Creates a new instance of ChangeBookingWindow and transitions to it.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">TheHaroldHotel</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../modules.html">TheHaroldHotel</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/customer.html">classes/customer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/reservation.html">classes/reservation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/room.html">classes/room module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../databaseFiles/databaseconnect.html">databaseFiles/databaseconnect module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../databaseFiles/initializeDatabase.html">databaseFiles/initializeDatabase module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BookingCanceledDialog.html">views/BookingCanceledDialog module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">views/BookingDetailsWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CancelBookingDialog.html">views/CancelBookingDialog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ChangeBookingWindow.html">views/ChangeBookingWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CheckBookingWindow.html">views/CheckBookingWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Page_1_mainWindow.html">views/Page_1_mainWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Page_2_BookingWindow.html">views/Page_2_BookingWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Page_3_BookingRoomsWindow.html">views/Page_3_BookingRoomsWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Page_4_RoomBookingDetailsWindow.html">views/Page_4_RoomBookingDetailsWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Page_5_BookingConfirmationWindow.html">views/Page_5_BookingConfirmationWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="viewController.html">views/viewController module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../modules.html">TheHaroldHotel</a><ul>
+      <li>Previous: <a href="BookingCanceledDialog.html" title="previous chapter">views/BookingCanceledDialog module</a></li>
+      <li>Next: <a href="CancelBookingDialog.html" title="next chapter">views/CancelBookingDialog module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Harold Flint, Mariia Kim, Macy Varga, Jonathan Aghachi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/views/BookingDetailsWindow.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

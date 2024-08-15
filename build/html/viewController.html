@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>views/viewController module &#8212; TheHaroldHotel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-views.viewController">
+<span id="views-viewcontroller-module"></span><h1>views/viewController module<a class="headerlink" href="#module-views.viewController" title="Link to this heading">¶</a></h1>
+<p>”
+class: ViewController
+most recent update: 8/7/2024
+programmers: Jonathan Aghachi</p>
+<p>Description:
+The ViewController class manages the different views in the application using a QStackedWidget.
+It allows for easy navigation between views, adding and removing views as needed,
+and maintaining the overall structure of the application’s user interface.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="views.viewController.ViewController">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">views.viewController.</span></span><span class="sig-name descname"><span class="pre">ViewController</span></span><a class="reference internal" href="_modules/views/viewController.html#ViewController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.viewController.ViewController" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QStackedWidget</span></code></p>
+<p>This class provides methods to add, show, remove, clear, and re-add views within the stacked widget.
+It’s central to the application’s navigation flow, ensuring that the correct view is displayed
+based on user interactions.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">None</span> <span class="pre">specific</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">instance;</span> <span class="pre">inherits</span> <span class="pre">from</span> <span class="pre">QStackedWidget.</span></span></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="views.viewController.ViewController.add_view">
+<span class="sig-name descname"><span class="pre">add_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/views/viewController.html#ViewController.add_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.viewController.ViewController.add_view" title="Link to this definition">¶</a></dt>
+<dd><p>Adds a new view to the stack with a specified name.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="views.viewController.ViewController.show_view">
+<span class="sig-name descname"><span class="pre">show_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/views/viewController.html#ViewController.show_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.viewController.ViewController.show_view" title="Link to this definition">¶</a></dt>
+<dd><p>Displays the view corresponding to the given name.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="views.viewController.ViewController.remove_view">
+<span class="sig-name descname"><span class="pre">remove_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/views/viewController.html#ViewController.remove_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.viewController.ViewController.remove_view" title="Link to this definition">¶</a></dt>
+<dd><p>Removes the view with the specified name from the stack.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="views.viewController.ViewController.clear_views">
+<span class="sig-name descname"><span class="pre">clear_views</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/views/viewController.html#ViewController.clear_views"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.viewController.ViewController.clear_views" title="Link to this definition">¶</a></dt>
+<dd><p>Clears specific views from the stack to reset the interface.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="views.viewController.ViewController.readd_views">
+<span class="sig-name descname"><span class="pre">readd_views</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/views/viewController.html#ViewController.readd_views"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.viewController.ViewController.readd_views" title="Link to this definition">¶</a></dt>
+<dd><p>Re-adds the default views to the stack after a reset.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">add_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/views/viewController.html#ViewController.add_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">clear_views</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/views/viewController.html#ViewController.clear_views"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">readd_views</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/views/viewController.html#ViewController.readd_views"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">remove_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/views/viewController.html#ViewController.remove_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">show_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/views/viewController.html#ViewController.show_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">TheHaroldHotel</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">TheHaroldHotel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Harold Flint, Mariia Kim, Macy Varga, Jonathan Aghachi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/viewController.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>views.Page_2_BookingWindow &#8212; TheHaroldHotel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for views.Page_2_BookingWindow</h1><div class="highlight"><pre>
+<span></span><span class="c1"># main window -&gt; booking window</span>
+<span class="sd">&quot;&quot;&quot;&quot;</span>
+<span class="sd">class: BookingWindow</span>
+<span class="sd">most recent update: 8/8/2024</span>
+<span class="sd">programmers: Mariia Kim</span>
+
+<span class="sd">Description:</span>
+<span class="sd">The BookingWindow class is opened from the MainWindow when the user selects &quot;Book a room.&quot;</span>
+<span class="sd">It allows the user to select check-in and check-out dates, as well as the number of guests.</span>
+<span class="sd">&quot;&quot;&quot;</span><span class="s2">&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QDateEdit</span><span class="p">,</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span> <span class="n">QSpacerItem</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="p">,</span> <span class="n">QFrame</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="n">QPixmap</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QDate</span>
+<span class="kn">from</span> <span class="nn">views.Page_3_BookingRoomsWindow</span> <span class="kn">import</span> <span class="n">BookingRoomsWindow</span>
+<span class="kn">from</span> <span class="nn">classes.reservation</span> <span class="kn">import</span> <span class="n">Reservation</span>
+<span class="kn">import</span> <span class="nn">pydoc</span>
+
+<div class="viewcode-block" id="BookingWindow">
+<a class="viewcode-back" href="../../Page_2_BookingWindow.html#views.Page_2_BookingWindow.BookingWindow">[docs]</a>
+<span class="k">class</span> <span class="nc">BookingWindow</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;&quot;</span>
+<span class="sd">        The class provides an interface for users to input their booking details before proceeding </span>
+<span class="sd">        to the room selection process.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        controller (ViewController): Manages view transitions and interactions with other views.</span>
+<span class="sd">        background_label (QLabel): Displays the background image for the booking window.</span>
+<span class="sd">        checkin_date (QDateEdit): Widget for selecting the check-in date.</span>
+<span class="sd">        checkout_date (QDateEdit): Widget for selecting the check-out date.</span>
+<span class="sd">        guests_combo (QComboBox): Drop-down menu for selecting the number of guests.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        open_booking_rooms_window(): Opens the next window (BookingRoomsWindow) for selecting rooms.</span>
+<span class="sd">        back_to_main(): Navigates back to the MainWindow.</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="s2">&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controller</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span> <span class="o">=</span> <span class="n">controller</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Book a Room&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+
+        <span class="c1"># set up the background pic</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background_label</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">QPixmap</span><span class="p">(</span><span class="s2">&quot;resources/lobby.jpg&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background_label</span><span class="o">.</span><span class="n">setScaledContents</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background_label</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+        
+
+
+        <span class="c1"># main layout</span>
+        <span class="n">main_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># no margins</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># no spacing between widgets</span>
+
+        <span class="c1"># spacer item to push the centered_frame to the middle</span>
+        <span class="n">spacer_top</span> <span class="o">=</span> <span class="n">QSpacerItem</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Minimum</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">)</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">spacer_top</span><span class="p">)</span>
+
+        <span class="c1"># centered container for the date and guest selection widgets</span>
+        <span class="n">centered_frame</span> <span class="o">=</span> <span class="n">QFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">centered_frame</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;background-color: #5F493F; border-radius: 10px;&quot;</span><span class="p">)</span>
+        <span class="n">centered_frame</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+
+        <span class="n">centered_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="n">centered_frame</span><span class="p">)</span>
+
+        <span class="n">title</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;SELECT YOUR DATES&quot;</span><span class="p">)</span>
+        <span class="n">title</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+        <span class="n">title</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;font-size: 20px; font-weight: bold; color: white;&quot;</span><span class="p">)</span>
+        <span class="c1"># make it a part of the centered_frame</span>
+        <span class="n">centered_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+        <span class="c1"># creating layouts for check-in and check-out dates</span>
+        <span class="n">date_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span> <span class="c1"># horizontal</span>
+        <span class="n">checkin_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span> <span class="c1"># vertical</span>
+        <span class="n">checkout_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span> <span class="c1"># vertical</span>
+
+        <span class="n">checkin_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Check-in&quot;</span><span class="p">)</span>
+        <span class="n">checkin_label</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+        <span class="c1"># borders around the check-in box</span>
+        <span class="n">checkin_label</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;border: 1px solid #FFFFFF;&quot;</span><span class="p">)</span>
+        <span class="c1"># helps to work with dates and calendars</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkin_date</span> <span class="o">=</span> <span class="n">QDateEdit</span><span class="p">()</span>
+        <span class="c1"># sets the check-in date as the current date - default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkin_date</span><span class="o">.</span><span class="n">setDate</span><span class="p">(</span><span class="n">QDate</span><span class="o">.</span><span class="n">currentDate</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkin_date</span><span class="o">.</span><span class="n">setCalendarPopup</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># aligning in the center of its label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkin_date</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+        <span class="c1"># border for the check-in label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkin_date</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;border: 1px solid #FFFFFF;&quot;</span><span class="p">)</span>
+        <span class="c1"># adding check-in label to the check-in box</span>
+        <span class="n">checkin_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">checkin_label</span><span class="p">)</span>
+        <span class="c1"># addind a calendar pop-up to the check-in box</span>
+        <span class="n">checkin_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checkin_date</span><span class="p">)</span>
+
+        <span class="n">checkout_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Check-out&quot;</span><span class="p">)</span>
+        <span class="n">checkout_label</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+        <span class="c1"># border for the check-out box</span>
+        <span class="n">checkout_label</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;border: 1px solid #FFFFFF;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkout_date</span> <span class="o">=</span> <span class="n">QDateEdit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkout_date</span><span class="o">.</span><span class="n">setDate</span><span class="p">(</span><span class="n">QDate</span><span class="o">.</span><span class="n">currentDate</span><span class="p">()</span><span class="o">.</span><span class="n">addDays</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkout_date</span><span class="o">.</span><span class="n">setCalendarPopup</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkout_date</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+        <span class="n">checkout_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">checkout_label</span><span class="p">)</span>
+        <span class="n">checkout_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checkout_date</span><span class="p">)</span>
+
+        <span class="c1"># adding the check-in layout to the horizontal date layout</span>
+        <span class="n">date_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">checkin_layout</span><span class="p">)</span>
+        <span class="c1"># adding the check-out layout to the horizontal date layout</span>
+        <span class="n">date_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">checkout_layout</span><span class="p">)</span>
+        <span class="c1"># adding the horizontal date layout (containing check-in and check-out) to the centered layout</span>
+        <span class="n">centered_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">date_layout</span><span class="p">)</span>
+
+        <span class="n">guests_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span> <span class="c1"># vertical box</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">guests_combo</span> <span class="o">=</span> <span class="n">QComboBox</span><span class="p">()</span>  <span class="c1"># drop-down list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">guests_combo</span><span class="o">.</span><span class="n">addItems</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)])</span> <span class="c1"># can choose up to 5 guests</span>
+        <span class="n">guests_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Guests&quot;</span><span class="p">)</span> 
+        <span class="n">guests_label</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+        <span class="c1"># a border for the label</span>
+        <span class="n">guests_label</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;border: 1px solid #FFFFFF;&quot;</span><span class="p">)</span>
+        <span class="c1"># a border for the drop-down menu</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">guests_combo</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;border: 1px solid #FFFFFF;&quot;</span><span class="p">)</span>
+        <span class="c1"># adding label and drop-down meny to the vertical box</span>
+        <span class="n">guests_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">guests_label</span><span class="p">)</span>
+        <span class="n">guests_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">guests_combo</span><span class="p">)</span>
+        <span class="c1"># add the guests layout to the centers box</span>
+        <span class="n">centered_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">guests_layout</span><span class="p">)</span>
+
+        <span class="n">find_rooms_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;FIND ROOMS&quot;</span><span class="p">)</span>
+        <span class="n">find_rooms_button</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            QPushButton {</span>
+<span class="s2">                background-color: #E5D5C3;</span>
+<span class="s2">                color: white;</span>
+<span class="s2">                font-size: 16px;</span>
+<span class="s2">                font-weight: bold;</span>
+<span class="s2">                padding: 10px;</span>
+<span class="s2">                border-radius: 5px;</span>
+<span class="s2">            }</span>
+<span class="s2">            QPushButton:hover {</span>
+<span class="s2">                background-color: #5F493F;</span>
+<span class="s2">                color: black;</span>
+<span class="s2">            }</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="c1"># clicking on the &quot;find rooms&quot; button will open BookingRoomsWindow</span>
+        <span class="n">find_rooms_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_booking_rooms_window</span><span class="p">)</span>
+        <span class="c1"># adding a button to the centered box</span>
+        <span class="n">centered_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">find_rooms_button</span><span class="p">)</span>
+
+        <span class="n">back_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Back&quot;</span><span class="p">)</span>
+        <span class="n">back_button</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            QPushButton {</span>
+<span class="s2">                background-color: #E5D5C3;</span>
+<span class="s2">                color: white;</span>
+<span class="s2">                font-size: 16px;</span>
+<span class="s2">                font-weight: bold;</span>
+<span class="s2">                padding: 10px;</span>
+<span class="s2">                border-radius: 5px;</span>
+<span class="s2">            }</span>
+<span class="s2">            QPushButton:hover {</span>
+<span class="s2">                background-color: #5F493F;</span>
+<span class="s2">                color: black;</span>
+<span class="s2">            }</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="c1"># clicking on the &quot;back&quot; button brings user to the MainWindow</span>
+        <span class="n">back_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">back_to_main</span><span class="p">)</span>
+        <span class="n">centered_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">back_button</span><span class="p">)</span>
+
+        <span class="c1"># adding a &quot;back&quot; button to the centered frame</span>
+        <span class="n">centered_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">back_button</span><span class="p">)</span>
+
+        <span class="c1"># adding the centered frame to the main layout</span>
+        <span class="n">center_container</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">center_container</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+        <span class="n">center_container</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">centered_frame</span><span class="p">)</span>
+        <span class="n">center_container</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">center_container</span><span class="p">)</span>
+
+        <span class="c1"># spacer item to push the centered_frame to the middle</span>
+        <span class="n">spacer_bottom</span> <span class="o">=</span> <span class="n">QSpacerItem</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Minimum</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">)</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">spacer_bottom</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">main_layout</span><span class="p">)</span>
+
+    <span class="c1"># connect to the next window</span>
+<div class="viewcode-block" id="BookingWindow.open_booking_rooms_window">
+<a class="viewcode-back" href="../../Page_2_BookingWindow.html#views.Page_2_BookingWindow.BookingWindow.open_booking_rooms_window">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_booking_rooms_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">newReservation</span> <span class="o">=</span> <span class="n">Reservation</span><span class="p">()</span>
+        <span class="n">newReservation</span><span class="o">.</span><span class="n">checkIn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkin_date</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+        <span class="n">newReservation</span><span class="o">.</span><span class="n">checkOut</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkout_date</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+        <span class="n">guests</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">guests_combo</span><span class="o">.</span><span class="n">currentText</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">booking_rooms_view</span> <span class="o">=</span> <span class="n">BookingRoomsWindow</span><span class="p">(</span><span class="n">newReservation</span><span class="p">,</span> <span class="n">guests</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">booking_rooms_view</span><span class="p">,</span> <span class="s2">&quot;booking_rooms&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="s2">&quot;booking_rooms&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># back button</span>
+<div class="viewcode-block" id="BookingWindow.back_to_main">
+<a class="viewcode-back" href="../../Page_2_BookingWindow.html#views.Page_2_BookingWindow.BookingWindow.back_to_main">[docs]</a>
+    <span class="k">def</span> <span class="nf">back_to_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="s2">&quot;main&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">TheHaroldHotel</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">TheHaroldHotel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Harold Flint, Mariia Kim, Macy Varga, Jonathan Aghachi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

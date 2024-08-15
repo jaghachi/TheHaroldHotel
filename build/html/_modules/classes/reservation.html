@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>classes.reservation &#8212; TheHaroldHotel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for classes.reservation</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">class: Reservation</span>
+<span class="sd">most recent update: 8/13/2024</span>
+<span class="sd">programmers: Janathan A and Macy V</span>
+
+<span class="sd">Description:</span>
+<span class="sd">&quot;Reservation&quot; class anages reservation details for a customer. </span>
+<span class="sd">    The class includes attributes for storing customer information, room details, and reservation-specific data like confirmation number, check-in, and check-out dates. </span>
+<span class="sd">    The class also provides methods for setting and retrieving these attributes, modifying or canceling reservations, and handling the reservation process with a database connection using asynchronous operations.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">classes.customer</span> <span class="kn">import</span> <span class="n">Customer</span>
+<span class="kn">from</span> <span class="nn">databaseFiles.databaseconnect</span> <span class="kn">import</span> <span class="n">dataBase</span>
+<span class="kn">import</span> <span class="nn">pydoc</span>
+
+<div class="viewcode-block" id="Reservation">
+<a class="viewcode-back" href="../../reservation.html#classes.reservation.Reservation">[docs]</a>
+<span class="k">class</span> <span class="nc">Reservation</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to manage the reservation details for a customer.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    customer : Customer</span>
+<span class="sd">        The customer associated with the reservation.</span>
+<span class="sd">    roomName : str</span>
+<span class="sd">        The name of the room reserved.</span>
+<span class="sd">    confirmationNumber : str</span>
+<span class="sd">        The confirmation number for the reservation.</span>
+<span class="sd">    persons : int</span>
+<span class="sd">        The number of persons included in the reservation.</span>
+<span class="sd">    checkIn : datetime or None</span>
+<span class="sd">        The check-in date for the reservation.</span>
+<span class="sd">    checkOut : datetime or None</span>
+<span class="sd">        The check-out date for the reservation.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">    --------</span>
+<span class="sd">    setCustomer(customer: Customer) -&gt; None:</span>
+<span class="sd">        Sets the customer for the reservation.</span>
+<span class="sd">    getCustomer() -&gt; Customer:</span>
+<span class="sd">        Returns the customer associated with the reservation.</span>
+<span class="sd">    setConfirmation(confirmationNumber: str) -&gt; None:</span>
+<span class="sd">        Sets the confirmation number for the reservation.</span>
+<span class="sd">    getConfirmation() -&gt; str:</span>
+<span class="sd">        Returns the confirmation number of the reservation.</span>
+<span class="sd">    setRoomName(roomName: str) -&gt; None:</span>
+<span class="sd">        Sets the name of the room for the reservation.</span>
+<span class="sd">    getRoomName() -&gt; str:</span>
+<span class="sd">        Returns the name of the room reserved.</span>
+<span class="sd">    getEmail() -&gt; str:</span>
+<span class="sd">        Returns the email address of the customer associated with the reservation.</span>
+<span class="sd">    getPrice() -&gt; int:</span>
+<span class="sd">        Returns the price of the reservation (placeholder, returns 0).</span>
+<span class="sd">    setPersons(persons: int) -&gt; None:</span>
+<span class="sd">        Sets the number of persons for the reservation.</span>
+<span class="sd">    modifyReservation(confirmationNumber: str) -&gt; None:</span>
+<span class="sd">        Modifies the reservation based on the provided confirmation number.</span>
+<span class="sd">    cancelReservation(confirmationNumber: str) -&gt; None:</span>
+<span class="sd">        Cancels the reservation based on the provided confirmation number.</span>
+<span class="sd">    reserveRoom(room: dict, newCustomer: Customer, newReservation: dict) -&gt; Reservation:</span>
+<span class="sd">        Asynchronously reserves a room by inserting customer and reservation details into the database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#object</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes a Reservation object with default values for the customer, room name, confirmation number,</span>
+<span class="sd">        number of persons, check-in date, and check-out date.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">customer</span> <span class="o">=</span> <span class="n">Customer</span><span class="p">()</span>
+        <span class="c1">#customer info</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">roomName</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="c1">#name for resi </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">confirmationNumber</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="c1">#confirmation numb of resi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">persons</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkIn</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1">#checkin date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkOut</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1">#checkout date </span>
+
+    
+<div class="viewcode-block" id="Reservation.setCustomer">
+<a class="viewcode-back" href="../../reservation.html#classes.reservation.Reservation.setCustomer">[docs]</a>
+    <span class="k">def</span> <span class="nf">setCustomer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the customer for the reservation.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        customer : Customer</span>
+<span class="sd">            The customer object to be associated with the reservation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">customer</span> <span class="o">=</span> <span class="n">customer</span></div>
+
+        
+<div class="viewcode-block" id="Reservation.getCustomer">
+<a class="viewcode-back" href="../../reservation.html#classes.reservation.Reservation.getCustomer">[docs]</a>
+    <span class="k">def</span> <span class="nf">getCustomer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Customer</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the customer associated with the reservation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        Customer</span>
+<span class="sd">            The customer object associated with the reservation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#get customer </span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">customer</span></div>
+
+    
+<div class="viewcode-block" id="Reservation.setConfirmation">
+<a class="viewcode-back" href="../../reservation.html#classes.reservation.Reservation.setConfirmation">[docs]</a>
+    <span class="k">def</span> <span class="nf">setConfirmation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">confirmationNumber</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the confirmation number for the reservation.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        confirmationNumber : str</span>
+<span class="sd">            The confirmation number to be assigned to the reservation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#set confrimation number for resi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">confirmationNumber</span> <span class="o">=</span> <span class="n">confirmationNumber</span></div>
+
+    
+<div class="viewcode-block" id="Reservation.getConfirmation">
+<a class="viewcode-back" href="../../reservation.html#classes.reservation.Reservation.getConfirmation">[docs]</a>
+    <span class="k">def</span> <span class="nf">getConfirmation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the confirmation number of the reservation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        str</span>
+<span class="sd">            The confirmation number of the reservation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#set confrimation number for resi</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">confirmationNumber</span></div>
+
+    
+<div class="viewcode-block" id="Reservation.setRoomName">
+<a class="viewcode-back" href="../../reservation.html#classes.reservation.Reservation.setRoomName">[docs]</a>
+    <span class="k">def</span> <span class="nf">setRoomName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">roomName</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the name of the room for the reservation.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        roomName : str</span>
+<span class="sd">            The name of the room to be reserved.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">roomName</span> <span class="o">=</span> <span class="n">roomName</span></div>
+
+        
+<div class="viewcode-block" id="Reservation.getRoomName">
+<a class="viewcode-back" href="../../reservation.html#classes.reservation.Reservation.getRoomName">[docs]</a>
+    <span class="k">def</span> <span class="nf">getRoomName</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the name of the room reserved.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        str</span>
+<span class="sd">            The name of the room reserved.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#get roomname </span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">roomName</span></div>
+
+
+    
+<div class="viewcode-block" id="Reservation.getEmail">
+<a class="viewcode-back" href="../../reservation.html#classes.reservation.Reservation.getEmail">[docs]</a>
+    <span class="k">def</span> <span class="nf">getEmail</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the email address of the customer associated with the reservation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        str</span>
+<span class="sd">            The email address of the customer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#get email of customer </span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">customer</span><span class="o">.</span><span class="n">email</span></div>
+
+
+<div class="viewcode-block" id="Reservation.getPrice">
+<a class="viewcode-back" href="../../reservation.html#classes.reservation.Reservation.getPrice">[docs]</a>
+    <span class="k">def</span> <span class="nf">getPrice</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the price of the reservation.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">        -----</span>
+<span class="sd">        This method is a placeholder and should be implemented with the actual logic for calculating the reservation price.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        int</span>
+<span class="sd">            The price of the reservation (currently returns 0).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#get price of resi</span>
+        <span class="c1">#to implement</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+    
+<div class="viewcode-block" id="Reservation.setPersons">
+<a class="viewcode-back" href="../../reservation.html#classes.reservation.Reservation.setPersons">[docs]</a>
+    <span class="k">def</span> <span class="nf">setPersons</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">persons</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the number of persons for the reservation.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        persons : int</span>
+<span class="sd">            The number of persons to be included in the reservation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">persons</span> <span class="o">=</span> <span class="n">persons</span></div>
+
+
+<div class="viewcode-block" id="Reservation.modifyReservation">
+<a class="viewcode-back" href="../../reservation.html#classes.reservation.Reservation.modifyReservation">[docs]</a>
+    <span class="k">def</span> <span class="nf">modifyReservation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">confirmationNumber</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modifies the reservation based on the provided confirmation number.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        confirmationNumber : str</span>
+<span class="sd">            The confirmation number to be used for modifying the reservation.</span>
+<span class="sd">        </span>
+<span class="sd">        Note:</span>
+<span class="sd">        -----</span>
+<span class="sd">        This method is a placeholder for the logic to change or cancel a reservation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">confirmationNumber</span> <span class="o">=</span> <span class="n">confirmationNumber</span></div>
+
+        <span class="c1"># holder space for method</span>
+        <span class="c1">#change or cancel resi based of confirmation number and user action to do so </span>
+
+<div class="viewcode-block" id="Reservation.cancelReservation">
+<a class="viewcode-back" href="../../reservation.html#classes.reservation.Reservation.cancelReservation">[docs]</a>
+    <span class="k">def</span> <span class="nf">cancelReservation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">confirmationNumber</span><span class="p">:</span> <span class="nb">str</span><span class="p">,)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Cancels the reservation based on the provided confirmation number.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        confirmationNumber : str</span>
+<span class="sd">            The confirmation number of the reservation to be canceled.</span>
+<span class="sd">        </span>
+<span class="sd">        Note:</span>
+<span class="sd">        -----</span>
+<span class="sd">        This method is a placeholder for the logic to cancel a reservation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># holder method for cancel reservation logic</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Reservation.reserveRoom">
+<a class="viewcode-back" href="../../reservation.html#classes.reservation.Reservation.reserveRoom">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">reserveRoom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">,</span> <span class="n">newCustomer</span><span class="p">,</span> <span class="n">newReservation</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Asynchronously reserves a room by creating a database connection, inserting customer and reservation details.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        room : dict</span>
+<span class="sd">            The room details to be reserved.</span>
+<span class="sd">        newCustomer : Customer</span>
+<span class="sd">            The customer making the reservation.</span>
+<span class="sd">        newReservation : dict</span>
+<span class="sd">            The reservation details.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        Reservation</span>
+<span class="sd">            The updated Reservation object after the room has been reserved.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#create databaseconnection</span>
+        <span class="n">db_instance</span> <span class="o">=</span> <span class="n">dataBase</span><span class="p">()</span>
+
+        <span class="k">await</span> <span class="n">db_instance</span><span class="o">.</span><span class="n">insert_customer</span><span class="p">(</span><span class="n">newCustomer</span><span class="p">)</span>
+        
+        <span class="n">successful_reservation</span> <span class="o">=</span> <span class="k">await</span> <span class="n">db_instance</span><span class="o">.</span><span class="n">insert_reservation</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">newCustomer</span><span class="p">,</span> <span class="n">newReservation</span><span class="p">)</span>
+
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCustomer</span><span class="p">(</span><span class="n">newCustomer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setRoomName</span><span class="p">(</span><span class="n">room</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setConfirmation</span><span class="p">(</span><span class="n">successful_reservation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setPersons</span><span class="p">(</span><span class="n">newCustomer</span><span class="o">.</span><span class="n">persons</span><span class="p">)</span>
+        
+        
+        <span class="k">return</span> <span class="bp">self</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">TheHaroldHotel</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">TheHaroldHotel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Harold Flint, Mariia Kim, Macy Varga, Jonathan Aghachi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>databaseFiles.initializeDatabase &#8212; TheHaroldHotel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for databaseFiles.initializeDatabase</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">class: initializeDatbase</span>
+<span class="sd">most recent update: 8/13/2024 (commenting)</span>
+
+
+<span class="sd">Description: It sets up collections for room types, rooms, customers, reservations, and room bookings.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pydoc</span>
+
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">databaseconnect</span> <span class="kn">import</span> <span class="n">dataBase</span>
+
+
+<div class="viewcode-block" id="create_schema">
+<a class="viewcode-back" href="../../initializeDatabase.html#databaseFiles.initializeDatabase.create_schema">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">create_schema</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates and initializes the database schema for a hotel reservation system.</span>
+
+<span class="sd">    This function creates several collections in the MongoDB database, inserts initial data,</span>
+<span class="sd">    creates indexes, and purges dummy data. The collections created include room types, rooms,</span>
+<span class="sd">    customers, reservations, and room bookings.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    db_instance : dataBase</span>
+<span class="sd">        An instance of the dataBase class to manage database connections and operations.</span>
+<span class="sd">    db : AsyncIOMotorClient</span>
+<span class="sd">        The MongoDB database object for performing operations.</span>
+<span class="sd">    </span>
+<span class="sd">    Collections:</span>
+<span class="sd">    ------------</span>
+<span class="sd">    roomTypes : collection</span>
+<span class="sd">        Stores information about different room types.</span>
+<span class="sd">    rooms : collection</span>
+<span class="sd">        Stores information about individual rooms.</span>
+<span class="sd">    customers : collection</span>
+<span class="sd">        Stores customer information.</span>
+<span class="sd">    reservations : collection</span>
+<span class="sd">        Stores reservation details.</span>
+<span class="sd">    roomBookings : collection</span>
+<span class="sd">        Stores booking details for specific rooms.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">    --------</span>
+<span class="sd">    create_index(keys: list, **kwargs) -&gt; str:</span>
+<span class="sd">        Creates an index on the specified keys in the collection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">db_instance</span> <span class="o">=</span> <span class="n">dataBase</span><span class="p">()</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="k">await</span> <span class="n">db_instance</span><span class="o">.</span><span class="n">get_database</span><span class="p">()</span>
+    
+    <span class="c1"># Create RoomTypes Collection</span>
+    <span class="n">roomTypes</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;roomTypes&#39;</span><span class="p">]</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">roomTypes</span><span class="o">.</span><span class="n">insert_many</span><span class="p">([</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Suite&quot;</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;persons&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Double&quot;</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">125</span><span class="p">,</span> <span class="s2">&quot;persons&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Single&quot;</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s2">&quot;persons&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+    <span class="p">])</span>
+
+    <span class="n">suite_id</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">inserted_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">double_id</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">inserted_ids</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">single_id</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">inserted_ids</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="c1"># Create Rooms Collection</span>
+    <span class="n">rooms</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;rooms&#39;</span><span class="p">]</span>
+    <span class="k">await</span> <span class="n">rooms</span><span class="o">.</span><span class="n">insert_many</span><span class="p">([</span>
+        <span class="p">{</span><span class="s2">&quot;typeId&quot;</span><span class="p">:</span> <span class="n">suite_id</span><span class="p">,</span> <span class="s2">&quot;roomNumber&quot;</span><span class="p">:</span> <span class="s2">&quot;301&quot;</span><span class="p">},</span>
+        <span class="c1">#{&quot;typeId&quot;: suite_id, &quot;roomNumber&quot;: &quot;302&quot;},</span>
+        <span class="c1">#{&quot;typeId&quot;: suite_id, &quot;roomNumber&quot;: &quot;303&quot;},</span>
+        <span class="c1">#{&quot;typeId&quot;: suite_id, &quot;roomNumber&quot;: &quot;304&quot;},</span>
+        <span class="c1">#{&quot;typeId&quot;: suite_id, &quot;roomNumber&quot;: &quot;305&quot;},</span>
+        <span class="p">{</span><span class="s2">&quot;typeId&quot;</span><span class="p">:</span> <span class="n">double_id</span><span class="p">,</span> <span class="s2">&quot;roomNumber&quot;</span><span class="p">:</span> <span class="s2">&quot;201&quot;</span><span class="p">},</span>
+        <span class="c1">#{&quot;typeId&quot;: double_id, &quot;roomNumber&quot;: &quot;202&quot;},</span>
+        <span class="c1">#{&quot;typeId&quot;: double_id, &quot;roomNumber&quot;: &quot;203&quot;},</span>
+        <span class="c1">#{&quot;typeId&quot;: double_id, &quot;roomNumber&quot;: &quot;204&quot;},</span>
+        <span class="c1">#{&quot;typeId&quot;: double_id, &quot;roomNumber&quot;: &quot;205&quot;},</span>
+        <span class="p">{</span><span class="s2">&quot;typeId&quot;</span><span class="p">:</span> <span class="n">single_id</span><span class="p">,</span> <span class="s2">&quot;roomNumber&quot;</span><span class="p">:</span> <span class="s2">&quot;101&quot;</span><span class="p">},</span>
+        <span class="c1">#{&quot;typeId&quot;: single_id, &quot;roomNumber&quot;: &quot;102&quot;},</span>
+        <span class="c1">#{&quot;typeId&quot;: single_id, &quot;roomNumber&quot;: &quot;103&quot;},</span>
+        <span class="c1">#{&quot;typeId&quot;: single_id, &quot;roomNumber&quot;: &quot;104&quot;},</span>
+        <span class="c1">#{&quot;typeId&quot;: single_id, &quot;roomNumber&quot;: &quot;105&quot;}</span>
+    <span class="p">])</span>
+    
+    <span class="c1"># Find a room for reservations and room bookings to correctly populate collection</span>
+    <span class="n">room</span> <span class="o">=</span> <span class="k">await</span> <span class="n">rooms</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;roomNumber&quot;</span><span class="p">:</span> <span class="s2">&quot;301&quot;</span><span class="p">})</span>
+
+    <span class="c1"># Create Customers Collection</span>
+    <span class="n">customers</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;customers&#39;</span><span class="p">]</span>
+    <span class="k">await</span> <span class="n">customers</span><span class="o">.</span><span class="n">insert_one</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;john.doe@example.com&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;persons&quot;</span><span class="p">:</span> <span class="mi">1</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Find the customer</span>
+    <span class="n">customer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">customers</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;john.doe@example.com&quot;</span><span class="p">})</span>
+
+    <span class="c1"># Create Reservations Collection</span>
+    <span class="n">reservations</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;reservations&#39;</span><span class="p">]</span>
+    <span class="k">await</span> <span class="n">reservations</span><span class="o">.</span><span class="n">insert_one</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;customerId&quot;</span><span class="p">:</span> <span class="n">customer</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span> <span class="c1"># type: ignore</span>
+            <span class="s2">&quot;persons&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;roomId&quot;</span><span class="p">:</span> <span class="n">room</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span> <span class="c1"># type: ignore</span>
+            <span class="s2">&quot;confirmationNumber&quot;</span><span class="p">:</span> <span class="s2">&quot;name-123456&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;checkIn&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;checkOut&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Create RoomBookings Collection</span>
+    <span class="n">roomBookings</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;roomBookings&#39;</span><span class="p">]</span>
+    <span class="n">room</span> <span class="o">=</span> <span class="k">await</span> <span class="n">rooms</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;roomNumber&quot;</span><span class="p">:</span> <span class="s2">&quot;301&quot;</span><span class="p">})</span>
+    <span class="k">await</span> <span class="n">roomBookings</span><span class="o">.</span><span class="n">insert_one</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;roomId&quot;</span><span class="p">:</span> <span class="n">room</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span> <span class="c1"># type: ignore</span>
+            <span class="s2">&quot;bookedDate&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">1989</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Create Indexes</span>
+    <span class="k">await</span> <span class="n">roomBookings</span><span class="o">.</span><span class="n">create_index</span><span class="p">([(</span><span class="s2">&quot;roomId&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+    <span class="k">await</span> <span class="n">roomBookings</span><span class="o">.</span><span class="n">create_index</span><span class="p">([(</span><span class="s2">&quot;bookedDate&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+    <span class="k">await</span> <span class="n">roomBookings</span><span class="o">.</span><span class="n">create_index</span><span class="p">([(</span><span class="s2">&quot;roomId&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;bookedDate&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+
+    <span class="c1"># Purge dummy data to start with a clean database</span>
+    <span class="k">await</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;customers&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">delete_many</span><span class="p">({})</span>
+    <span class="k">await</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;reservations&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">delete_many</span><span class="p">({})</span>
+    <span class="k">await</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;roomBookings&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">delete_many</span><span class="p">({})</span>
+    <span class="c1">#await db[&#39;rooms&#39;].delete_many({})</span>
+    <span class="c1">#await db[&#39;roomTypes&#39;].delete_many({})</span>
+
+    <span class="c1"># Close the client</span>
+    <span class="n">db_instance</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../initializeDatabase.html#databaseFiles.initializeDatabase.main">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The main function that runs the schema creation asynchronously.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">await</span> <span class="n">create_schema</span><span class="p">()</span></div>
+
+
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">TheHaroldHotel</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">TheHaroldHotel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Harold Flint, Mariia Kim, Macy Varga, Jonathan Aghachi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

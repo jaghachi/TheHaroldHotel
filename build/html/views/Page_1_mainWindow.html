@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>views/Page_1_mainWindow module &#8212; TheHaroldHotel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="views/Page_2_BookingWindow module" href="Page_2_BookingWindow.html" />
+    <link rel="prev" title="views/CheckBookingWindow module" href="CheckBookingWindow.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-views.Page_1_mainWindow">
+<span id="views-page-1-mainwindow-module"></span><h1>views/Page_1_mainWindow module<a class="headerlink" href="#module-views.Page_1_mainWindow" title="Link to this heading">¶</a></h1>
+<p>”
+class: MainWindow
+most recent update: 8/8/2024
+programmers: Mariia Kim, Harold Flint</p>
+<p>Description:
+The MainWindow class serves as the central hub of the application, providing access
+to the booking and room management features. It displays the main menu with options
+to book a room, check a booking, and view room or hotel information.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">views.Page_1_mainWindow.</span></span><span class="sig-name descname"><span class="pre">MainWindow</span></span><a class="reference internal" href="../_modules/views/Page_1_mainWindow.html#MainWindow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
+<dl class="simple">
+<dt>“”</dt><dd><p>The class handles navigation between different views using a ViewController. It also
+manages the main interface elements, such as the background, logo, and menu.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.controller">
+<span class="sig-name descname"><span class="pre">controller</span></span><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.controller" title="Link to this definition">¶</a></dt>
+<dd><p>Handles view management and navigation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="viewController.html#views.viewController.ViewController" title="views.viewController.ViewController">ViewController</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.main_view">
+<span class="sig-name descname"><span class="pre">main_view</span></span><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.main_view" title="Link to this definition">¶</a></dt>
+<dd><p>The main display area of the window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QWidget</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.main_layout">
+<span class="sig-name descname"><span class="pre">main_layout</span></span><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.main_layout" title="Link to this definition">¶</a></dt>
+<dd><p>Layout manager for the main view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QVBoxLayout</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.booking_view">
+<span class="sig-name descname"><span class="pre">booking_view</span></span><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.booking_view" title="Link to this definition">¶</a></dt>
+<dd><p>The view for booking a room.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Page_2_BookingWindow.html#views.Page_2_BookingWindow.BookingWindow" title="views.Page_2_BookingWindow.BookingWindow">BookingWindow</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.check_booking_view">
+<span class="sig-name descname"><span class="pre">check_booking_view</span></span><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.check_booking_view" title="Link to this definition">¶</a></dt>
+<dd><p>The view for checking existing bookings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="CheckBookingWindow.html#views.CheckBookingWindow.CheckBookingWindow" title="views.CheckBookingWindow.CheckBookingWindow">CheckBookingWindow</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.background_label">
+<span class="sig-name descname"><span class="pre">background_label</span></span><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.background_label" title="Link to this definition">¶</a></dt>
+<dd><p>Displays the background image of the main window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.white_line">
+<span class="sig-name descname"><span class="pre">white_line</span></span><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.white_line" title="Link to this definition">¶</a></dt>
+<dd><p>A decorative line in the main window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.logo_label">
+<span class="sig-name descname"><span class="pre">logo_label</span></span><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.logo_label" title="Link to this definition">¶</a></dt>
+<dd><p>Displays the hotel logo at the center of the window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.text_label1">
+<span class="sig-name descname"><span class="pre">text_label1</span></span><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.text_label1" title="Link to this definition">¶</a></dt>
+<dd><p>Label for the “Booking” option.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.text_label2">
+<span class="sig-name descname"><span class="pre">text_label2</span></span><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.text_label2" title="Link to this definition">¶</a></dt>
+<dd><p>Label for the “Rooms” option.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.text_label3">
+<span class="sig-name descname"><span class="pre">text_label3</span></span><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.text_label3" title="Link to this definition">¶</a></dt>
+<dd><p>Label for the “Info” option.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.menu">
+<span class="sig-name descname"><span class="pre">menu</span></span><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.menu" title="Link to this definition">¶</a></dt>
+<dd><p>Drop-down menu for booking options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QMenu</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.book_room_action">
+<span class="sig-name descname"><span class="pre">book_room_action</span></span><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.book_room_action" title="Link to this definition">¶</a></dt>
+<dd><p>Action to navigate to the “Book a room” view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QAction</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.check_booking_action">
+<span class="sig-name descname"><span class="pre">check_booking_action</span></span><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.check_booking_action" title="Link to this definition">¶</a></dt>
+<dd><p>Action to navigate to the “Check your booking” view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QAction</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.setup_main_view">
+<span class="sig-name descname"><span class="pre">setup_main_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/Page_1_mainWindow.html#MainWindow.setup_main_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.setup_main_view" title="Link to this definition">¶</a></dt>
+<dd><p>Configures the main window’s visual elements and layout.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.resizeEvent">
+<span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/Page_1_mainWindow.html#MainWindow.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.resizeEvent" title="Link to this definition">¶</a></dt>
+<dd><p>Adjusts the background and other elements when the window is resized.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.adjust_images">
+<span class="sig-name descname"><span class="pre">adjust_images</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/Page_1_mainWindow.html#MainWindow.adjust_images"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.adjust_images" title="Link to this definition">¶</a></dt>
+<dd><p>Rescales and repositions images and labels based on window size.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.eventFilter">
+<span class="sig-name descname"><span class="pre">eventFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/Page_1_mainWindow.html#MainWindow.eventFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.eventFilter" title="Link to this definition">¶</a></dt>
+<dd><p>Handles the event filtering for the menu.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.open_booking_view">
+<span class="sig-name descname"><span class="pre">open_booking_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/Page_1_mainWindow.html#MainWindow.open_booking_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.open_booking_view" title="Link to this definition">¶</a></dt>
+<dd><p>Navigates to the booking view.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="views.Page_1_mainWindow.MainWindow.open_check_booking_view">
+<span class="sig-name descname"><span class="pre">open_check_booking_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/Page_1_mainWindow.html#MainWindow.open_check_booking_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#views.Page_1_mainWindow.MainWindow.open_check_booking_view" title="Link to this definition">¶</a></dt>
+<dd><p>Navigates to the check booking view.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">adjust_images</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/Page_1_mainWindow.html#MainWindow.adjust_images"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">eventFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QObject</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QEvent</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/views/Page_1_mainWindow.html#MainWindow.eventFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">open_booking_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/Page_1_mainWindow.html#MainWindow.open_booking_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">open_check_booking_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/Page_1_mainWindow.html#MainWindow.open_check_booking_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QResizeEvent</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/Page_1_mainWindow.html#MainWindow.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">setup_main_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/views/Page_1_mainWindow.html#MainWindow.setup_main_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">TheHaroldHotel</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../modules.html">TheHaroldHotel</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/customer.html">classes/customer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/reservation.html">classes/reservation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/room.html">classes/room module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../databaseFiles/databaseconnect.html">databaseFiles/databaseconnect module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../databaseFiles/initializeDatabase.html">databaseFiles/initializeDatabase module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BookingCanceledDialog.html">views/BookingCanceledDialog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BookingDetailsWindow.html">views/BookingDetailsWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CancelBookingDialog.html">views/CancelBookingDialog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ChangeBookingWindow.html">views/ChangeBookingWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CheckBookingWindow.html">views/CheckBookingWindow module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">views/Page_1_mainWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Page_2_BookingWindow.html">views/Page_2_BookingWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Page_3_BookingRoomsWindow.html">views/Page_3_BookingRoomsWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Page_4_RoomBookingDetailsWindow.html">views/Page_4_RoomBookingDetailsWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Page_5_BookingConfirmationWindow.html">views/Page_5_BookingConfirmationWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="viewController.html">views/viewController module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../modules.html">TheHaroldHotel</a><ul>
+      <li>Previous: <a href="CheckBookingWindow.html" title="previous chapter">views/CheckBookingWindow module</a></li>
+      <li>Next: <a href="Page_2_BookingWindow.html" title="next chapter">views/Page_2_BookingWindow module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Harold Flint, Mariia Kim, Macy Varga, Jonathan Aghachi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/views/Page_1_mainWindow.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

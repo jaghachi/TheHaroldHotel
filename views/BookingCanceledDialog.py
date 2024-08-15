@@ -74,4 +74,3 @@ class BookingCanceledDialog(QDialog):
         dialog_rect = self.geometry()
         center_point = parent_rect.center() - dialog_rect.center()
         self.move(parent_rect.topLeft() + center_point)
-

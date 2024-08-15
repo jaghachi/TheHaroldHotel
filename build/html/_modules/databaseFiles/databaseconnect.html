@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>databaseFiles.databaseconnect &#8212; TheHaroldHotel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for databaseFiles.databaseconnect</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">class: dataBase</span>
+<span class="sd">most recent update: 8/13/2024 (commenting)</span>
+
+
+<span class="sd">Description: dataBase class that manages interactions with a MongoDB database using the asynchronous Motor library.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">motor.motor_asyncio</span> <span class="kn">import</span> <span class="n">AsyncIOMotorClient</span>
+<span class="kn">from</span> <span class="nn">pymongo.server_api</span> <span class="kn">import</span> <span class="n">ServerApi</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">pydoc</span>
+
+<div class="viewcode-block" id="dataBase">
+<a class="viewcode-back" href="../../databaseconnect.html#databaseFiles.databaseconnect.dataBase">[docs]</a>
+<span class="k">class</span> <span class="nc">dataBase</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to handle asynchronous operations with a MongoDB database.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    client : AsyncIOMotorClient</span>
+<span class="sd">        The MongoDB client for database connection.</span>
+<span class="sd">    db : AsyncIOMotorClient</span>
+<span class="sd">        The specific database within MongoDB to interact with.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">    --------</span>
+<span class="sd">    ping_server() -&gt; None:</span>
+<span class="sd">        Pings the MongoDB server to check the connection.</span>
+<span class="sd">    get_database() -&gt; AsyncIOMotorClient:</span>
+<span class="sd">        Retrieves the database object for performing operations.</span>
+<span class="sd">    insert_customer(newCustomer: Customer) -&gt; None:</span>
+<span class="sd">        Inserts a new customer into the &#39;customers&#39; collection.</span>
+<span class="sd">    insert_reservation(room: dict, newCustomer: Customer, newReservation: Reservation) -&gt; str:</span>
+<span class="sd">        Inserts a new reservation into the &#39;reservations&#39; collection and returns a confirmation number.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the dataBase object with default MongoDB client and database.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">AsyncIOMotorClient</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">AsyncIOMotorClient</span><span class="p">()</span>
+
+<div class="viewcode-block" id="dataBase.ping_server">
+<a class="viewcode-back" href="../../databaseconnect.html#databaseFiles.databaseconnect.dataBase.ping_server">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">ping_server</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pings the MongoDB server to verify a successful connection.</span>
+
+<span class="sd">        This method attempts to connect to the MongoDB server using the provided URI and sends a ping command.</span>
+<span class="sd">        If the connection is successful, a message is printed. Otherwise, an error message is displayed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Replace the placeholder with your connection string</span>
+        <span class="n">uri</span> <span class="o">=</span> <span class="s2">&quot;mongodb://haroldAdmin:schoolProj@54.219.171.191:27017/theharoldhoteldb?authSource=admin&quot;</span>
+        <span class="c1"># Set the Stable API version when creating a new client</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="n">AsyncIOMotorClient</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">server_api</span><span class="o">=</span><span class="n">ServerApi</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">))</span>
+        <span class="c1"># Send a ping to confirm a successful connection</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">admin</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s1">&#39;ping&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pinged your deployment. You successfully connected to MongoDB!&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed to connect:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="dataBase.get_database">
+<a class="viewcode-back" href="../../databaseconnect.html#databaseFiles.databaseconnect.dataBase.get_database">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_database</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the MongoDB database object for performing operations.</span>
+
+<span class="sd">        Connects to the MongoDB server using the provided URI and returns the specified database.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        AsyncIOMotorClient</span>
+<span class="sd">            The database object to interact with.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">uri</span> <span class="o">=</span> <span class="s2">&quot;mongodb://haroldAdmin:schoolProj@54.219.171.191:27017/theharoldhoteldb?authSource=admin&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">AsyncIOMotorClient</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">server_api</span><span class="o">=</span><span class="n">ServerApi</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">theharoldhoteldb</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span></div>
+
+    
+<div class="viewcode-block" id="dataBase.insert_customer">
+<a class="viewcode-back" href="../../databaseconnect.html#databaseFiles.databaseconnect.dataBase.insert_customer">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">insert_customer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newCustomer</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inserts a new customer into the &#39;customers&#39; collection in the database.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        newCustomer : Customer</span>
+<span class="sd">            The customer object containing the details to be inserted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>   
+        <span class="n">db</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_database</span><span class="p">()</span>
+
+        <span class="n">customers</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;customers&#39;</span><span class="p">]</span>
+        <span class="k">await</span> <span class="n">customers</span><span class="o">.</span><span class="n">insert_one</span><span class="p">({</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">newCustomer</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> 
+            <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">newCustomer</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> 
+            <span class="s2">&quot;persons&quot;</span><span class="p">:</span> <span class="n">newCustomer</span><span class="o">.</span><span class="n">persons</span>
+        <span class="p">})</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;inserted - </span><span class="si">{</span><span class="n">newCustomer</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="dataBase.insert_reservation">
+<a class="viewcode-back" href="../../databaseconnect.html#databaseFiles.databaseconnect.dataBase.insert_reservation">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">insert_reservation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">,</span> <span class="n">newCustomer</span><span class="p">,</span> <span class="n">newReservation</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inserts a new reservation into the &#39;reservations&#39; collection in the database.</span>
+
+<span class="sd">        Generates a unique reservation number and inserts the reservation details, linking the reservation</span>
+<span class="sd">        to the corresponding customer and room.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        room : dict</span>
+<span class="sd">            The room details for the reservation.</span>
+<span class="sd">        newCustomer : Customer</span>
+<span class="sd">            The customer making the reservation.</span>
+<span class="sd">        newReservation : Reservation</span>
+<span class="sd">            The reservation details.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        str</span>
+<span class="sd">            The confirmation number of the new reservation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>     
+        <span class="n">db</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_database</span><span class="p">()</span>
+        
+        <span class="c1"># Generate a unique reservation number</span>
+        <span class="n">reservation_number</span> <span class="o">=</span> <span class="s2">&quot;THH-&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">%H%M&quot;</span><span class="p">))</span>
+
+        <span class="c1"># Fetch the customer from db</span>
+        <span class="n">customer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;customers&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">newCustomer</span><span class="o">.</span><span class="n">email</span><span class="p">})</span> 
+        
+        
+        <span class="c1"># grab roomtype id to search for available rooms</span>
+        <span class="n">roomType</span> <span class="o">=</span> <span class="k">await</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;roomTypes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">room</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]})</span> 
+        <span class="n">typeId</span> <span class="o">=</span> <span class="n">roomType</span><span class="p">[</span><span class="s1">&#39;_id&#39;</span><span class="p">]</span> <span class="c1"># type: ignore </span>
+        
+        <span class="c1"># find open room based on type</span>
+        <span class="n">availableRoom</span> <span class="o">=</span> <span class="k">await</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;rooms&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;typeId&quot;</span><span class="p">:</span> <span class="n">typeId</span><span class="p">})</span> 
+
+        <span class="c1">#Insert into Reservations Collection</span>
+        <span class="n">reservations</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;reservations&#39;</span><span class="p">]</span>
+        <span class="k">await</span> <span class="n">reservations</span><span class="o">.</span><span class="n">insert_one</span><span class="p">({</span>
+            <span class="s2">&quot;customerId&quot;</span><span class="p">:</span> <span class="n">customer</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span> <span class="c1"># type: ignore </span>
+            <span class="s2">&quot;roomId&quot;</span><span class="p">:</span> <span class="n">availableRoom</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span>  <span class="c1"># Ensure you have the room ID here</span>
+            <span class="s2">&quot;confirmationNumber&quot;</span><span class="p">:</span> <span class="n">reservation_number</span><span class="p">,</span>
+            <span class="s2">&quot;persons&quot;</span><span class="p">:</span> <span class="n">newCustomer</span><span class="o">.</span><span class="n">persons</span><span class="p">,</span>
+            <span class="s2">&quot;checkIn&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="n">newReservation</span><span class="o">.</span><span class="n">checkIn</span><span class="o">.</span><span class="n">year</span><span class="p">(),</span> <span class="n">newReservation</span><span class="o">.</span><span class="n">checkIn</span><span class="o">.</span><span class="n">month</span><span class="p">(),</span> <span class="n">newReservation</span><span class="o">.</span><span class="n">checkIn</span><span class="o">.</span><span class="n">day</span><span class="p">()),</span> <span class="c1"># type: ignore</span>
+            <span class="s2">&quot;checkOut&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="n">newReservation</span><span class="o">.</span><span class="n">checkOut</span><span class="o">.</span><span class="n">year</span><span class="p">(),</span> <span class="n">newReservation</span><span class="o">.</span><span class="n">checkOut</span><span class="o">.</span><span class="n">month</span><span class="p">(),</span> <span class="n">newReservation</span><span class="o">.</span><span class="n">checkOut</span><span class="o">.</span><span class="n">day</span><span class="p">())</span> <span class="c1"># type: ignore</span>
+        <span class="p">})</span>
+        
+        <span class="k">return</span> <span class="n">reservation_number</span></div>
+
+        
+<div class="viewcode-block" id="dataBase.change_reservation">
+<a class="viewcode-back" href="../../databaseconnect.html#databaseFiles.databaseconnect.dataBase.change_reservation">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">change_reservation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">reservation</span><span class="p">,</span><span class="n">roomTypeName</span><span class="p">,</span><span class="n">checkIn</span><span class="p">,</span><span class="n">checkOut</span><span class="p">,</span><span class="n">adults</span><span class="p">):</span>
+        
+        <span class="n">rooms</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Premiere Harold Single&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Single&quot;</span><span class="p">,</span> <span class="s2">&quot;sleeps&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="s2">&quot;resources/single.jpg&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Premiere Harold Double&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Double&quot;</span><span class="p">,</span> <span class="s2">&quot;sleeps&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">125</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="s2">&quot;resources/double.jpg&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Premiere Harold Suite&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Suite&quot;</span><span class="p">,</span> <span class="s2">&quot;sleeps&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="s2">&quot;resources/suite.jpeg&quot;</span><span class="p">}</span>
+        <span class="p">]</span>
+        
+        <span class="c1"># Find the room by name</span>
+        <span class="c1"># refractor to better code later</span>
+        <span class="n">room</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">room</span> <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="n">rooms</span> <span class="k">if</span> <span class="n">room</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">roomTypeName</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        
+        <span class="n">db</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_database</span><span class="p">()</span>
+        
+        <span class="c1"># Fetch the reservation from db</span>
+        <span class="n">reservation</span> <span class="o">=</span> <span class="k">await</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;reservations&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;confirmationNumber&quot;</span><span class="p">:</span> <span class="n">reservation</span><span class="p">[</span><span class="s1">&#39;confirmationNumber&#39;</span><span class="p">]})</span> 
+        
+        <span class="n">roomType</span> <span class="o">=</span> <span class="k">await</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;roomTypes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">room</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]})</span>
+        
+        <span class="n">fRoom</span> <span class="o">=</span>  <span class="k">await</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;rooms&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;typeId&quot;</span><span class="p">:</span> <span class="n">roomType</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">]})</span>
+        
+        <span class="c1"># Define the fields you want to update</span>
+        <span class="n">update_fields</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;$set&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;persons&quot;</span><span class="p">:</span> <span class="n">adults</span><span class="p">,</span>
+                <span class="s2">&quot;roomId&quot;</span><span class="p">:</span> <span class="n">fRoom</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span> <span class="c1"># type: ignore</span>
+                <span class="s2">&quot;checkIn&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="n">checkIn</span><span class="o">.</span><span class="n">year</span><span class="p">(),</span> <span class="n">checkIn</span><span class="o">.</span><span class="n">month</span><span class="p">(),</span> <span class="n">checkIn</span><span class="o">.</span><span class="n">day</span><span class="p">()),</span> <span class="c1"># type: ignore</span>
+                <span class="s2">&quot;checkOut&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="n">checkOut</span><span class="o">.</span><span class="n">year</span><span class="p">(),</span> <span class="n">checkOut</span><span class="o">.</span><span class="n">month</span><span class="p">(),</span> <span class="n">checkOut</span><span class="o">.</span><span class="n">day</span><span class="p">())</span> <span class="c1"># type: ignore</span>
+                
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Update the reservation</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;reservations&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s1">&#39;_id&#39;</span><span class="p">:</span> <span class="n">reservation</span><span class="p">[</span><span class="s1">&#39;_id&#39;</span><span class="p">]},</span> <span class="n">update_fields</span><span class="p">)</span>
+
+        <span class="c1"># Check if the update was successful</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">modified_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reservation successfully updated.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No Reservation was updated.&quot;</span><span class="p">)</span>  
+    
+        <span class="k">return</span> <span class="n">result</span>  </div>
+
+
+<div class="viewcode-block" id="dataBase.cancel_reservation">
+<a class="viewcode-back" href="../../databaseconnect.html#databaseFiles.databaseconnect.dataBase.cancel_reservation">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">cancel_reservation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">reservation</span><span class="p">):</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_database</span><span class="p">()</span>
+        
+        <span class="c1"># Cancel the reservation from db</span>
+        <span class="k">await</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;reservations&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">delete_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">reservation</span><span class="p">[</span><span class="s1">&#39;_id&#39;</span><span class="p">]})</span></div>
+</div>
+
+       
+ 
+        
+        
+
+        
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">TheHaroldHotel</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">TheHaroldHotel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Harold Flint, Mariia Kim, Macy Varga, Jonathan Aghachi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
