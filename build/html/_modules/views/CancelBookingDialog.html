@@ -35,6 +35,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">class: CancelBookingDialog</span>
 <span class="sd">most recent update: 8/13/2024</span>
+
 <span class="sd">programmers: Mariia Kim</span>
 
 <span class="sd">Description:</span>
@@ -48,7 +49,7 @@
 <span class="kn">import</span> <span class="nn">pydoc</span>
 
 <div class="viewcode-block" id="CancelBookingDialog">
-<a class="viewcode-back" href="../../CancelBookingDialog.html#views.CancelBookingDialog.CancelBookingDialog">[docs]</a>
+<a class="viewcode-back" href="../../views/CancelBookingDialog.html#views.CancelBookingDialog.CancelBookingDialog">[docs]</a>
 <span class="k">class</span> <span class="nc">CancelBookingDialog</span><span class="p">(</span><span class="n">QDialog</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    If the user confirms the cancellation, the booking is canceled (in the actual implementation, this would involve interacting with the database), </span>
@@ -126,7 +127,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">center_dialog</span><span class="p">()</span>
 
 <div class="viewcode-block" id="CancelBookingDialog.center_dialog">
-<a class="viewcode-back" href="../../CancelBookingDialog.html#views.CancelBookingDialog.CancelBookingDialog.center_dialog">[docs]</a>
+<a class="viewcode-back" href="../../views/CancelBookingDialog.html#views.CancelBookingDialog.CancelBookingDialog.center_dialog">[docs]</a>
     <span class="k">def</span> <span class="nf">center_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">parent_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">booking_details_window</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
         <span class="n">dialog_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
@@ -135,7 +136,7 @@
 
 
 <div class="viewcode-block" id="CancelBookingDialog.confirm_cancel">
-<a class="viewcode-back" href="../../CancelBookingDialog.html#views.CancelBookingDialog.CancelBookingDialog.confirm_cancel">[docs]</a>
+<a class="viewcode-back" href="../../views/CancelBookingDialog.html#views.CancelBookingDialog.CancelBookingDialog.confirm_cancel">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">confirm_cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1">#create databaseconnection</span>
         <span class="n">db_instance</span> <span class="o">=</span> <span class="n">dataBase</span><span class="p">()</span>

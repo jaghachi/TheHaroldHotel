@@ -2,6 +2,7 @@
 """
 class: BookingCanceledDialog
 most recent update: 8/12/2024
+
 programmers: Harold Flint
 
 Description:

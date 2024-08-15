@@ -39,6 +39,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">class: BookingRoomsWindow</span>
 <span class="sd">most recent update: 8/8/2024</span>
+
 <span class="sd">programmers: Harold Flint</span>
 
 <span class="sd">Description:</span>
@@ -54,7 +55,7 @@
 <span class="kn">import</span> <span class="nn">pydoc</span>
 
 <div class="viewcode-block" id="BookingRoomsWindow">
-<a class="viewcode-back" href="../../Page_3_BookingRoomsWindow.html#views.Page_3_BookingRoomsWindow.BookingRoomsWindow">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_3_BookingRoomsWindow.html#views.Page_3_BookingRoomsWindow.BookingRoomsWindow">[docs]</a>
 <span class="k">class</span> <span class="nc">BookingRoomsWindow</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;&quot;</span>
 <span class="sd">    This window presents the user with a selection of room options, including details such as room name, </span>
@@ -184,13 +185,13 @@
         <span class="n">main_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">bottom_layout</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BookingRoomsWindow.back_to_booking">
-<a class="viewcode-back" href="../../Page_3_BookingRoomsWindow.html#views.Page_3_BookingRoomsWindow.BookingRoomsWindow.back_to_booking">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_3_BookingRoomsWindow.html#views.Page_3_BookingRoomsWindow.BookingRoomsWindow.back_to_booking">[docs]</a>
     <span class="k">def</span> <span class="nf">back_to_booking</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="s2">&quot;booking&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="BookingRoomsWindow.open_room_booking_details">
-<a class="viewcode-back" href="../../Page_3_BookingRoomsWindow.html#views.Page_3_BookingRoomsWindow.BookingRoomsWindow.open_room_booking_details">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_3_BookingRoomsWindow.html#views.Page_3_BookingRoomsWindow.BookingRoomsWindow.open_room_booking_details">[docs]</a>
     <span class="k">def</span> <span class="nf">open_room_booking_details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">,</span> <span class="n">newReservation</span><span class="p">,</span> <span class="n">guests</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">room_booking_details_window</span> <span class="o">=</span> <span class="n">RoomBookingDetailsWindow</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">newReservation</span><span class="p">,</span> <span class="n">guests</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">room_booking_details_window</span><span class="p">,</span> <span class="s2">&quot;room_booking_details&quot;</span><span class="p">)</span>

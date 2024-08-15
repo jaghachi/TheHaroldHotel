@@ -36,8 +36,8 @@
   <section id="module-classes.room">
 <span id="classes-room-module"></span><h1>classes/room module<a class="headerlink" href="#module-classes.room" title="Link to this heading">¶</a></h1>
 <p>class: Room
-most recent update: 8/13/2024
-programmers: Jonathan Aghachi and Macy V</p>
+most recent update: 8/13/2024</p>
+<p>programmers: Jonathan Aghachi and Macy V</p>
 <dl class="simple">
 <dt>Description: “Room” class represents a hotel room with attributes such as room ID, price, capacity (number of persons it can accommodate), availability date, and booking details like check-in and check-out dates.</dt><dd><p>The class provides methods to set and get these attributes.</p>
 </dd>
@@ -148,35 +148,6 @@ programmers: Jonathan Aghachi and Macy V</p>
 <dd></dd></dl>
 
 </section>
-</dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="classes.room.rooms">
-<span class="sig-prename descclassname"><span class="pre">classes.room.</span></span><span class="sig-name descname"><span class="pre">rooms</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[{'image':</span> <span class="pre">'resources/single.jpg',</span> <span class="pre">'name':</span> <span class="pre">'Premiere</span> <span class="pre">Harold</span> <span class="pre">Single',</span> <span class="pre">'price':</span> <span class="pre">75,</span> <span class="pre">'sleeps':</span> <span class="pre">1,</span> <span class="pre">'type':</span> <span class="pre">'Single'},</span> <span class="pre">{'image':</span> <span class="pre">'resources/double.jpg',</span> <span class="pre">'name':</span> <span class="pre">'Premiere</span> <span class="pre">Harold</span> <span class="pre">Double',</span> <span class="pre">'price':</span> <span class="pre">125,</span> <span class="pre">'sleeps':</span> <span class="pre">4,</span> <span class="pre">'type':</span> <span class="pre">'Double'},</span> <span class="pre">{'image':</span> <span class="pre">'resources/suite.jpeg',</span> <span class="pre">'name':</span> <span class="pre">'Premiere</span> <span class="pre">Harold</span> <span class="pre">Suite',</span> <span class="pre">'price':</span> <span class="pre">200,</span> <span class="pre">'sleeps':</span> <span class="pre">4,</span> <span class="pre">'type':</span> <span class="pre">'Suite'}]</span></em><a class="headerlink" href="#classes.room.rooms" title="Link to this definition">¶</a></dt>
-<dd><p>### adding room descriptions
-rooms = []
-#single
-for i in range(100, 105):</p>
-<blockquote>
-<div><blockquote>
-<div><p>rooms.append(Room(room_id=i, price=200, persons=4, date_available_from=date.today()))</p>
-</div></blockquote>
-<p>#double
-for i in range(200, 205):</p>
-<blockquote>
-<div><p>rooms.append(Room(room_id=i, price=125, persons=4, date_available_from=date.today()))</p>
-</div></blockquote>
-</div></blockquote>
-<p>#single
-for i in range(300, 305):</p>
-<blockquote>
-<div><p>rooms.append(Room(room_id=i, price=75, persons=1, date_available_from=date.today()))</p>
-</div></blockquote>
-<p>#room verify output
-for room in rooms:</p>
-<blockquote>
-<div><p>print(f”Room ID: {room.get_id()}, Type: {‘Suite’ if room.get_price() == 200 else ‘Double’ if room.get_price() == 125 else ‘Single’}, Price: {room.get_price()}, Max Persons: {room.get_persons()}, Available From: {room.get_date_available_from()}”)</p>
-</div></blockquote>
 </dd></dl>
 
 </section>

@@ -39,6 +39,7 @@
 <span class="sd">&quot;&quot;&quot;&quot;&quot;</span>
 <span class="sd">class: RoomBookingDetailsWindow</span>
 <span class="sd">most recent update: 8/12/2024</span>
+
 <span class="sd">programmers: Mariia Kim</span>
 
 <span class="sd">Description:</span>
@@ -56,7 +57,7 @@
 <span class="kn">import</span> <span class="nn">pydoc</span>
 
 <div class="viewcode-block" id="RoomBookingDetailsWindow">
-<a class="viewcode-back" href="../../Page_4_RoomBookingDetailsWindow.html#views.Page_4_RoomBookingDetailsWindow.RoomBookingDetailsWindow">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_4_RoomBookingDetailsWindow.html#views.Page_4_RoomBookingDetailsWindow.RoomBookingDetailsWindow">[docs]</a>
 <span class="k">class</span> <span class="nc">RoomBookingDetailsWindow</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;&quot;</span>
 <span class="sd">    This window provides the interface for users to input their personal information before finalizing </span>
@@ -187,7 +188,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">main_layout</span><span class="p">)</span>
 
 <div class="viewcode-block" id="RoomBookingDetailsWindow.handle_booking">
-<a class="viewcode-back" href="../../Page_4_RoomBookingDetailsWindow.html#views.Page_4_RoomBookingDetailsWindow.RoomBookingDetailsWindow.handle_booking">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_4_RoomBookingDetailsWindow.html#views.Page_4_RoomBookingDetailsWindow.RoomBookingDetailsWindow.handle_booking">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">handle_booking</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_name</span><span class="p">,</span> <span class="n">user_email</span><span class="p">,</span> <span class="n">adults</span><span class="p">,</span> <span class="n">room</span><span class="p">,</span> <span class="n">newReservation</span><span class="p">):</span>
         <span class="n">new_customer</span> <span class="o">=</span> <span class="n">Customer</span><span class="p">()</span>
         <span class="n">new_customer</span><span class="o">.</span><span class="n">set_name</span><span class="p">(</span><span class="n">user_name</span><span class="p">)</span>
@@ -198,7 +199,7 @@
 
 
 <div class="viewcode-block" id="RoomBookingDetailsWindow.open_booking_confirmation">
-<a class="viewcode-back" href="../../Page_4_RoomBookingDetailsWindow.html#views.Page_4_RoomBookingDetailsWindow.RoomBookingDetailsWindow.open_booking_confirmation">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_4_RoomBookingDetailsWindow.html#views.Page_4_RoomBookingDetailsWindow.RoomBookingDetailsWindow.open_booking_confirmation">[docs]</a>
     <span class="k">def</span> <span class="nf">open_booking_confirmation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newReservation</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">confirmation_window</span> <span class="o">=</span> <span class="n">BookingConfirmationWindow</span><span class="p">(</span><span class="n">newReservation</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">confirmation_window</span><span class="o">.</span><span class="n">setWindowModality</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">ApplicationModal</span><span class="p">)</span>
@@ -207,7 +208,7 @@
 
         
 <div class="viewcode-block" id="RoomBookingDetailsWindow.back_to_booking_rooms">
-<a class="viewcode-back" href="../../Page_4_RoomBookingDetailsWindow.html#views.Page_4_RoomBookingDetailsWindow.RoomBookingDetailsWindow.back_to_booking_rooms">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_4_RoomBookingDetailsWindow.html#views.Page_4_RoomBookingDetailsWindow.RoomBookingDetailsWindow.back_to_booking_rooms">[docs]</a>
     <span class="k">def</span> <span class="nf">back_to_booking_rooms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="s2">&quot;booking_rooms&quot;</span><span class="p">)</span></div>
 </div>

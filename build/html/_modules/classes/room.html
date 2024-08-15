@@ -34,6 +34,7 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">class: Room</span>
 <span class="sd">most recent update: 8/13/2024</span>
+
 <span class="sd">programmers: Jonathan Aghachi and Macy V</span>
 
 <span class="sd">Description: &quot;Room&quot; class represents a hotel room with attributes such as room ID, price, capacity (number of persons it can accommodate), availability date, and booking details like check-in and check-out dates. </span>
@@ -50,7 +51,7 @@
 <span class="c1">##DOUBLE: persons 1-4, $125 per night</span>
 <span class="c1">##SINGLE: persons 1, $75 per night</span>
 <div class="viewcode-block" id="Room">
-<a class="viewcode-back" href="../../room.html#classes.room.Room">[docs]</a>
+<a class="viewcode-back" href="../../classes/room.html#classes.room.Room">[docs]</a>
 <span class="k">class</span> <span class="nc">Room</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class to represent a hotel room with its details.</span>
@@ -126,77 +127,77 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">check_out</span> <span class="o">=</span> <span class="n">check_out</span> <span class="c1">#check out date (start with none)</span>
         
 <div class="viewcode-block" id="Room.get_id">
-<a class="viewcode-back" href="../../room.html#classes.room.Room.get_id">[docs]</a>
+<a class="viewcode-back" href="../../classes/room.html#classes.room.Room.get_id">[docs]</a>
     <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="c1">#get room id</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">room_id</span></div>
 
 
 <div class="viewcode-block" id="Room.get_price">
-<a class="viewcode-back" href="../../room.html#classes.room.Room.get_price">[docs]</a>
+<a class="viewcode-back" href="../../classes/room.html#classes.room.Room.get_price">[docs]</a>
     <span class="k">def</span> <span class="nf">get_price</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="c1">#GET PRICE OF ROOM</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">price</span></div>
 
 
 <div class="viewcode-block" id="Room.get_persons">
-<a class="viewcode-back" href="../../room.html#classes.room.Room.get_persons">[docs]</a>
+<a class="viewcode-back" href="../../classes/room.html#classes.room.Room.get_persons">[docs]</a>
     <span class="k">def</span> <span class="nf">get_persons</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="c1">#get value of how many people can be in room</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">persons</span></div>
 
 
 <div class="viewcode-block" id="Room.get_date_available_from">
-<a class="viewcode-back" href="../../room.html#classes.room.Room.get_date_available_from">[docs]</a>
+<a class="viewcode-back" href="../../classes/room.html#classes.room.Room.get_date_available_from">[docs]</a>
     <span class="k">def</span> <span class="nf">get_date_available_from</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">date</span><span class="p">:</span>
         <span class="c1">#get what days the room is available </span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">date_available_from</span></div>
 
 
 <div class="viewcode-block" id="Room.get_booked_dates">
-<a class="viewcode-back" href="../../room.html#classes.room.Room.get_booked_dates">[docs]</a>
+<a class="viewcode-back" href="../../classes/room.html#classes.room.Room.get_booked_dates">[docs]</a>
     <span class="k">def</span> <span class="nf">get_booked_dates</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">date</span><span class="p">]:</span>
         <span class="c1">#get list of the dates room is booked</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">booked_dates</span></div>
 
 
 <div class="viewcode-block" id="Room.set_id">
-<a class="viewcode-back" href="../../room.html#classes.room.Room.set_id">[docs]</a>
+<a class="viewcode-back" href="../../classes/room.html#classes.room.Room.set_id">[docs]</a>
     <span class="k">def</span> <span class="nf">set_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="c1">#set room id (unique)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">room_id</span> <span class="o">=</span> <span class="n">room_id</span></div>
 
 
 <div class="viewcode-block" id="Room.set_price">
-<a class="viewcode-back" href="../../room.html#classes.room.Room.set_price">[docs]</a>
+<a class="viewcode-back" href="../../classes/room.html#classes.room.Room.set_price">[docs]</a>
     <span class="k">def</span> <span class="nf">set_price</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">price</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="c1">#set price of room</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">price</span> <span class="o">=</span> <span class="n">price</span></div>
 
 
 <div class="viewcode-block" id="Room.set_persons">
-<a class="viewcode-back" href="../../room.html#classes.room.Room.set_persons">[docs]</a>
+<a class="viewcode-back" href="../../classes/room.html#classes.room.Room.set_persons">[docs]</a>
     <span class="k">def</span> <span class="nf">set_persons</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">persons</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="c1">#set umber of people in room</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">persons</span> <span class="o">=</span> <span class="n">persons</span></div>
 
 
 <div class="viewcode-block" id="Room.set_date_available_from">
-<a class="viewcode-back" href="../../room.html#classes.room.Room.set_date_available_from">[docs]</a>
+<a class="viewcode-back" href="../../classes/room.html#classes.room.Room.set_date_available_from">[docs]</a>
     <span class="k">def</span> <span class="nf">set_date_available_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_available_from</span><span class="p">:</span> <span class="n">date</span><span class="p">):</span>
         <span class="c1">#et avaibale dates </span>
         <span class="bp">self</span><span class="o">.</span><span class="n">date_available_from</span> <span class="o">=</span> <span class="n">date_available_from</span></div>
 
 
 <div class="viewcode-block" id="Room.set_check_in">
-<a class="viewcode-back" href="../../room.html#classes.room.Room.set_check_in">[docs]</a>
+<a class="viewcode-back" href="../../classes/room.html#classes.room.Room.set_check_in">[docs]</a>
     <span class="k">def</span> <span class="nf">set_check_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">check_in</span><span class="p">:</span> <span class="n">date</span><span class="p">):</span>
         <span class="c1">#set check in date</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_in</span> <span class="o">=</span> <span class="n">check_in</span></div>
 
 
 <div class="viewcode-block" id="Room.set_check_out">
-<a class="viewcode-back" href="../../room.html#classes.room.Room.set_check_out">[docs]</a>
+<a class="viewcode-back" href="../../classes/room.html#classes.room.Room.set_check_out">[docs]</a>
     <span class="k">def</span> <span class="nf">set_check_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">check_out</span><span class="p">:</span> <span class="n">date</span><span class="p">):</span>
         <span class="c1">#set check out date </span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_out</span> <span class="o">=</span> <span class="n">check_out</span></div>
@@ -209,28 +210,6 @@
         <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Premiere Harold Double&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Double&quot;</span><span class="p">,</span> <span class="s2">&quot;sleeps&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">125</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="s2">&quot;resources/double.jpg&quot;</span><span class="p">},</span>
         <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Premiere Harold Suite&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Suite&quot;</span><span class="p">,</span> <span class="s2">&quot;sleeps&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="s2">&quot;resources/suite.jpeg&quot;</span><span class="p">}</span>
     <span class="p">]</span>
-
-
-
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">### adding room descriptions </span>
-<span class="sd">rooms = []</span>
-<span class="sd">#single</span>
-<span class="sd">for i in range(100, 105):</span>
-<span class="sd">    rooms.append(Room(room_id=i, price=200, persons=4, date_available_from=date.today()))</span>
-
-<span class="sd"> #double</span>
-<span class="sd"> for i in range(200, 205):</span>
-<span class="sd">    rooms.append(Room(room_id=i, price=125, persons=4, date_available_from=date.today()))</span>
-
-<span class="sd">#single</span>
-<span class="sd">for i in range(300, 305):</span>
-<span class="sd">    rooms.append(Room(room_id=i, price=75, persons=1, date_available_from=date.today()))</span>
-
-<span class="sd">#room verify output</span>
-<span class="sd">for room in rooms:</span>
-<span class="sd">    print(f&quot;Room ID: {room.get_id()}, Type: {&#39;Suite&#39; if room.get_price() == 200 else &#39;Double&#39; if room.get_price() == 125 else &#39;Single&#39;}, Price: {room.get_price()}, Max Persons: {room.get_persons()}, Available From: {room.get_date_available_from()}&quot;)</span>
-<span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
 
           </div>

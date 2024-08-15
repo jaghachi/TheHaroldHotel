@@ -2,6 +2,7 @@
 """"
 class: MainWindow
 most recent update: 8/8/2024
+
 programmers: Mariia Kim, Harold Flint
 
 Description:

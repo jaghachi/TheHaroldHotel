@@ -38,6 +38,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">class: BookingDetailsWindow</span>
 <span class="sd">most recent update: 8/12/2024</span>
+
 <span class="sd">programmers: Mariia Kim</span>
 
 <span class="sd">Description: aloows user to view the details of an existing booking, such as check-in and check-out dates, room type, and total price.</span>
@@ -53,7 +54,7 @@
 <span class="kn">import</span> <span class="nn">pydoc</span>
 
 <div class="viewcode-block" id="BookingDetailsWindow">
-<a class="viewcode-back" href="../../BookingDetailsWindow.html#views.BookingDetailsWindow.BookingDetailsWindow">[docs]</a>
+<a class="viewcode-back" href="../../views/BookingDetailsWindow.html#views.BookingDetailsWindow.BookingDetailsWindow">[docs]</a>
 <span class="k">class</span> <span class="nc">BookingDetailsWindow</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A window to display the details of a user&#39;s existing booking.</span>
@@ -215,14 +216,14 @@
         <span class="n">main_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">bottom_layout</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BookingDetailsWindow.back_to_main">
-<a class="viewcode-back" href="../../BookingDetailsWindow.html#views.BookingDetailsWindow.BookingDetailsWindow.back_to_main">[docs]</a>
+<a class="viewcode-back" href="../../views/BookingDetailsWindow.html#views.BookingDetailsWindow.BookingDetailsWindow.back_to_main">[docs]</a>
     <span class="k">def</span> <span class="nf">back_to_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns to the main window view.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="s2">&quot;main&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="BookingDetailsWindow.change_booking">
-<a class="viewcode-back" href="../../BookingDetailsWindow.html#views.BookingDetailsWindow.BookingDetailsWindow.change_booking">[docs]</a>
+<a class="viewcode-back" href="../../views/BookingDetailsWindow.html#views.BookingDetailsWindow.BookingDetailsWindow.change_booking">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">change_booking</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Opens a window to change the booking details.</span>
@@ -235,7 +236,7 @@
 
 
 <div class="viewcode-block" id="BookingDetailsWindow.cancel_booking">
-<a class="viewcode-back" href="../../BookingDetailsWindow.html#views.BookingDetailsWindow.BookingDetailsWindow.cancel_booking">[docs]</a>
+<a class="viewcode-back" href="../../views/BookingDetailsWindow.html#views.BookingDetailsWindow.BookingDetailsWindow.cancel_booking">[docs]</a>
     <span class="k">def</span> <span class="nf">cancel_booking</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Opens a dialog to cancel the booking.</span>

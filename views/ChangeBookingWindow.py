@@ -2,6 +2,7 @@
 """
 class: ChangeBookingWindow
 most recent update: 8/13/2024
+
 programmers: Mariia Kim
 
 Description:

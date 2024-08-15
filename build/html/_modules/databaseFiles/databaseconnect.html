@@ -35,8 +35,9 @@
 <span class="sd">class: dataBase</span>
 <span class="sd">most recent update: 8/13/2024 (commenting)</span>
 
-
 <span class="sd">Description: dataBase class that manages interactions with a MongoDB database using the asynchronous Motor library.</span>
+
+<span class="sd">programmers: Jonathan Aghachi Macy V</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">motor.motor_asyncio</span> <span class="kn">import</span> <span class="n">AsyncIOMotorClient</span>
@@ -45,7 +46,7 @@
 <span class="kn">import</span> <span class="nn">pydoc</span>
 
 <div class="viewcode-block" id="dataBase">
-<a class="viewcode-back" href="../../databaseconnect.html#databaseFiles.databaseconnect.dataBase">[docs]</a>
+<a class="viewcode-back" href="../../databaseFiles/databaseconnect.html#databaseFiles.databaseconnect.dataBase">[docs]</a>
 <span class="k">class</span> <span class="nc">dataBase</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class to handle asynchronous operations with a MongoDB database.</span>
@@ -76,7 +77,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">AsyncIOMotorClient</span><span class="p">()</span>
 
 <div class="viewcode-block" id="dataBase.ping_server">
-<a class="viewcode-back" href="../../databaseconnect.html#databaseFiles.databaseconnect.dataBase.ping_server">[docs]</a>
+<a class="viewcode-back" href="../../databaseFiles/databaseconnect.html#databaseFiles.databaseconnect.dataBase.ping_server">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">ping_server</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Pings the MongoDB server to verify a successful connection.</span>
@@ -99,7 +100,7 @@
 
     
 <div class="viewcode-block" id="dataBase.get_database">
-<a class="viewcode-back" href="../../databaseconnect.html#databaseFiles.databaseconnect.dataBase.get_database">[docs]</a>
+<a class="viewcode-back" href="../../databaseFiles/databaseconnect.html#databaseFiles.databaseconnect.dataBase.get_database">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">get_database</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves the MongoDB database object for performing operations.</span>
@@ -118,7 +119,7 @@
 
     
 <div class="viewcode-block" id="dataBase.insert_customer">
-<a class="viewcode-back" href="../../databaseconnect.html#databaseFiles.databaseconnect.dataBase.insert_customer">[docs]</a>
+<a class="viewcode-back" href="../../databaseFiles/databaseconnect.html#databaseFiles.databaseconnect.dataBase.insert_customer">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">insert_customer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newCustomer</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Inserts a new customer into the &#39;customers&#39; collection in the database.</span>
@@ -141,7 +142,7 @@
 
     
 <div class="viewcode-block" id="dataBase.insert_reservation">
-<a class="viewcode-back" href="../../databaseconnect.html#databaseFiles.databaseconnect.dataBase.insert_reservation">[docs]</a>
+<a class="viewcode-back" href="../../databaseFiles/databaseconnect.html#databaseFiles.databaseconnect.dataBase.insert_reservation">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">insert_reservation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">,</span> <span class="n">newCustomer</span><span class="p">,</span> <span class="n">newReservation</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Inserts a new reservation into the &#39;reservations&#39; collection in the database.</span>
@@ -194,7 +195,7 @@
 
         
 <div class="viewcode-block" id="dataBase.change_reservation">
-<a class="viewcode-back" href="../../databaseconnect.html#databaseFiles.databaseconnect.dataBase.change_reservation">[docs]</a>
+<a class="viewcode-back" href="../../databaseFiles/databaseconnect.html#databaseFiles.databaseconnect.dataBase.change_reservation">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">change_reservation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">reservation</span><span class="p">,</span><span class="n">roomTypeName</span><span class="p">,</span><span class="n">checkIn</span><span class="p">,</span><span class="n">checkOut</span><span class="p">,</span><span class="n">adults</span><span class="p">):</span>
         
         <span class="n">rooms</span> <span class="o">=</span> <span class="p">[</span>
@@ -240,7 +241,7 @@
 
 
 <div class="viewcode-block" id="dataBase.cancel_reservation">
-<a class="viewcode-back" href="../../databaseconnect.html#databaseFiles.databaseconnect.dataBase.cancel_reservation">[docs]</a>
+<a class="viewcode-back" href="../../databaseFiles/databaseconnect.html#databaseFiles.databaseconnect.dataBase.cancel_reservation">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">cancel_reservation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">reservation</span><span class="p">):</span>
         <span class="n">db</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_database</span><span class="p">()</span>
         

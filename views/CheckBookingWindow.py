@@ -2,6 +2,7 @@
 """
 class: CheckBookingWindow
 most recent update: 8/12/2024
+
 programmers: Mariia Kim, Harold Flint
 
 Description:

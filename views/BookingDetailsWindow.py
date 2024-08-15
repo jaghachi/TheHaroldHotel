@@ -5,6 +5,7 @@ lets the user see all their booking details (existing booking)
 """
 class: BookingDetailsWindow
 most recent update: 8/12/2024
+
 programmers: Mariia Kim
 
 Description: aloows user to view the details of an existing booking, such as check-in and check-out dates, room type, and total price.

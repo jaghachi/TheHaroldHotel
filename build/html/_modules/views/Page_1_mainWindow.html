@@ -35,6 +35,7 @@
 <span class="sd">&quot;&quot;&quot;&quot;</span>
 <span class="sd">class: MainWindow</span>
 <span class="sd">most recent update: 8/8/2024</span>
+
 <span class="sd">programmers: Mariia Kim, Harold Flint</span>
 
 <span class="sd">Description:</span>
@@ -53,7 +54,7 @@
 <span class="kn">import</span> <span class="nn">pydoc</span>
 
 <div class="viewcode-block" id="MainWindow">
-<a class="viewcode-back" href="../../Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow">[docs]</a>
 <span class="k">class</span> <span class="nc">MainWindow</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;&quot;</span>
 <span class="sd">        The class handles navigation between different views using a ViewController. It also </span>
@@ -107,7 +108,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_booking_view</span><span class="p">,</span> <span class="s2">&quot;check_booking&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="MainWindow.setup_main_view">
-<a class="viewcode-back" href="../../Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.setup_main_view">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.setup_main_view">[docs]</a>
     <span class="k">def</span> <span class="nf">setup_main_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Background and logo setup</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="n">QPixmap</span><span class="p">(</span><span class="s2">&quot;resources/lobby.jpg&quot;</span><span class="p">)</span>
@@ -168,14 +169,14 @@
 
 
 <div class="viewcode-block" id="MainWindow.resizeEvent">
-<a class="viewcode-back" href="../../Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.resizeEvent">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.resizeEvent">[docs]</a>
     <span class="k">def</span> <span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">resizeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">adjust_images</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="MainWindow.adjust_images">
-<a class="viewcode-back" href="../../Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.adjust_images">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.adjust_images">[docs]</a>
     <span class="k">def</span> <span class="nf">adjust_images</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">new_background</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">background</span><span class="o">.</span><span class="n">scaled</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span> <span class="n">Qt</span><span class="o">.</span><span class="n">IgnoreAspectRatio</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">SmoothTransformation</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">background_label</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">new_background</span><span class="p">)</span>
@@ -204,7 +205,7 @@
 
 
 <div class="viewcode-block" id="MainWindow.eventFilter">
-<a class="viewcode-back" href="../../Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.eventFilter">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.eventFilter">[docs]</a>
     <span class="k">def</span> <span class="nf">eventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">event</span><span class="o">.</span><span class="n">Enter</span> <span class="ow">and</span> <span class="n">source</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_label1</span><span class="p">:</span>
             <span class="n">pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_label1</span><span class="o">.</span><span class="n">mapToGlobal</span><span class="p">(</span><span class="n">QPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
@@ -213,7 +214,7 @@
 
 
 <div class="viewcode-block" id="MainWindow.open_booking_view">
-<a class="viewcode-back" href="../../Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.open_booking_view">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.open_booking_view">[docs]</a>
     <span class="k">def</span> <span class="nf">open_booking_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">clear_views</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">readd_views</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>
@@ -221,7 +222,7 @@
 
 
 <div class="viewcode-block" id="MainWindow.open_check_booking_view">
-<a class="viewcode-back" href="../../Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.open_check_booking_view">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.open_check_booking_view">[docs]</a>
     <span class="k">def</span> <span class="nf">open_check_booking_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">clear_views</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">readd_views</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>

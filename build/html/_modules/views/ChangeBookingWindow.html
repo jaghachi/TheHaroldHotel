@@ -35,6 +35,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">class: ChangeBookingWindow</span>
 <span class="sd">most recent update: 8/13/2024</span>
+
 <span class="sd">programmers: Mariia Kim</span>
 
 <span class="sd">Description:</span>
@@ -53,7 +54,7 @@
 <span class="kn">import</span> <span class="nn">pydoc</span>
 
 <div class="viewcode-block" id="ChangeBookingWindow">
-<a class="viewcode-back" href="../../ChangeBookingWindow.html#views.ChangeBookingWindow.ChangeBookingWindow">[docs]</a>
+<a class="viewcode-back" href="../../views/ChangeBookingWindow.html#views.ChangeBookingWindow.ChangeBookingWindow">[docs]</a>
 <span class="k">class</span> <span class="nc">ChangeBookingWindow</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Once the user submits their changes, the updates are processed and the user is returned </span>
@@ -245,13 +246,13 @@
         <span class="n">main_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">bottom_layout</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ChangeBookingWindow.back_to_booking_details">
-<a class="viewcode-back" href="../../ChangeBookingWindow.html#views.ChangeBookingWindow.ChangeBookingWindow.back_to_booking_details">[docs]</a>
+<a class="viewcode-back" href="../../views/ChangeBookingWindow.html#views.ChangeBookingWindow.ChangeBookingWindow.back_to_booking_details">[docs]</a>
     <span class="k">def</span> <span class="nf">back_to_booking_details</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="s2">&quot;booking_details&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ChangeBookingWindow.submit_changes">
-<a class="viewcode-back" href="../../ChangeBookingWindow.html#views.ChangeBookingWindow.ChangeBookingWindow.submit_changes">[docs]</a>
+<a class="viewcode-back" href="../../views/ChangeBookingWindow.html#views.ChangeBookingWindow.ChangeBookingWindow.submit_changes">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">submit_changes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1">#create databaseconnection</span>
         <span class="n">db_instance</span> <span class="o">=</span> <span class="n">dataBase</span><span class="p">()</span>
@@ -270,7 +271,7 @@
 
         
 <div class="viewcode-block" id="ChangeBookingWindow.show_confirmation_dialog">
-<a class="viewcode-back" href="../../ChangeBookingWindow.html#views.ChangeBookingWindow.ChangeBookingWindow.show_confirmation_dialog">[docs]</a>
+<a class="viewcode-back" href="../../views/ChangeBookingWindow.html#views.ChangeBookingWindow.ChangeBookingWindow.show_confirmation_dialog">[docs]</a>
     <span class="k">def</span> <span class="nf">show_confirmation_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">confirmation_dialog</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">confirmation_dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Changes Submitted&quot;</span><span class="p">)</span>

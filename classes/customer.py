@@ -1,6 +1,7 @@
 """
 class: Customer
 most recent update: 8/12/2024
+
 programmers: Jonathan Aghachi and Macy V
 
 Description:

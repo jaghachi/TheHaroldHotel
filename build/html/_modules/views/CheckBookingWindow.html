@@ -35,6 +35,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">class: CheckBookingWindow</span>
 <span class="sd">most recent update: 8/12/2024</span>
+
 <span class="sd">programmers: Mariia Kim, Harold Flint</span>
 
 <span class="sd">Description:</span>
@@ -51,7 +52,7 @@
 <span class="kn">import</span> <span class="nn">pydoc</span>
 
 <div class="viewcode-block" id="CheckBookingWindow">
-<a class="viewcode-back" href="../../CheckBookingWindow.html#views.CheckBookingWindow.CheckBookingWindow">[docs]</a>
+<a class="viewcode-back" href="../../views/CheckBookingWindow.html#views.CheckBookingWindow.CheckBookingWindow">[docs]</a>
 <span class="k">class</span> <span class="nc">CheckBookingWindow</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    If the confirmation number is valid, the user is redirected to the BookingDetailsWindow, </span>
@@ -160,7 +161,7 @@
         <span class="n">main_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">bottom_layout</span><span class="p">)</span>
 
 <div class="viewcode-block" id="CheckBookingWindow.check_booking">
-<a class="viewcode-back" href="../../CheckBookingWindow.html#views.CheckBookingWindow.CheckBookingWindow.check_booking">[docs]</a>
+<a class="viewcode-back" href="../../views/CheckBookingWindow.html#views.CheckBookingWindow.CheckBookingWindow.check_booking">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">check_booking</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">confirmation_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">confirmation_input</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Checking booking for confirmation number: </span><span class="si">{</span><span class="n">confirmation_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -186,7 +187,7 @@
 
 
 <div class="viewcode-block" id="CheckBookingWindow.back_to_main">
-<a class="viewcode-back" href="../../CheckBookingWindow.html#views.CheckBookingWindow.CheckBookingWindow.back_to_main">[docs]</a>
+<a class="viewcode-back" href="../../views/CheckBookingWindow.html#views.CheckBookingWindow.CheckBookingWindow.back_to_main">[docs]</a>
     <span class="k">def</span> <span class="nf">back_to_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="s2">&quot;main&quot;</span><span class="p">)</span></div>
 </div>

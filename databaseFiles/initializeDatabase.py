@@ -1,6 +1,7 @@
 """
 class: initializeDatbase
 most recent update: 8/13/2024 (commenting)
+
 programmers: Jonathan Aghachi
 
 Description: It sets up collections for room types, rooms, customers, reservations, and room bookings.

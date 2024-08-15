@@ -6,6 +6,7 @@ Lets the user overview the available room types, how many guests they can fit in
 """
 class: BookingRoomsWindow
 most recent update: 8/8/2024
+
 programmers: Harold Flint
 
 Description:

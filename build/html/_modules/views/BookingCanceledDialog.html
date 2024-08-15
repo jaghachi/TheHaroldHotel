@@ -35,6 +35,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">class: BookingCanceledDialog</span>
 <span class="sd">most recent update: 8/12/2024</span>
+
 <span class="sd">programmers: Harold Flint</span>
 
 <span class="sd">Description:</span>
@@ -50,7 +51,7 @@
 <span class="kn">import</span> <span class="nn">pydoc</span>
 
 <div class="viewcode-block" id="BookingCanceledDialog">
-<a class="viewcode-back" href="../../BookingCanceledDialog.html#views.BookingCanceledDialog.BookingCanceledDialog">[docs]</a>
+<a class="viewcode-back" href="../../views/BookingCanceledDialog.html#views.BookingCanceledDialog.BookingCanceledDialog">[docs]</a>
 <span class="k">class</span> <span class="nc">BookingCanceledDialog</span><span class="p">(</span><span class="n">QDialog</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This dialog is the final step in the booking cancellation process, ensuring the user receives feedback that the cancellation </span>
@@ -101,21 +102,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">center_dialog</span><span class="p">()</span>
 
 <div class="viewcode-block" id="BookingCanceledDialog.close_dialog">
-<a class="viewcode-back" href="../../BookingCanceledDialog.html#views.BookingCanceledDialog.BookingCanceledDialog.close_dialog">[docs]</a>
+<a class="viewcode-back" href="../../views/BookingCanceledDialog.html#views.BookingCanceledDialog.BookingCanceledDialog.close_dialog">[docs]</a>
     <span class="k">def</span> <span class="nf">close_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="s2">&quot;main&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="BookingCanceledDialog.center_dialog">
-<a class="viewcode-back" href="../../BookingCanceledDialog.html#views.BookingCanceledDialog.BookingCanceledDialog.center_dialog">[docs]</a>
+<a class="viewcode-back" href="../../views/BookingCanceledDialog.html#views.BookingCanceledDialog.BookingCanceledDialog.center_dialog">[docs]</a>
     <span class="k">def</span> <span class="nf">center_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">parent_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">booking_details_window</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
         <span class="n">dialog_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
         <span class="n">center_point</span> <span class="o">=</span> <span class="n">parent_rect</span><span class="o">.</span><span class="n">center</span><span class="p">()</span> <span class="o">-</span> <span class="n">dialog_rect</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">parent_rect</span><span class="o">.</span><span class="n">topLeft</span><span class="p">()</span> <span class="o">+</span> <span class="n">center_point</span><span class="p">)</span></div>
 </div>
-
 
 </pre></div>
 

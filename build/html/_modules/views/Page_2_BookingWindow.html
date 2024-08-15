@@ -35,6 +35,7 @@
 <span class="sd">&quot;&quot;&quot;&quot;</span>
 <span class="sd">class: BookingWindow</span>
 <span class="sd">most recent update: 8/8/2024</span>
+
 <span class="sd">programmers: Mariia Kim</span>
 
 <span class="sd">Description:</span>
@@ -49,7 +50,7 @@
 <span class="kn">import</span> <span class="nn">pydoc</span>
 
 <div class="viewcode-block" id="BookingWindow">
-<a class="viewcode-back" href="../../Page_2_BookingWindow.html#views.Page_2_BookingWindow.BookingWindow">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_2_BookingWindow.html#views.Page_2_BookingWindow.BookingWindow">[docs]</a>
 <span class="k">class</span> <span class="nc">BookingWindow</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;&quot;</span>
 <span class="sd">        The class provides an interface for users to input their booking details before proceeding </span>
@@ -215,7 +216,7 @@
 
     <span class="c1"># connect to the next window</span>
 <div class="viewcode-block" id="BookingWindow.open_booking_rooms_window">
-<a class="viewcode-back" href="../../Page_2_BookingWindow.html#views.Page_2_BookingWindow.BookingWindow.open_booking_rooms_window">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_2_BookingWindow.html#views.Page_2_BookingWindow.BookingWindow.open_booking_rooms_window">[docs]</a>
     <span class="k">def</span> <span class="nf">open_booking_rooms_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">newReservation</span> <span class="o">=</span> <span class="n">Reservation</span><span class="p">()</span>
         <span class="n">newReservation</span><span class="o">.</span><span class="n">checkIn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkin_date</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
@@ -229,7 +230,7 @@
 
     <span class="c1"># back button</span>
 <div class="viewcode-block" id="BookingWindow.back_to_main">
-<a class="viewcode-back" href="../../Page_2_BookingWindow.html#views.Page_2_BookingWindow.BookingWindow.back_to_main">[docs]</a>
+<a class="viewcode-back" href="../../views/Page_2_BookingWindow.html#views.Page_2_BookingWindow.BookingWindow.back_to_main">[docs]</a>
     <span class="k">def</span> <span class="nf">back_to_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="s2">&quot;main&quot;</span><span class="p">)</span></div>
 </div>
