@@ -235,6 +235,23 @@ class ChangeBookingWindow(QWidget):
         confirmation_dialog.setText("Your booking changes have been successfully submitted.")
         confirmation_dialog.setIcon(QMessageBox.Information)
         confirmation_dialog.setStandardButtons(QMessageBox.Ok)
+        confirmation_dialog.setStyleSheet("""
+        QMessageBox {
+            background-color: #E5D5C3;
+            color: black;
+        }
+        QLabel {
+            color: black;
+        }
+        QPushButton {
+            background-color: #2B1C19;
+            color: white;
+        }
+        QPushButton:hover {
+            background-color: #E5D5C3;
+            color: black;
+        }
+    """)
         confirmation_dialog.exec_()
 
         self.controller.show_view("booking_details")
