@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>views.Page_1_mainWindow &#8212; TheHaroldHotel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for views.Page_1_mainWindow</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Main Window</span>
+<span class="sd">&quot;&quot;&quot;&quot;</span>
+<span class="sd">class: MainWindow</span>
+<span class="sd">most recent update: 8/8/2024</span>
+
+<span class="sd">programmers: Mariia Kim, Harold Flint</span>
+
+<span class="sd">Description:</span>
+<span class="sd">The MainWindow class serves as the central hub of the application, providing access </span>
+<span class="sd">to the booking and room management features. It displays the main menu with options </span>
+<span class="sd">to book a room, check a booking, and view room or hotel information.</span>
+
+<span class="sd">&quot;&quot;&quot;</span><span class="s2">&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QMenu</span><span class="p">,</span> <span class="n">QAction</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QHBoxLayout</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="n">QPixmap</span><span class="p">,</span> <span class="n">QFont</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QPoint</span>
+<span class="kn">from</span> <span class="nn">views.viewController</span> <span class="kn">import</span> <span class="n">ViewController</span>
+<span class="kn">from</span> <span class="nn">views.Page_2_BookingWindow</span> <span class="kn">import</span> <span class="n">BookingWindow</span>
+<span class="kn">from</span> <span class="nn">views.CheckBookingWindow</span> <span class="kn">import</span> <span class="n">CheckBookingWindow</span>
+<span class="kn">import</span> <span class="nn">pydoc</span>
+
+<div class="viewcode-block" id="MainWindow">
+<a class="viewcode-back" href="../../views/Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow">[docs]</a>
+<span class="k">class</span> <span class="nc">MainWindow</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;&quot;</span>
+<span class="sd">        The class handles navigation between different views using a ViewController. It also </span>
+<span class="sd">        manages the main interface elements, such as the background, logo, and menu.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        controller (ViewController): Handles view management and navigation.</span>
+<span class="sd">        main_view (QWidget): The main display area of the window.</span>
+<span class="sd">        main_layout (QVBoxLayout): Layout manager for the main view.</span>
+<span class="sd">        booking_view (BookingWindow): The view for booking a room.</span>
+<span class="sd">        check_booking_view (CheckBookingWindow): The view for checking existing bookings.</span>
+<span class="sd">        background_label (QLabel): Displays the background image of the main window.</span>
+<span class="sd">        white_line (QLabel): A decorative line in the main window.</span>
+<span class="sd">        logo_label (QLabel): Displays the hotel logo at the center of the window.</span>
+<span class="sd">        text_label1 (QLabel): Label for the &quot;Booking&quot; option.</span>
+<span class="sd">        text_label2 (QLabel): Label for the &quot;Rooms&quot; option.</span>
+<span class="sd">        text_label3 (QLabel): Label for the &quot;Info&quot; option.</span>
+<span class="sd">        menu (QMenu): Drop-down menu for booking options.</span>
+<span class="sd">        book_room_action (QAction): Action to navigate to the &quot;Book a room&quot; view.</span>
+<span class="sd">        check_booking_action (QAction): Action to navigate to the &quot;Check your booking&quot; view.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        setup_main_view(): Configures the main window&#39;s visual elements and layout.</span>
+<span class="sd">        resizeEvent(event): Adjusts the background and other elements when the window is resized.</span>
+<span class="sd">        adjust_images(): Rescales and repositions images and labels based on window size.</span>
+<span class="sd">        eventFilter(source, event): Handles the event filtering for the menu.</span>
+<span class="sd">        open_booking_view(): Navigates to the booking view.</span>
+<span class="sd">        open_check_booking_view(): Navigates to the check booking view.</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="s2">&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;The Harold Hotel&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span> <span class="o">=</span> <span class="n">ViewController</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_view</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_view</span><span class="p">)</span>
+        
+        <span class="c1"># Setup for main view</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_main_view</span><span class="p">()</span>
+
+        <span class="c1"># Add views to controller</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_view</span><span class="p">,</span> <span class="s2">&quot;main&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">booking_view</span> <span class="o">=</span> <span class="n">BookingWindow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">booking_view</span><span class="p">,</span> <span class="s2">&quot;booking&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_booking_view</span> <span class="o">=</span> <span class="n">CheckBookingWindow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_booking_view</span><span class="p">,</span> <span class="s2">&quot;check_booking&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MainWindow.setup_main_view">
+<a class="viewcode-back" href="../../views/Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.setup_main_view">[docs]</a>
+    <span class="k">def</span> <span class="nf">setup_main_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Background and logo setup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="n">QPixmap</span><span class="p">(</span><span class="s2">&quot;resources/lobby.jpg&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background_label</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">background</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background_label</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">white_line</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">white_line</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;background-color: #E5D5C3;&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logo</span> <span class="o">=</span> <span class="n">QPixmap</span><span class="p">(</span><span class="s2">&quot;resources/shmogo.png&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaled_logo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logo</span><span class="o">.</span><span class="n">scaled</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">KeepAspectRatio</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">SmoothTransformation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logo_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logo_label</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scaled_logo</span><span class="p">)</span>
+
+        <span class="c1"># Bottom menu options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_label1</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Booking&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_label2</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Rooms&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_label3</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Info&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_view</span><span class="p">)</span>
+
+        <span class="n">font</span> <span class="o">=</span> <span class="n">QFont</span><span class="p">(</span><span class="s2">&quot;Georgia&quot;</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_label1</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_label2</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_label3</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_label1</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;color: black&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_label2</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;color: black&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_label3</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;color: black&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menu</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            QMenu {</span>
+<span class="s2">                background-color: white;</span>
+<span class="s2">                color: black;</span>
+<span class="s2">                font-family: &#39;Georgia&#39;;</span>
+<span class="s2">                font-size: 18px;</span>
+<span class="s2">            }</span>
+<span class="s2">            QMenu::item {</span>
+<span class="s2">                background-color: white;</span>
+<span class="s2">                color: black;</span>
+<span class="s2">            }</span>
+<span class="s2">            QMenu::item:selected {</span>
+<span class="s2">            background-color: #E5D5C3;</span>
+<span class="s2">            color: black;</span>
+<span class="s2">            }</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">book_room_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;Book a room&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">menu</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_booking_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s2">&quot;Check your booking&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">menu</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">book_room_action</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_booking_action</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_label1</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">book_room_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_booking_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_booking_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_check_booking_view</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjust_images</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="MainWindow.resizeEvent">
+<a class="viewcode-back" href="../../views/Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.resizeEvent">[docs]</a>
+    <span class="k">def</span> <span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">resizeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjust_images</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="MainWindow.adjust_images">
+<a class="viewcode-back" href="../../views/Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.adjust_images">[docs]</a>
+    <span class="k">def</span> <span class="nf">adjust_images</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">new_background</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">background</span><span class="o">.</span><span class="n">scaled</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span> <span class="n">Qt</span><span class="o">.</span><span class="n">IgnoreAspectRatio</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">SmoothTransformation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background_label</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">new_background</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background_label</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">())</span>
+
+        <span class="n">line_height</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="n">line_y_position</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">-</span> <span class="n">line_height</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">white_line</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">line_y_position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">line_height</span><span class="p">)</span>
+
+        <span class="n">logo_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaled_logo</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+        <span class="n">logo_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaled_logo</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+        <span class="n">x_center</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">-</span> <span class="n">logo_width</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">y_center</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">-</span> <span class="n">logo_height</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logo_label</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">x_center</span><span class="p">,</span> <span class="n">y_center</span><span class="p">,</span> <span class="n">logo_width</span><span class="p">,</span> <span class="n">logo_height</span><span class="p">)</span>
+
+        <span class="n">text_height</span> <span class="o">=</span> <span class="mi">25</span>
+        <span class="n">bottom_margin</span> <span class="o">=</span> <span class="mi">20</span>
+        <span class="n">spacing</span> <span class="o">=</span> <span class="mi">80</span>
+
+        <span class="n">total_text_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_label1</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_label2</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_label3</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">spacing</span>
+        <span class="n">text_x_start</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">-</span> <span class="n">total_text_width</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_label1</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">text_x_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">-</span> <span class="n">text_height</span> <span class="o">-</span> <span class="n">bottom_margin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_label1</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">text_height</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_label2</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">text_x_start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_label1</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">+</span> <span class="n">spacing</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">-</span> <span class="n">text_height</span> <span class="o">-</span> <span class="n">bottom_margin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_label2</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">text_height</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_label3</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">text_x_start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_label1</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_label2</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">spacing</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">-</span> <span class="n">text_height</span> <span class="o">-</span> <span class="n">bottom_margin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_label3</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">text_height</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MainWindow.eventFilter">
+<a class="viewcode-back" href="../../views/Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.eventFilter">[docs]</a>
+    <span class="k">def</span> <span class="nf">eventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">event</span><span class="o">.</span><span class="n">Enter</span> <span class="ow">and</span> <span class="n">source</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_label1</span><span class="p">:</span>
+            <span class="n">pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_label1</span><span class="o">.</span><span class="n">mapToGlobal</span><span class="p">(</span><span class="n">QPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">menu</span><span class="o">.</span><span class="n">exec_</span><span class="p">(</span><span class="n">pos</span> <span class="o">+</span> <span class="n">QPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">menu</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()))</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MainWindow.open_booking_view">
+<a class="viewcode-back" href="../../views/Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.open_booking_view">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_booking_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">clear_views</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">readd_views</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="s2">&quot;booking&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MainWindow.open_check_booking_view">
+<a class="viewcode-back" href="../../views/Page_1_mainWindow.html#views.Page_1_mainWindow.MainWindow.open_check_booking_view">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_check_booking_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">clear_views</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">readd_views</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="s2">&quot;check_booking&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">TheHaroldHotel</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">TheHaroldHotel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Harold Flint, Mariia Kim, Macy Varga, Jonathan Aghachi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

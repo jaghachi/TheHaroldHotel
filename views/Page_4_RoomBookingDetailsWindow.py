@@ -6,6 +6,7 @@ the window shows all the details of the booking chose by the user: room type, nu
 """""
 class: RoomBookingDetailsWindow
 most recent update: 8/12/2024
+
 programmers: Mariia Kim
 
 Description:

@@ -1,7 +1,8 @@
 """
 class: Room
 most recent update: 8/13/2024
-programmers: Janathan A and Macy V
+
+programmers: Jonathan Aghachi and Macy V
 
 Description: "Room" class represents a hotel room with attributes such as room ID, price, capacity (number of persons it can accommodate), availability date, and booking details like check-in and check-out dates. 
     The class provides methods to set and get these attributes. 
@@ -140,25 +141,3 @@ rooms = [
         {"name": "Premiere Harold Double", "type": "Double", "sleeps": 4, "price": 125, "image": "resources/double.jpg"},
         {"name": "Premiere Harold Suite", "type": "Suite", "sleeps": 4, "price": 200, "image": "resources/suite.jpeg"}
     ]
-
-
-
-"""
-### adding room descriptions 
-rooms = []
-#single
-for i in range(100, 105):
-    rooms.append(Room(room_id=i, price=200, persons=4, date_available_from=date.today()))
-
- #double
- for i in range(200, 205):
-    rooms.append(Room(room_id=i, price=125, persons=4, date_available_from=date.today()))
-
-#single
-for i in range(300, 305):
-    rooms.append(Room(room_id=i, price=75, persons=1, date_available_from=date.today()))
-
-#room verify output
-for room in rooms:
-    print(f"Room ID: {room.get_id()}, Type: {'Suite' if room.get_price() == 200 else 'Double' if room.get_price() == 125 else 'Single'}, Price: {room.get_price()}, Max Persons: {room.get_persons()}, Available From: {room.get_date_available_from()}")
-"""

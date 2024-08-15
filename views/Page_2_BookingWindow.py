@@ -2,6 +2,7 @@
 """"
 class: BookingWindow
 most recent update: 8/8/2024
+
 programmers: Mariia Kim
 
 Description:

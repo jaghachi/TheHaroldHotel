@@ -1,7 +1,8 @@
 """
 class: Customer
 most recent update: 8/12/2024
-programmers: Janathan A and Macy V
+
+programmers: Jonathan Aghachi and Macy V
 
 Description:
 "Customer" class represents a customer with a name, email, number of persons, and a list of reservations. 

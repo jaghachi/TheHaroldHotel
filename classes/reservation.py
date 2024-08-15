@@ -1,7 +1,8 @@
 """
 class: Reservation
 most recent update: 8/13/2024
-programmers: Janathan A and Macy V
+
+programmers: Jonathan Aghachi and Macy V
 
 Description:
 "Reservation" class anages reservation details for a customer. 

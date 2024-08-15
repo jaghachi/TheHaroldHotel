@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>views.CheckBookingWindow &#8212; TheHaroldHotel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for views.CheckBookingWindow</h1><div class="highlight"><pre>
+<span></span><span class="c1"># main window -&gt; check booking window</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">class: CheckBookingWindow</span>
+<span class="sd">most recent update: 8/12/2024</span>
+
+<span class="sd">programmers: Mariia Kim, Harold Flint</span>
+
+<span class="sd">Description:</span>
+<span class="sd">The CheckBookingWindow class allows users to check the details of their reservation by entering a confirmation number. </span>
+<span class="sd">It is opened from the MainWindow and provides an interface for users to input their confirmation number </span>
+<span class="sd">and retrieve their booking details.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QLineEdit</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span> <span class="n">QSpacerItem</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="p">,</span> <span class="n">QFrame</span><span class="p">,</span> <span class="n">QHBoxLayout</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="n">QPixmap</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span>
+<span class="kn">from</span> <span class="nn">views.BookingDetailsWindow</span> <span class="kn">import</span> <span class="n">BookingDetailsWindow</span>
+<span class="kn">from</span> <span class="nn">databaseFiles.databaseconnect</span> <span class="kn">import</span> <span class="n">dataBase</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">pydoc</span>
+
+<div class="viewcode-block" id="CheckBookingWindow">
+<a class="viewcode-back" href="../../views/CheckBookingWindow.html#views.CheckBookingWindow.CheckBookingWindow">[docs]</a>
+<span class="k">class</span> <span class="nc">CheckBookingWindow</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If the confirmation number is valid, the user is redirected to the BookingDetailsWindow, </span>
+<span class="sd">    where they can view the specifics of their reservation. The class also handles error messages </span>
+<span class="sd">    if the confirmation number is not found.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        controller (ViewController): Manages view transitions and interactions with other views.</span>
+<span class="sd">        confirmation_input (QLineEdit): Input field for the user to enter their confirmation number.</span>
+<span class="sd">        error_label (QLabel): Label for displaying error messages when the confirmation number is not found.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        check_booking(): Asynchronously checks the database for the entered confirmation number and transitions to the BookingDetailsWindow if found.</span>
+<span class="sd">        back_to_main(): Navigates back to the MainWindow.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controller</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span> <span class="o">=</span> <span class="n">controller</span>  <span class="c1"># added controller</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Check your reservation&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+
+        <span class="c1"># set up the background pic</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background_label</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">QPixmap</span><span class="p">(</span><span class="s2">&quot;resources/lobby.jpg&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background_label</span><span class="o">.</span><span class="n">setScaledContents</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background_label</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+        
+        <span class="n">main_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">main_layout</span><span class="p">)</span>
+
+        <span class="n">spacer_top</span> <span class="o">=</span> <span class="n">QSpacerItem</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Minimum</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">)</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">spacer_top</span><span class="p">)</span>
+
+        <span class="n">centered_frame</span> <span class="o">=</span> <span class="n">QFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">centered_frame</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;background-color: #E5D5C3; border-radius: 10px;&quot;</span><span class="p">)</span>
+        <span class="n">centered_frame</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+
+        <span class="n">centered_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="n">centered_frame</span><span class="p">)</span>
+
+        <span class="n">title</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Input your Confirmation Number: &quot;</span><span class="p">)</span>
+        <span class="n">title</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+        <span class="n">title</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;font-size: 16px; color: black;&quot;</span><span class="p">)</span>
+        <span class="n">centered_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">confirmation_input</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">confirmation_input</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;background-color: white; color: black; padding: 5px;&quot;</span><span class="p">)</span>
+        <span class="n">centered_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">confirmation_input</span><span class="p">)</span>
+
+        <span class="n">check_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Check Booking&quot;</span><span class="p">)</span>
+        <span class="n">check_button</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            QPushButton {</span>
+<span class="s2">                background-color: #2B1C19;</span>
+<span class="s2">                color: white;</span>
+<span class="s2">                font-size: 16px;</span>
+<span class="s2">                font-weight: bold;</span>
+<span class="s2">                padding: 10px;</span>
+<span class="s2">            }</span>
+<span class="s2">            QPushButton:hover {</span>
+<span class="s2">                background-color: #E5D5C3;</span>
+<span class="s2">                color: black;</span>
+<span class="s2">            }</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="n">check_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_booking</span><span class="p">()))</span>
+        <span class="n">centered_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">check_button</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">error_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error_label</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error_label</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;font-size: 10px; color: red;&quot;</span><span class="p">)</span>
+        <span class="n">centered_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">error_label</span><span class="p">)</span>
+
+        <span class="c1"># adding the centered frame to the main layout</span>
+        <span class="n">center_container</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">center_container</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+        <span class="n">center_container</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">centered_frame</span><span class="p">)</span>
+        <span class="n">center_container</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">center_container</span><span class="p">)</span>
+
+        <span class="c1"># spacer item to push the centered_frame to the middle</span>
+        <span class="n">spacer_bottom</span> <span class="o">=</span> <span class="n">QSpacerItem</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Minimum</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">)</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">spacer_bottom</span><span class="p">)</span>
+        
+        <span class="c1"># add the back button to the bottom right corner</span>
+        <span class="n">bottom_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">bottom_layout</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+
+        <span class="n">back_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Back&quot;</span><span class="p">)</span>
+        <span class="n">back_button</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            QPushButton {</span>
+<span class="s2">                background-color: #2B1C19;</span>
+<span class="s2">                color: white;</span>
+<span class="s2">                font-size: 16px;</span>
+<span class="s2">                font-weight: bold;</span>
+<span class="s2">                border-radius: 5px;</span>
+<span class="s2">                padding: 10px;</span>
+<span class="s2">            }</span>
+<span class="s2">            QPushButton:hover {</span>
+<span class="s2">                background-color: #E5D5C3;</span>
+<span class="s2">                color: black;</span>
+<span class="s2">            }</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="c1"># back button brings the user to the previous frame</span>
+        <span class="n">back_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">back_to_main</span><span class="p">)</span>
+        <span class="n">bottom_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">back_button</span><span class="p">)</span>
+        <span class="n">main_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">bottom_layout</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CheckBookingWindow.check_booking">
+<a class="viewcode-back" href="../../views/CheckBookingWindow.html#views.CheckBookingWindow.CheckBookingWindow.check_booking">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">check_booking</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">confirmation_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">confirmation_input</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Checking booking for confirmation number: </span><span class="si">{</span><span class="n">confirmation_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">db_instance</span> <span class="o">=</span> <span class="n">dataBase</span><span class="p">()</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="k">await</span> <span class="n">db_instance</span><span class="o">.</span><span class="n">get_database</span><span class="p">()</span>
+        <span class="n">reservations</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;reservations&#39;</span><span class="p">]</span>
+        <span class="n">customers</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;customers&#39;</span><span class="p">]</span>
+        <span class="n">rooms</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;rooms&#39;</span><span class="p">]</span>
+        <span class="n">roomTypes</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;roomTypes&#39;</span><span class="p">]</span>
+
+        <span class="n">reservation</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reservations</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;confirmationNumber&quot;</span><span class="p">:</span> <span class="n">confirmation_number</span><span class="p">})</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">reservation</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Confirmation number not found. Please try again.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">customer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">customers</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">reservation</span><span class="p">[</span><span class="s1">&#39;customerId&#39;</span><span class="p">]})</span>
+            <span class="n">room</span> <span class="o">=</span> <span class="k">await</span> <span class="n">rooms</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">reservation</span><span class="p">[</span><span class="s1">&#39;roomId&#39;</span><span class="p">]})</span>
+            <span class="n">roomType</span> <span class="o">=</span> <span class="k">await</span> <span class="n">roomTypes</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">room</span><span class="p">[</span><span class="s1">&#39;typeId&#39;</span><span class="p">]})</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">booking_details_window</span> <span class="o">=</span> <span class="n">BookingDetailsWindow</span><span class="p">(</span><span class="n">reservation</span><span class="p">,</span> <span class="n">customer</span><span class="p">,</span> <span class="n">room</span><span class="p">,</span> <span class="n">roomType</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>  <span class="c1"># Added controller</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">booking_details_window</span><span class="p">,</span> <span class="s2">&quot;booking_details&quot;</span><span class="p">)</span>  <span class="c1"># Added controller</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="s2">&quot;booking_details&quot;</span><span class="p">)</span>  <span class="c1"># Added controller</span></div>
+
+
+<div class="viewcode-block" id="CheckBookingWindow.back_to_main">
+<a class="viewcode-back" href="../../views/CheckBookingWindow.html#views.CheckBookingWindow.CheckBookingWindow.back_to_main">[docs]</a>
+    <span class="k">def</span> <span class="nf">back_to_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="s2">&quot;main&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">TheHaroldHotel</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">TheHaroldHotel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Harold Flint, Mariia Kim, Macy Varga, Jonathan Aghachi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

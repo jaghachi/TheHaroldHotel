@@ -2,6 +2,7 @@
 """
 class: BookingCanceledDialog
 most recent update: 8/12/2024
+
 programmers: Harold Flint
 
 Description:
@@ -74,4 +75,3 @@ class BookingCanceledDialog(QDialog):
         dialog_rect = self.geometry()
         center_point = parent_rect.center() - dialog_rect.center()
         self.move(parent_rect.topLeft() + center_point)
-
