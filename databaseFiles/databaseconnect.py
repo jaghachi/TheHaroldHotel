@@ -1,8 +1,7 @@
 """
 class: dataBase
 most recent update: 8/13/2024 (commenting)
-
-
+programmers: Jonathan Aghachi Macy V
 Description: dataBase class that manages interactions with a MongoDB database using the asynchronous Motor library.
 """
 

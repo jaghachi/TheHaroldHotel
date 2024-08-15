@@ -1,7 +1,7 @@
 """
 class: Room
 most recent update: 8/13/2024
-programmers: Janathan A and Macy V
+programmers: Jonathan Aghachi and Macy V
 
 Description: "Room" class represents a hotel room with attributes such as room ID, price, capacity (number of persons it can accommodate), availability date, and booking details like check-in and check-out dates. 
     The class provides methods to set and get these attributes. 
