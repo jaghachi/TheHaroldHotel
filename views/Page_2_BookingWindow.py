@@ -166,6 +166,12 @@ class BookingWindow(QWidget):
         # adding a "back" button to the centered frame
         centered_layout.addWidget(back_button)
 
+        # Error message label
+        self.error_message = QLabel("")
+        self.error_message.setAlignment(Qt.AlignCenter)
+        self.error_message.setStyleSheet("color: red; font-weight: bold;")
+        centered_layout.addWidget(self.error_message)
+
         # adding the centered frame to the main layout
         center_container = QHBoxLayout()
         center_container.addStretch()
@@ -185,6 +191,21 @@ class BookingWindow(QWidget):
         newReservation.checkIn = self.checkin_date.date()
         newReservation.checkOut = self.checkout_date.date()
         guests = int(self.guests_combo.currentText())
+
+        # Validation
+        if check_in > check_out:
+            self.error_message.setText("Check-out date must be after check-in date.")
+            return
+        elif check_in < QDate.currentDate() or check_out < QDate.currentDate():
+            self.error_message.setText("Dates cannot be in the past.")
+            return
+        else:
+            self.error_message.setText("")  # Clear any previous error messages
+
+        newReservation = Reservation()
+        newReservation.checkIn = check_in
+        newReservation.checkOut = check_out
+
 
         self.booking_rooms_view = BookingRoomsWindow(newReservation, guests, self.controller)
         self.controller.add_view(self.booking_rooms_view, "booking_rooms")
