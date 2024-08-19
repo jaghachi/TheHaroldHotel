@@ -186,6 +186,17 @@ class Reservation:
         """
         self.persons = persons
 
+    def getPersons(self):
+        """
+        Returns the number of persons associated with the reservation.
+
+        Returns:
+        --------
+        int
+            The number of persons in the reservation.
+        """
+        return self.persons
+
     def modifyReservation(self, confirmationNumber: str) -> None:
         """
         Modifies the reservation based on the provided confirmation number.
