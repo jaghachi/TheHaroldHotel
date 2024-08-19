@@ -187,9 +187,8 @@ class BookingWindow(QWidget):
 
     # connect to the next window
     def open_booking_rooms_window(self):
-        newReservation = Reservation()
-        newReservation.checkIn = self.checkin_date.date()
-        newReservation.checkOut = self.checkout_date.date()
+        check_in = self.checkin_date.date()
+        check_out = self.checkout_date.date()
         guests = int(self.guests_combo.currentText())
 
         # Validation
